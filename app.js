@@ -2,7 +2,8 @@ import express from "express";
 import config from "config";
 import mongoose from "mongoose";
 
-import {router as authRouter} from "./routes/auth.routes.js";
+import authRouter from "./routes/auth.routes.js";
+
 
 // mongodb credentials 
 // user: max99xam
@@ -12,7 +13,7 @@ const app = express();
 
 const PORT = config.get("port") || 5000;
 
-app.use("api/auth", import("./"))
+app.use("api/auth", authRouter);
 
 async function start(){
     try{
