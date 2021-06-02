@@ -1,4 +1,5 @@
 {
   "port": 5000,
-  "mongoUrl": "mongodb+srv://max99xam:asd123qweJHKH83w@cluster0.orekt.mongodb.net/app?retryWrites=true&w=majority"
+  "mongoUrl": "mongodb+srv://max99xam:asd123qweJHKH83w@cluster0.orekt.mongodb.net/app?retryWrites=true&w=majority",
+  "jwtSecret": "SecretKey"
 }
