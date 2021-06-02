@@ -2,14 +2,23 @@ import express from "express";
 import config from "config";
 import mongoose from "mongoose";
 
+import {router as authRouter} from "./routes/auth.routes.js";
+
+// mongodb credentials 
+// user: max99xam
+// password asd123qweJHKH83w
+
 const app = express();
+
 const PORT = config.get("port") || 5000;
+
+app.use("api/auth", import("./"))
 
 async function start(){
     try{
        // connect to database
        await mongoose.connect(config.get("mongoUrl"), {
-           useInifiedTopology: true,
+           useUnifiedTopology: true,
            useNewUrlParser: true
        });
 
