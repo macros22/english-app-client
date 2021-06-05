@@ -2,7 +2,8 @@ import { Router } from "express";
 import config from "config";
 import User from "../models/User.js";
 import { check, validationResult } from "express-validator";
-
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 const router = Router();
 
 // /api/auth/register
@@ -18,8 +19,9 @@ router.post(
   async (req, res) => {
     try {
       // validation process
-      const errors = validationResult(req.body);
-      if (!errors.isEmpty) {
+      const errors = validationResult(req);
+       console.log("errors: ", !!errors.errors.length);
+      if (!!errors.errors.length) {
         // 400 - bad request status
         return res.status(400).json({
           errors: errors.array,
@@ -29,15 +31,15 @@ router.post(
 
       // receiving data from request
       const { email, password } = req.body;
-
+      console.log(email, password);
       // search user in the database
       const candidate = await User.findOne({ email });
 
       // checking for same email
       if (candidate) {
-        return res
+        return (res
           .status(400)
-          .json({ message: "User with this email already exist" });
+          .json({ message: "User with this email already exist" }));
       }
 
       // encrypting password
@@ -69,23 +71,26 @@ router.post(
   async (req, res) => {
     try {
       // validation process
-      const errors = validationResult(req.body);
-      if (!errors.isEmpty) {
-        // 400 - bad request status
-        return res.status(400).json({
-          errors: errors.array,
-          message: "Incorrect login data",
-        });
-      }
+      const errors = validationResult(req);
+       
+       if (!!errors.errors.length) {
+         // 400 - bad request status
+         return res.status(400).json({
+           errors: errors.array,
+           message: "Incorrect login data",
+         });
+       }
 
       const { email, password } = req.body;
 
       //checking for user existance
-      const user = User.findOne({ email });
-      if (user) {
+      const user = await User.findOne({ email });
+      if (!user) {
         return res.status(400).json({ message: "User not found" });
       }
 
+       console.log("pas: ", password);
+       console.log("bcrypted pas: ", user.password);
       //checking password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
@@ -96,7 +101,7 @@ router.post(
 
       //making token for authorization
       const token = jwt.sign(
-        {iserId: iser.id},    //data
+        {iserId: user.id},    //data
         config.jwtSecret,     //private key
         {expiresIn: "1h"}     //token time expire
       )
@@ -105,7 +110,7 @@ router.post(
       res.status(200).json({token, userId: user.id});
 
     } catch (e) {
-      console.log("Registration ERROR: ", e);
+      console.log("Login ERROR: ", e);
       //500 - Internal Server Error status
       res.status(500).json({ message: `Server error ${e.message}` });
     }

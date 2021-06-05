@@ -1,8 +1,9 @@
 import express from "express";
 import config from "config";
 import mongoose from "mongoose";
-
+import cors from "cors";
 import authRouter from "./routes/auth.routes.js";
+
 
 // mongodb credentials
 // user: max99xam
@@ -12,7 +13,21 @@ const app = express();
 
 const PORT = config.get("port") || 5000;
 
-app.use("api/auth", authRouter);
+// for proxy
+// request from frontend to backend
+app.use( cors({
+    credentials: true,
+    origin: ["http://localhost:3000/"],
+    optionsSuccessStatus: 200,
+  })
+);
+
+// method inbuilt in express
+// to recognize the incoming Request Object
+// as a JSON Object
+app.use(express.json({extended: true}));
+
+app.use("/api/auth", authRouter);
 
 async function start() {
   try {

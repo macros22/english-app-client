@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,6 +9,10 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useHttp } from "../hooks/http.hook";
+import { Toast } from "../components/Toast";
+import { useAuth } from "../hooks/auth.hook";
+import { AuthContext } from "../context/AuthContext";
 
 function Copyright() {
   return (
@@ -48,6 +52,13 @@ const useStyles = makeStyles((theme) => ({
 
 export const AuthPage = () => {
   const classes = useStyles();
+
+  const { request, loading, error, clearError } = useHttp();
+
+  const auth = useContext(AuthContext);
+
+  const [toastData, setToastData] = useState(null);
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -60,9 +71,29 @@ export const AuthPage = () => {
     });
   };
 
+  const registerHandler = async () => {
+    try {
+      const data = await request("/api/auth/register", "POST", { ...form });
+      console.log("Data: ", data.message);
+      setToastData(data.message);
+      setTimeout(() => {
+        setToastData(null);
+      }, 2000);
+    } catch (e) {}
+  };
+
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      console.log("Data: ", data);
+      setToastData(data.message);
+      auth.login(data.token, data.userId);
+    } catch (e) {}
+  };
+
   useEffect(() => {
-    console.log(form);
-  }, [form]);
+     console.log(error);
+  }, [error]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -111,6 +142,7 @@ export const AuthPage = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                onClick={loginHandler}
               >
                 Sign In
               </Button>
@@ -122,12 +154,14 @@ export const AuthPage = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-               
+                onClick={registerHandler}
               >
                 Sign Up
               </Button>
             </Grid>
           </Grid>
+          {/* <Toast /> */}
+          <Button>{toastData}</Button>
         </div>
       </div>
       <Box mt={8}>
