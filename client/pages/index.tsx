@@ -1,22 +1,29 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import React from "react";
+import React from 'react';
+
+
+//https://documentationnerds.com/blog/tech/setup-nextjs-and-materialui-typescript
+
+
+type fetchObj = {
+  allWordsCount: number,
+  words: Array<Array<string>>
+}
 
 export default function Home() {
 
   React.useEffect(() => {
 
-    let url = new URL('http://localhost:5000/');
+    const baseUrl = 'http://localhost:5000/';
+    let url = new URL(baseUrl);
     url.searchParams.set('limit', '10');
-    url.searchParams.set('page', '50');
-// 'http://localhost:3000/?limit=10&page=50'
+    url.searchParams.set('page', '30');
+// 'http://localhost:5000/?limit=10&page=50'
 
-    (async function () {
-        const response = await fetch(url.href);
-        const data = await response.json();
-        console.log(data.length);
-    })();
+    // (async function () {
+    //     const response = await fetch('http://localhost:5000/?limit=10&page=8');
+    //     const data: fetchObj = await response.json();
+    //     console.log(data.words);
+    // })();
   }, [])
 
   return (
