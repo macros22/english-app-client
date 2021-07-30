@@ -7,7 +7,7 @@ export default function Home() {
 
   React.useEffect(() => {
 
-    let url = new URL('api/hello', 'http://localhost:3000/');
+    let url = new URL('http://localhost:5000/');
     url.searchParams.set('limit', '10');
     url.searchParams.set('page', '50');
 // 'http://localhost:3000/?limit=10&page=50'
