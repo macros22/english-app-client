@@ -1,17 +1,17 @@
 import React from 'react';
-// import WordsTable from './WordsTable';
+ import WordsTable from './WordsTable';
 
-type wordsType = Array<Array<string>>;
+export type wordsType = Array<Array<string>>;
 
  type fetchObj = {
-  allWordsCount: number,
+   allWordsCount: number,
    words: wordsType
 
  }
 
 function AllWordsBlock(){
 
-   const [words, setWords] = React.useState<wordsType>([]);
+   const [words, setWords] = React.useState<wordsType>([[]]);
 
   React.useEffect(() => {
 
@@ -29,8 +29,9 @@ function AllWordsBlock(){
     })();
   }, [])
 
+
   return (
-    <div>
+    <>
 
       <ul>
       {words.map((word) => {
@@ -39,7 +40,8 @@ function AllWordsBlock(){
         </li>})
       }
       </ul>
-      </div>
+      <WordsTable words={words}/>
+      </>
   );
 }
 
