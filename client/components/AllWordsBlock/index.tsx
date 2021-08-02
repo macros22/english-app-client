@@ -4,7 +4,7 @@ import { WordsTable } from 'components';
 import { useTypedSelector } from 'hooks/useTypedSelector';
 
 function AllWordsBlock() {
-  const allWords = useTypedSelector((state) => state.allWords);
+  const { words } = useTypedSelector((state) => state.allWords);
 
   React.useEffect(() => {
     try {
@@ -18,11 +18,11 @@ function AllWordsBlock() {
       <Typography variant="h5" component="h2" gutterBottom>
         All words.
       </Typography>
-      <WordsTable words={allWords} />
+      <WordsTable words={words} />
       <Typography variant="h5" component="h2" gutterBottom>
         My dict.
       </Typography>
-      <WordsTable words={allWords} />
+      <WordsTable words={words} />
     </>
   );
 }
