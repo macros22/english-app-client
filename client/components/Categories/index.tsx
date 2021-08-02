@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   toolbarSecondary: {
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     overflowX: 'auto',
   },
   toolbarLink: {
@@ -24,12 +24,13 @@ const useStyles = makeStyles((theme) => ({
 const sections = [
   { title: 'WORDS', url: '/words' },
   { title: 'TESTS', url: '/tests' },
+  { title: 'GAMES', url: '/games' },
+  { title: 'STATISTIC', url: '/stat' },
 ]
 
 interface Props {}
 const Categories: React.FC<Props> = ({}) => {
   const classes = useStyles()
-  console.log(classes)
 
   const router = useRouter()
 

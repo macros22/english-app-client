@@ -1,7 +1,8 @@
 import * as React from 'react';
-import Navbar from "../components/Navbar";
 import { Container } from "@material-ui/core";
 import Head from "next/head";
+
+import { Navbar } from 'components';
 
 interface MainLayoutProps {
   children?: React.ReactNode;

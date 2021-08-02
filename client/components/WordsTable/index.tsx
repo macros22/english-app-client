@@ -8,30 +8,33 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
-import { wordsType } from './index'
+import { wordsType } from 'types/types'
 
 interface ColumnWords {
-  id: 'id' | 'eng' | 'rus'
+  id: 'id' | 'eng' | 'rus' | 'status'
   label: string
   minWidth?: number
   align?: 'right'
   format?: (value: number) => string
 }
 
+// @ts-ignore
 const columnsWords: ColumnWords[] = [
-  { id: 'id', label: 'id', minWidth: 100 },
-  { id: 'eng', label: 'eng', minWidth: 140 },
-  { id: 'rus', label: 'rus', minWidth: 140 },
+  { id: 'id', label: 'Id', minWidth: 60 },
+  { id: 'eng', label: 'English', minWidth: 120 },
+  { id: 'rus', label: 'Russian', minWidth: 120 },
+  { id: 'status', label: 'Status', minWidth: 120 },
 ]
 
 type DataWords = {
   id: number
   eng: string
   rus: string
+  status: string
 }
 
-function createDataWords(id: number, eng: string, rus: string): DataWords {
-  return { id, eng, rus }
+function createDataWords(id: number, eng: string, rus: string, status: string): DataWords {
+  return { id, eng, rus, status }
 }
 
 const rowsWords: Array<DataWords> = []
@@ -41,7 +44,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 500,
   },
 })
 
@@ -49,10 +52,9 @@ interface Props {
   words: wordsType
 }
 
-// @ts-ignore
 const StickyHeadTable: React.FC<Props> = ({ words }) => {
   if (words[0].length)
-    words.map((word) => rowsWords.push(createDataWords(+word[0], word[1], word[2])))
+    words.map((word) => rowsWords.push(createDataWords(+word[0], word[1], word[2], 'no')))
 
   const classes = useStyles()
   const [page, setPage] = React.useState(0)
@@ -87,7 +89,7 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowsWords.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              {rowsWords.map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columnsWords.map((column) => {

@@ -1,12 +1,8 @@
 import React from 'react'
-import WordsTable from './WordsTable'
+import Typography from '@material-ui/core/Typography'
 
-export type wordsType = Array<Array<string>>
-
-type fetchObj = {
-  allWordsCount: number
-  words: wordsType
-}
+import { wordsType } from 'types/types'
+import { WordsTable } from 'components'
 
 function AllWordsBlock() {
   const [words, setWords] = React.useState<wordsType>([[]])
@@ -17,23 +13,30 @@ function AllWordsBlock() {
       url.searchParams.set('limit', '10')
       url.searchParams.set('page', '30')
       // 'http://localhost:3000/?limit=10&page=50'
-      ;(async function () {
-        const response = await fetch(url.href)
-        const data: fetchObj = await response.json()
-        setWords(data.words)
-        // console.log(data)
-      })()
+      // ;(async function () {
+      //   const response = await fetch(url.href)
+      //   const data: fetchObj = await response.json()
+      //   setWords(data.words)
+      //   // console.log(data)
+      // })()
+      setWords([
+        ['1', 'neglect', 'пренебрегать'],
+        ['2', 'shun', 'избегать'],
+      ])
     } catch (e) {
       console.log(e)
-      setWords([
-        ['0', 'neglect', 'пренебрегать'],
-        ['1', 'shun', 'избегать'],
-      ])
     }
   }, [])
 
   return (
     <>
+      <Typography variant="h5" component="h2" gutterBottom>
+        All words.
+      </Typography>
+      <WordsTable words={words} />
+      <Typography variant="h5" component="h2" gutterBottom>
+        My dict.
+      </Typography>
       <WordsTable words={words} />
     </>
   )
