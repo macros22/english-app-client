@@ -2,7 +2,7 @@ import { AllWordsAction, AllWordsActionTypes, AllWordsState } from 'types/words'
 
 const initialState: AllWordsState = {
   words: [
-    ['1', 'neglect', 'пренебрегать'],
+    ['1', 'neglect', 'пренебрегать', ''],
     ['2', 'shun', 'избегать'],
     ['3', 'proposal', 'предложение'],
     ['4', 'attainment', 'достижение'],
