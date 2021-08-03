@@ -2,10 +2,12 @@ import { AllWordsAction, AllWordsActionTypes, AllWordsState } from 'types/words'
 
 const initialState: AllWordsState = {
   words: [
-    ['1', 'neglect', 'пренебрегать', ''],
-    ['2', 'shun', 'избегать'],
-    ['3', 'proposal', 'предложение'],
-    ['4', 'attainment', 'достижение'],
+    ['1', 'neglect', 'пренебрегать', 'learn'],
+    ['2', 'shun', 'избегать', 'learn'],
+    ['3', 'proposal', 'предложение', 'learn'],
+    ['4', 'attainment', 'достижение', 'know'],
+    ['5', 'unnecessary', 'ненужный', 'know'],
+    ['6', 'substrate', 'подложка', 'don`t know']
   ],
 };
 

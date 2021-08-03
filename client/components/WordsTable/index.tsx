@@ -20,8 +20,8 @@ interface ColumnWords {
 
 const columnsWords: ColumnWords[] = [
   { id: 'id', label: 'Id', minWidth: 40 },
-  { id: 'eng', label: 'English', minWidth: 120 },
-  { id: 'rus', label: 'Russian', minWidth: 160 },
+  { id: 'eng', label: 'English', minWidth: 100 },
+  { id: 'rus', label: 'Russian', minWidth: 140 },
   { id: 'status', label: 'Status', minWidth: 80 },
 ];
 
@@ -52,8 +52,12 @@ interface Props {
 }
 
 const StickyHeadTable: React.FC<Props> = ({ words }) => {
-  if (words.length && words[0].length)
-    words.map((word) => rowsWords.push(createDataWords(+word[0], word[1], word[2], 'learning')));
+  if (words.length && words[0].length) {
+    rowsWords.length = 0;
+    words.map((word) =>
+      rowsWords.push(createDataWords(+word[0], word[1], word[2], word[word.length - 1]))
+    );
+  }
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -94,7 +98,11 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
                     {columnsWords.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell onClick={() => alert(value)} key={column.id} align={column.align}>
+                        <TableCell
+                          onClick={() => alert(value)}
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === 'number'
                             ? column.format(value)
                             : value}
@@ -122,4 +130,4 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
   );
 };
 
-export default StickyHeadTable;
+export default React.memo(StickyHeadTable);
