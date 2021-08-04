@@ -15,9 +15,8 @@ function MyWordsBlock() {
 
   return (
     <>
-
       <Typography variant="h5" component="h2" gutterBottom align="center">
-        My dict.
+        My words.
       </Typography>
       <WordsTable words={words} />
     </>

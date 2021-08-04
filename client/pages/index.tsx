@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { AllWordsBlock, MyWordsBlock } from 'components';
 import MainLayout from 'layout/MainLayout';
-import {Grid, Paper} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -16,18 +16,22 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function Index() {
-
   const classes = useStyles();
 
   return (
     <MainLayout title={'english-app'}>
-      <Grid container className={classes.root} direction="row" justifyContent="space-between" alignItems="center">
-        <Grid item xs={6}>
+      <Grid
+        container
+        className={classes.root}
+        direction="row"
+        justifyContent="space-around"
+        alignItems="center"
+      >
+        <Grid item>
           <AllWordsBlock />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item>
           <MyWordsBlock />
         </Grid>
       </Grid>

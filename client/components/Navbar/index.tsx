@@ -15,9 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
     },
     menuButton: {
-      marginRight: theme.spacing(5),
+      marginRight: theme.spacing(1),
     },
     title: {
+      fontWeight: 500,
+      letterSpacing: '4px',
       display: 'none',
       [theme.breakpoints.up('md')]: {
         display: 'block',
@@ -36,7 +38,7 @@ export default function Navbar() {
   return (
     <>
       <div className={classes.grow}>
-        <AppBar position="static">
+        <AppBar position="static" elevation={2}>
           <Toolbar>
             <IconButton
               edge="start"

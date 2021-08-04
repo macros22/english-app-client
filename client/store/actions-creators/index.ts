@@ -1,6 +1,5 @@
-import * as ALLWordsActionCreators from './track'
-
+import * as aLLWordsActionCreators from './allWords';
 
 export default {
-    ...ALLWordsActionCreators
-}
+  ...aLLWordsActionCreators,
+};

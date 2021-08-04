@@ -29,10 +29,10 @@ const MainLayout: React.FC<MainLayoutProps>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
     </Head>
     <Navbar/>
-    <Container maxWidth="sm">
-      <>
-      {children}
-      </>
+    <Container maxWidth="lg">
+      <main>
+        {children}
+      </main>
     </Container>
   </>;
 };

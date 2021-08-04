@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { wordsType } from 'types/words';
+import SelectInput from './SelectInput';
 
 interface ColumnWords {
   id: 'id' | 'eng' | 'rus' | 'status';
@@ -45,6 +46,9 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 500,
   },
+  tableRow: {
+    height: 30,
+  },
 });
 
 interface Props {
@@ -73,6 +77,8 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
     setPage(0);
   };
 
+  const lastColumn: number = 3;
+
   return (
     <>
       <Paper className={classes.root}>
@@ -94,18 +100,18 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
             <TableBody>
               {rowsWords.map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    {columnsWords.map((column) => {
+                  <TableRow
+                    className={classes.tableRow}
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.id}
+                  >
+                    {columnsWords.map((column, index) => {
                       const value = row[column.id];
                       return (
-                        <TableCell
-                          onClick={() => alert(value)}
-                          key={column.id}
-                          align={column.align}
-                        >
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
+                        <TableCell key={column.id} align={column.align}>
+                          {index == lastColumn ? <SelectInput /> : value}
                         </TableCell>
                       );
                     })}
