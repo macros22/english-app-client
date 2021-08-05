@@ -25,14 +25,14 @@ interface fetchAllWordsAction {
   payload: wordsType;
 }
 
-export type changeWordStatusType = {
+export type setWordStatusType = {
   id: number;
   status: string;
 };
 
 interface setWordStatusAction {
   type: allWordsActionTypes.SET_WORD_STATUS;
-  payload: changeWordStatusType;
+  payload: setWordStatusType;
 }
 
 export type allWordsAction = fetchAllWordsAction | setWordStatusAction;

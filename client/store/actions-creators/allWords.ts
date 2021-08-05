@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { allWordsAction, allWordsActionTypes, fetchObj } from 'types/words';
+import { allWordsAction, allWordsActionTypes, fetchObj, setWordStatusType } from 'types/words';
 
 export const fetchAllWords = () => {
   return async (dispatch: Dispatch<allWordsAction>) => {
@@ -18,7 +18,9 @@ export const fetchAllWords = () => {
   };
 };
 
-// export const fetchAllWords = (payload) => {
-//   return {
-// }
-// }
+export const setWordStatus = (payload: setWordStatusType) => {
+  return {
+    type: allWordsActionTypes.SET_WORD_STATUS,
+    payload,
+  };
+};

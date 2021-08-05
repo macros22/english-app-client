@@ -111,7 +111,11 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
                       const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {index == lastColumn ? <SelectInput /> : value}
+                          {index == lastColumn ? (
+                            <SelectInput id={row.id} status={row.status} />
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}
@@ -136,4 +140,5 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
   );
 };
 
-export default React.memo(StickyHeadTable);
+export default StickyHeadTable;
+//React.memo(

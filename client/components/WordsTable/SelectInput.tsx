@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { wordStatusType } from 'types/words';
+import { useActions } from '../../hooks/useActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,12 +18,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function NativeSelects() {
+interface Props {
+  status: string;
+  id: number;
+}
+
+const NativeSelects: React.FC<Props> = ({ id, status }) => {
   const classes = useStyles();
-  const [status, setStatus] = React.useState<string>(wordStatusType.UNKNOWN);
+
+  const { setWordStatus } = useActions();
+
+  //const [status, setStatus] = React.useState<string>(wordStatusType.UNKNOWN);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setStatus(event.target.value as string);
+    // setStatus(event.target.value as string);
+    setWordStatus({ id, status: event.target.value as string });
   };
 
   return (
@@ -45,4 +55,6 @@ export default function NativeSelects() {
       </FormControl>
     </>
   );
-}
+};
+
+export default NativeSelects;
