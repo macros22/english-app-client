@@ -1,5 +1,25 @@
 import { Dispatch } from 'react';
-import { allWordsAction, allWordsActionTypes, fetchObj, setWordStatusType } from 'types/words';
+import {
+  allWordsAction,
+  allWordsActionTypes,
+  fetchObj,
+  setWordStatusType,
+  wordsType,
+} from 'types/words';
+
+export const setAllWords = (payload: wordsType) => {
+  return {
+    type: allWordsActionTypes.SET_ALL_WORDS,
+    payload,
+  };
+};
+
+export const setWordStatus = (payload: setWordStatusType) => {
+  return {
+    type: allWordsActionTypes.SET_WORD_STATUS,
+    payload,
+  };
+};
 
 export const fetchAllWords = () => {
   return async (dispatch: Dispatch<allWordsAction>) => {
@@ -11,16 +31,11 @@ export const fetchAllWords = () => {
 
       const response = await fetch(url.href);
       const data: fetchObj = await response.json();
-      dispatch({ type: allWordsActionTypes.FETCH_ALL_WORDS, payload: data.words });
+
+      // Check this for working !!!
+      dispatch(setAllWords(data.words) as allWordsAction);
     } catch (e) {
       console.log(e);
     }
-  };
-};
-
-export const setWordStatus = (payload: setWordStatusType) => {
-  return {
-    type: allWordsActionTypes.SET_WORD_STATUS,
-    payload,
   };
 };

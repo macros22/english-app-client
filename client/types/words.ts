@@ -15,6 +15,7 @@ export interface allWordsState {
 
 export enum allWordsActionTypes {
   FETCH_ALL_WORDS = 'FETCH_ALL_WORDS',
+  SET_ALL_WORDS = 'SET_ALL_WORDS',
   SET_WORD_STATUS = 'SET_WORD_STATUS',
 }
 
@@ -35,4 +36,9 @@ interface setWordStatusAction {
   payload: setWordStatusType;
 }
 
-export type allWordsAction = fetchAllWordsAction | setWordStatusAction;
+interface setAllWordsAction {
+  type: allWordsActionTypes.SET_ALL_WORDS;
+  payload: wordsType;
+}
+
+export type allWordsAction = fetchAllWordsAction | setWordStatusAction | setAllWordsAction;
