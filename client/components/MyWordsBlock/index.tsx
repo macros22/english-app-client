@@ -2,9 +2,12 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { WordsTable } from 'components';
 import { useTypedSelector } from 'hooks/useTypedSelector';
+import { wordStatusType } from 'types/words';
 
 function MyWordsBlock() {
-  const { words } = useTypedSelector((state) => state.allWords);
+  const { words: allWords } = useTypedSelector((state) => state.allWords);
+
+  const words = allWords.filter((word) => word[3] !== wordStatusType.UNKNOWN);
 
   React.useEffect(() => {
     try {
