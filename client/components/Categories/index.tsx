@@ -30,7 +30,7 @@ const Categories: React.FC<Props> = ({}) => {
           >
           {sections.map((section) => (
             <Grid key={section.url} item>
-              <Button href={section.url}  color="primary" >
+              <Button href={section.url}  color="primary" style={{opacity: '50%'}}>
                 {section.title}
               </Button>
             </Grid>

@@ -6,9 +6,16 @@ import Select from '@material-ui/core/Select';
 
 import { wordStatusType } from 'types/words';
 import { useActions } from 'hooks/useActions';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    circle: {
+      width: '1rem',
+      height: '1rem',
+      borderRadius: '50%',
+      background: ({ circleColor }) => circleColor,
+    },
     formControl: {
       margin: theme.spacing(1),
     },
@@ -24,36 +31,57 @@ interface Props {
 }
 
 const NativeSelects: React.FC<Props> = ({ id, status }) => {
-  const classes = useStyles();
-
   const { setWordStatus } = useActions();
 
   //const [status, setStatus] = React.useState<string>(wordStatusType.UNKNOWN);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     // setStatus(event.target.value as string);
-    setWordStatus({ id, status: event.target.value as wordStatusType});
+    setWordStatus({ id, status: event.target.value as wordStatusType });
   };
 
+  const styleProps = {
+    circleColor: 'red',
+  };
+
+  switch (status) {
+    case wordStatusType.UNKNOWN:
+      styleProps.circleColor = 'indianred';
+      break;
+    case wordStatusType.KNOW:
+      styleProps.circleColor = 'lightgreen';
+      break;
+    case wordStatusType.LEARN:
+      styleProps.circleColor = 'goldenrod';
+      break;
+  }
+
+  const classes = useStyles(styleProps);
+
   return (
-    <>
-      <FormControl size="small" className={classes.formControl}>
-        {/*<InputLabel htmlFor="filled-status-native-simple">Status</InputLabel>*/}
-        <Select
-          native
-          value={status}
-          onChange={handleChange}
-          inputProps={{
-            name: 'status',
-            id: 'filled-status-native-simple',
-          }}
-        >
-          <option value={wordStatusType.KNOW}>{wordStatusType.KNOW}</option>
-          <option value={wordStatusType.UNKNOWN}>{wordStatusType.UNKNOWN}</option>
-          <option value={wordStatusType.LEARN}>{wordStatusType.LEARN}</option>
-        </Select>
-      </FormControl>
-    </>
+    <Grid container direction="row" justifyContent="center" alignItems="center" spacing={1}>
+      <Grid item>
+        <div className={classes.circle}></div>
+      </Grid>
+      <Grid item>
+        <FormControl size="small" className={classes.formControl}>
+          {/*<InputLabel htmlFor="filled-status-native-simple">Status</InputLabel>*/}
+          <Select
+            native
+            value={status}
+            onChange={handleChange}
+            inputProps={{
+              name: 'status',
+              id: 'filled-status-native-simple',
+            }}
+          >
+            <option value={wordStatusType.KNOW}>{wordStatusType.KNOW}</option>
+            <option value={wordStatusType.UNKNOWN}>{wordStatusType.UNKNOWN}</option>
+            <option value={wordStatusType.LEARN}>{wordStatusType.LEARN}</option>
+          </Select>
+        </FormControl>
+      </Grid>
+    </Grid>
   );
 };
 
