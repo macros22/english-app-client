@@ -19,7 +19,15 @@ export enum allWordsActionTypes {
   SET_WORD_STATUS = 'SET_WORD_STATUS',
 }
 
-export type wordsType = Array<Array<string>>;
+export type oneWordType = {
+  id: number;
+  eng: string;
+  rus: string[];
+  status: wordStatusType;
+}
+
+//export type wordsType = Array<Array<string>>;
+export type wordsType = Array<oneWordType>;
 
 interface fetchAllWordsAction {
   type: allWordsActionTypes.FETCH_ALL_WORDS;
@@ -28,7 +36,7 @@ interface fetchAllWordsAction {
 
 export type setWordStatusType = {
   id: number;
-  status: string;
+  status: wordStatusType;
 };
 
 interface setWordStatusAction {

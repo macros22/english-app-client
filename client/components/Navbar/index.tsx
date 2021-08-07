@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '100%',
     },
     menuButton: {
-      marginRight: theme.spacing(1),
+      marginRight: theme.spacing(2),
+    },
+    customizeToolbar: {
+      minHeight: 36,
     },
     title: {
       fontWeight: 500,
@@ -25,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'block',
       },
     },
-
     inputRoot: {
       color: 'inherit',
     },
@@ -38,7 +40,7 @@ export default function Navbar() {
   return (
     <>
       <div className={classes.grow}>
-        <AppBar position="static" elevation={2}>
+        <AppBar className={classes.customizeToolbar} position="static" elevation={2}>
           <Toolbar>
             <IconButton
               edge="start"

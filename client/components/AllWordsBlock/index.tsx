@@ -3,8 +3,8 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { WordsTable } from 'components';
 import { useTypedSelector } from 'hooks/useTypedSelector';
-import { useActions } from '../../hooks/useActions';
-import { wordsType } from '../../types/words';
+import { useActions } from 'hooks/useActions';
+import { wordsType } from 'types/words';
 
 const useStyles = makeStyles(() =>
   createStyles({

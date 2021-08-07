@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { wordsType } from 'types/words';
+import { wordStatusType, wordsType } from 'types/words';
 import SelectInput from './SelectInput';
 
 interface ColumnWords {
@@ -22,7 +22,7 @@ interface ColumnWords {
 const columnsWords: ColumnWords[] = [
   { id: 'id', label: 'Id', minWidth: 40 },
   { id: 'eng', label: 'English', minWidth: 100 },
-  { id: 'rus', label: 'Russian', minWidth: 140 },
+  { id: 'rus', label: 'Russian', minWidth: 150 },
   { id: 'status', label: 'Status', minWidth: 80 },
 ];
 
@@ -30,10 +30,10 @@ type DataWords = {
   id: number;
   eng: string;
   rus: string;
-  status: string;
+  status: wordStatusType;
 };
 
-function createDataWords(id: number, eng: string, rus: string, status: string): DataWords {
+function createDataWords(id: number, eng: string, rus: string, status: wordStatusType): DataWords {
   return { id, eng, rus, status };
 }
 
@@ -56,16 +56,16 @@ interface Props {
 }
 
 const StickyHeadTable: React.FC<Props> = ({ words }) => {
-  if (words.length && words[0].length) {
+  if (words.length && words[0].id) {
     rowsWords.length = 0;
     words.map((word) =>
-      rowsWords.push(createDataWords(+word[0], word[1], word[2], word[word.length - 1]))
+      rowsWords.push(createDataWords(word.id, word.eng, word.rus[0], word.status))
     );
   }
 
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   // @ts-ignore
   const handleChangePage = (event: any, newPage: number) => {
@@ -98,7 +98,7 @@ const StickyHeadTable: React.FC<Props> = ({ words }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowsWords.map((row) => {
+              {rowsWords.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                 return (
                   <TableRow
                     className={classes.tableRow}

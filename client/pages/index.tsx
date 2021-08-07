@@ -26,7 +26,7 @@ export default function Index() {
         className={classes.root}
         direction="row"
         justifyContent="space-around"
-        alignItems="center"
+        alignItems="stretch"
       >
         <Grid item>
           <AllWordsBlock />

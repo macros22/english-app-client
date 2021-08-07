@@ -2,12 +2,13 @@ import { allWordsAction, allWordsActionTypes, allWordsState, wordStatusType } fr
 
 const initialState: allWordsState = {
   words: [
-    ['1', 'neglect', 'пренебрегать', wordStatusType.LEARN],
-    ['2', 'shun', 'избегать', wordStatusType.LEARN],
-    ['3', 'proposal', 'предложение', wordStatusType.KNOW],
-    ['4', 'attainment', 'достижение', wordStatusType.LEARN],
-    ['5', 'unnecessary', 'ненужный', wordStatusType.LEARN],
-    ['6', 'substrate', 'подложка', wordStatusType.UNKNOWN],
+    {id: 1, eng: 'neglect', rus: ['пренебрегать'], status: wordStatusType.LEARN},
+    {id: 2, eng: 'shun', rus: ['избегать'], status: wordStatusType.LEARN},
+    {id: 3, eng: 'proposal', rus: ['предложение'], status: wordStatusType.LEARN},
+    {id: 4, eng: 'attainment', rus: ['достижение'], status: wordStatusType.LEARN},
+    {id: 5, eng: 'unnecessary', rus: ['ненужный'], status: wordStatusType.LEARN},
+    {id: 6, eng: 'substrate', rus: ['подложка'], status: wordStatusType.LEARN},
+    {id: 7, eng: 'sophisticated', rus: ['сложный', 'утонченный'], status: wordStatusType.LEARN},
   ],
 };
 
@@ -20,10 +21,9 @@ export const allWordsReducer = (state = initialState, action: allWordsAction): a
       return { ...state, words: action.payload };
 
     case allWordsActionTypes.SET_WORD_STATUS:
-      const statusPos: number = 3;
 
       const newWords = state.words;
-      newWords[action.payload.id - 1][statusPos] = action.payload.status;
+      newWords[action.payload.id - 1].status = action.payload.status;
 
       return { ...state, words: newWords };
 

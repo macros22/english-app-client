@@ -7,7 +7,7 @@ import { wordStatusType } from 'types/words';
 function MyWordsBlock() {
   const { words: allWords } = useTypedSelector((state) => state.allWords);
 
-  const words = allWords.filter((word) => word[3] !== wordStatusType.UNKNOWN);
+  const words = allWords.filter((word) => word.status !== wordStatusType.UNKNOWN);
 
   React.useEffect(() => {
     try {

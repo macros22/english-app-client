@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { wordStatusType } from 'types/words';
-import { useActions } from '../../hooks/useActions';
+import { useActions } from 'hooks/useActions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface Props {
-  status: string;
+  status: wordStatusType;
   id: number;
 }
 
@@ -32,7 +32,7 @@ const NativeSelects: React.FC<Props> = ({ id, status }) => {
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     // setStatus(event.target.value as string);
-    setWordStatus({ id, status: event.target.value as string });
+    setWordStatus({ id, status: event.target.value as wordStatusType});
   };
 
   return (
