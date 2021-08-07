@@ -1,28 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import { useRouter } from 'next/router';
+import {Grid} from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  toolbarSecondary: {
-    justifyContent: 'space-around',
-    overflowX: 'auto',
-  },
-  toolbarLink: {
-    padding: theme.spacing(1),
-    flexShrink: 0,
-  },
-}));
+
 
 const sections = [
-  { title: 'WORDS', url: '/words' },
+  { title: 'WORDS', url: '/' },
   { title: 'TESTS', url: '/tests' },
   { title: 'GAMES', url: '/games' },
   { title: 'STATISTIC', url: '/stat' },
@@ -30,20 +15,27 @@ const sections = [
 
 interface Props {}
 const Categories: React.FC<Props> = ({}) => {
-  const classes = useStyles();
 
-  const router = useRouter();
+
 
   return (
     <>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-        <>
+      <Toolbar component="nav" >
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={5}
+          >
           {sections.map((section) => (
-            <Button key={section.url} onClick={() => router.push(section.url)}>
-              {section.title}
-            </Button>
+            <Grid key={section.url} item>
+              <Button href={section.url}  color="primary" >
+                {section.title}
+              </Button>
+            </Grid>
           ))}
-        </>
+        </Grid>
       </Toolbar>
     </>
   );

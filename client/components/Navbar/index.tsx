@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
     menuButton: {
       marginRight: theme.spacing(2),
     },
-    customizeToolbar: {
-      minHeight: 36,
-    },
     title: {
       fontWeight: 500,
       letterSpacing: '4px',
@@ -36,12 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Navbar() {
   const classes = useStyles();
-
   return (
     <>
-      <div className={classes.grow}>
-        <AppBar className={classes.customizeToolbar} position="static" elevation={2}>
-          <Toolbar>
+      {/*<div className={classes.grow}>*/}
+
+        <AppBar  position="static" elevation={2}>
+          <Toolbar variant="dense">
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -55,7 +52,8 @@ export default function Navbar() {
             </Typography>
           </Toolbar>
         </AppBar>
-      </div>
+
+      {/*</div>*/}
       <Categories />
     </>
   );
