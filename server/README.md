@@ -1,73 +1,148 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# [Node-Typescript-Boilerplate](https://blog.santoshshinde.com/skeleton-for-node-js-apps-written-in-typescript-444fa1695b30)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Skeleton for Node.js applications written in TypeScript
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Purpose
 
-## Description
+Our main purpose with this Skeleton is to start server application with node js and typescript.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Try it!! I am happy to hear your feedback or any kind of new features.
 
-## Installation
+## Common Features
 
-```bash
-$ npm install
+- Quick start
+- Integrated eslint, prettier and husky
+- Common Error Handler
+- Common Response Handler
+- Simple and Standard scaffolding
+- Followed SOLID Principles
+- Based on Typescript Syntax
+- Simple Enviroment Configuration
+- Global Enviroment Object
+- Request/Response Encryption & Decryption Implementation
+- Easily Add new feature
+- Integrated winston Logger
+- Production Ready Skeleton
+- Follwed Production Ready Best Practices: Security
+- Added only used npm modules
+- Unit & Integration Test Cases
+
+## Core NPM Module
+
+- [x] `express`, `@types/express`
+- [x] `@types/node`
+- [x] `typescript`
+- [x] `dotenv`
+- [x] `cors`
+- [x] `helmet`
+- [x] `http-status-codes`
+- [x] `winston`, `@types/winston`
+
+# Start the application
+
+```mermaid
+  flowchart TD;
+      A[Start the application]--NODE_ENV=local-->B[Development Mode];
+      A--NODE_ENV=test-->C[Test Mode];
+      A--NODE_ENV=production-->D[Production Mode];
+
+      B-->E[Install the dependencies `npm install`];
+      C-->F[Install the dependencies `npm install`];
+      D-->G[Install the dependencies `npm install`];
+
+      E--creat local environment `.env.local`-->H[Start the application `npm start`];
+      F--creat test environment `.env.test`-->I[Create the build `npm run build`];
+      G--creat prod environment `.env.prod`-->J[Create the build `npm run build`];
+
+      I-->K[Start the application `npm start:test`];
+      J-->L[Start the application `start:production`];
+
+```
+## Start The application in Development Mode
+
+- Clone the Application `git clone https://github.com/santoshshinde2012/node-boilerplate.git`
+- Install the dependencies `npm install`
+- Start the application `npm start`
+
+## Start The application in Production Mode
+
+- Install the dependencies `npm install`
+- Create the build `npm run build`
+- Start the application `npm run start:production`
+- Before starting make sure to creat prod environment `.env.prod` file
+
+
+## Project Structure
+
+| Name                              | Description |
+| --------------------------------- | ----------- |
+| **wiki/**                         | You can add project documentation and insructions file here |
+| **src/**                          | Source files |
+| **src/abstractions**              | Abstarct classes and Interfaces  |
+| **src/components**                | REST API Components & Controllers  |
+| **src/environments**              | Application Environments Handling utility  |
+| **src/lib**                       | Reusable utilises and library source code like a logger|
+| **src/middleware/**               | Express Middlewares like error handler feature |
+| **build/**                        | Compiled source files will be placed here |
+| **tests/**                        | Test cases will be placed here |
+| **tests/helpers/**                | Helpers for test cases will be placed here  |
+| **tests/unit-tests/**             | Unit Test cases will be placed here  |
+| **tests/integration-tests/**      | API routes (Integration) Test cases will be placed here|
+
+## Workflow
+
+![Workflow](https://github.com/santoshshinde2012/node-boilerplate/blob/master/wiki/boilerplate-workflow.png?raw=true)
+
+
+## Encryption
+
+Set the `APPLY_ENCRYPTION` environment variable to `true` to enable encryption.
+
+## Global Environment Object
+
+You can directly access the environment attributes in any component/file using global environment object. For more details please check file `src/global.ts`.
+
+*Example*
+
+To access the `applyEncryption` attribute from `Envionment` class to Response Handler, write `environment.applyEncryption`;
+
+## Default System Health Status API
+
+- `${host}/api/status/system` - Return the system information in response
+- `${host}/api/status/time` - Return the current time in response
+- `${host}/api/status/usage` - Return the process and system memory usage in response
+- `${host}/api/status/process` -  Return the process details in response
+- `${host}/api/status/error` - Return the error generated object in response
+
+## Refrences
+
+- [Skeleton for Node.js Apps written in TypeScript](https://javascript.plainenglish.io/skeleton-for-node-js-apps-written-in-typescript-444fa1695b30)
+- [Setup Eslint Prettier and Husky in Node JS Typescript Project](https://gist.github.com/santoshshinde2012/e1433327e5f7a58f98fe3e6651c4d5de)
+
+## Notes
+
+### 1. Why is my git pre-commit hook not executable by default?
+
+- Because files are not executable by default; they must be set to be executable.
+
+```
+chmod ug+x .husky/*
+chmod ug+x .git/hooks/*
 ```
 
-## Running the app
+### 2. [Production Best Practices: Security](https://expressjs.com/en/advanced/best-practice-security.html)
 
-```bash
-# development
-$ npm run start
+- Don’t use deprecated or vulnerable versions of Express
+- Use TLS
+- Use Helmet
+- Use cookies securely
+- Prevent brute-force attacks against authorization
+- Ensure your dependencies are secure
+- Avoid other known vulnerabilities
+- Additional considerations
 
-# watch mode
-$ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
 
-## Test
+<hr/>
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+# Please connect with me on Twitter [@shindesan2012](https://twitter.com/shindesan2012) & [https://blog.santoshshinde.com](https://blog.santoshshinde.com/)

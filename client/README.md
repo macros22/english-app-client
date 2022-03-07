@@ -1,36 +1,23 @@
-# Next.js with TypeScript example
+This is a [Next.js](https://nextjs.org/), [MUI v5](https://mui.com/) and [Typescript](https://github.com/microsoft/TypeScript) starter. You can use this to start your Next.js + MUI + Typescript development faster and easier.
 
-## How to use
+## Getting Started
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+1. First download files.
+2. (Optional) If you want, You can also change the project name to whatever your like and also add the project name in "package.json".
+3. Run this command in the project directory to install dependencies:
 
-<!-- #default-branch-switch -->
-
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/next | tar -xz --strip=2  material-ui-next/examples/nextjs-with-typescript
-cd nextjs-with-typescript
+```bash
+npm i
+# or
+yarn
 ```
 
-Install it and run:
+4. You can run dev server with the following command:
 
-```sh
-npm install
+```bash
 npm run dev
+# or
+yarn dev
 ```
 
-or:
-
-<!-- #default-branch-switch -->
-
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/next/examples/nextjs-with-typescript)
-
-## The idea behind the example
-
-The project uses [Next.js](https://github.com/zeit/next.js), which is a framework for server-rendered React apps.
-It includes `@material-ui/core` and its peer dependencies, including `emotion`, the default style engine in Material-UI v5. If you prefer, you can [use styled-components instead](https://next.material-ui.com/guides/interoperability/#styled-components).
-
-## The link component
-
-Next.js has [a custom Link component](https://nextjs.org/docs/api-reference/next/link).
-The example folder provides adapters for usage with Material-UI.
-More information [in the documentation](https://next.material-ui.com/guides/routing/#next-js).
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
