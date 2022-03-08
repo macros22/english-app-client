@@ -25,7 +25,17 @@ export default function Header(props: HeaderProps) {
 
   return (
     <React.Fragment>
-      <AppBar color="primary" position="sticky" elevation={0}>
+
+      <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
+        <Tabs value={0} textColor="inherit">
+          <Tab label="Users" />
+          <Tab label="Sign-in method" />
+          <Tab label="Templates" />
+          <Tab label="Usage" />
+        </Tabs>
+      </AppBar>
+
+      {/* <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
@@ -70,8 +80,10 @@ export default function Header(props: HeaderProps) {
             </Grid>
           </Grid>
         </Toolbar>
-      </AppBar>
-      <AppBar
+      </AppBar> */}
+
+      
+      {/* <AppBar
         component="div"
         color="primary"
         position="static"
@@ -81,38 +93,14 @@ export default function Header(props: HeaderProps) {
         <Toolbar>
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
-              <Typography color="inherit" variant="h5" component="h1">
-                Authentication
+              <Typography color="inherit" variant="h3" component="h1">
+                ALL WORDS
               </Typography>
             </Grid>
-            <Grid item>
-              <Button
-                sx={{ borderColor: lightColor }}
-                variant="outlined"
-                color="inherit"
-                size="small"
-              >
-                Web setup
-              </Button>
-            </Grid>
-            <Grid item>
-              <Tooltip title="Help">
-                <IconButton color="inherit">
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
-            </Grid>
+      
           </Grid>
         </Toolbar>
-      </AppBar>
-      <AppBar component="div" position="static" elevation={0} sx={{ zIndex: 0 }}>
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Users" />
-          <Tab label="Sign-in method" />
-          <Tab label="Templates" />
-          <Tab label="Usage" />
-        </Tabs>
-      </AppBar>
+      </AppBar> */}
     </React.Fragment>
   );
 }
