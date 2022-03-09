@@ -21,21 +21,21 @@ import PhonelinkSetupIcon from '@mui/icons-material/PhonelinkSetup';
 
 const categories = [
   {
-    id: 'Build',
+    id: 'Dictionary',
     children: [
       {
-        id: 'Authentication',
+        id: 'All words',
         icon: <PeopleIcon />,
         active: true,
       },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      {
-        id: 'Machine learning',
-        icon: <SettingsInputComponentIcon />,
-      },
+      { id: 'My Words', icon: <DnsRoundedIcon /> },
+      // { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
+      // { id: 'Hosting', icon: <PublicIcon /> },
+      // { id: 'Functions', icon: <SettingsEthernetIcon /> },
+      // {
+      //   id: 'Machine learning',
+      //   icon: <SettingsInputComponentIcon />,
+      // },
     ],
   },
   {
@@ -69,14 +69,12 @@ export default function Navigator(props: DrawerProps) {
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem sx={{ ...item, ...itemCategory, fontSize: 22, color: '#fff' }}>
-          Paperbase
-        </ListItem>
+       
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>Project Overview</ListItemText>
+          <ListItemText>English wordbook</ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: '#101F33' }}>

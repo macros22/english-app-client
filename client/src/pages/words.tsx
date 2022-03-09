@@ -10,6 +10,7 @@ import Navigator from '../components/Navigator';
 import Content from '../components/Content';
 import Header from '../components/Header';
 import WordsTable from '../components/WordsTable/WordsTable';
+import { WordType } from '../types/types';
 
 
 enum wordStatusType {
@@ -18,14 +19,14 @@ enum wordStatusType {
     UNKNOWN = 'unknown',
   }
 
-const  words =[
-    {id: 1, eng: 'neglect', rus: ['пренебрегать'], status: wordStatusType.LEARN},
-    {id: 2, eng: 'shun', rus: ['избегать'], status: wordStatusType.LEARN},
-    {id: 3, eng: 'proposal', rus: ['предложение'], status: wordStatusType.LEARN},
-    {id: 4, eng: 'attainment', rus: ['достижение'], status: wordStatusType.LEARN},
-    {id: 5, eng: 'unnecessary', rus: ['ненужный'], status: wordStatusType.LEARN},
-    {id: 6, eng: 'substrate', rus: ['подложка'], status: wordStatusType.LEARN},
-    {id: 7, eng: 'sophisticated', rus: ['сложный', 'утонченный'], status: wordStatusType.LEARN},
+const  words: WordType[] = [
+    {id: 1, eng: 'neglect', transcription:"tmp", rus: ['пренебрегать'], status: wordStatusType.LEARN, timeStamp: new Date()},
+    {id: 2, eng: 'shun', transcription:"tmp", rus: ['избегать'], status: wordStatusType.LEARN, timeStamp: new Date()},
+    {id: 3, eng: 'proposal', transcription:"tmp", rus: ['предложение'], status: wordStatusType.LEARN, timeStamp: new Date()},
+    {id: 4, eng: 'attainment', transcription:"tmp", rus: ['достижение'], status: wordStatusType.LEARN, timeStamp: new Date()},
+    {id: 5, eng: 'unnecessary', transcription:"tmp", rus: ['ненужный'], status: wordStatusType.LEARN, timeStamp: new Date()},
+    {id: 6, eng: 'substrate', transcription:"tmp", rus: ['подложка'], status: wordStatusType.LEARN, timeStamp: new Date()},
+    {id: 7, eng: 'sophisticated', transcription:"tmp", rus: ['сложный', 'утонченный'], status: wordStatusType.LEARN, timeStamp: new Date()},
   ];
 
 

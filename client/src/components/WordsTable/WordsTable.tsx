@@ -19,33 +19,20 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Collapse, TableHead, Typography } from '@mui/material';
+import { Chip, Collapse, TableHead, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { WordType} from '../../types/types';
+import DoneIcon from '@mui/icons-material/Done';
 
-
-
-
-export enum wordStatusType {
-  LEARN = 'learn',
-  KNOW = 'know',
-  UNKNOWN = 'unknown',
-}
-
-export type OneWordType = {
-  id: number;
-  eng: string;
-  rus: string[];
-  status: wordStatusType;
-}
-
-export type wordsType = Array<OneWordType>;
 
 
   function Row(props: { row: ReturnType<typeof createData> }) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
   
+    const handleDelete = () => {};
+
     return (
       <React.Fragment>
         <TableRow  sx={{ '& > *': { borderBottom: 'none' }, height: 20 }}>
@@ -59,39 +46,39 @@ export type wordsType = Array<OneWordType>;
             </IconButton>
           </TableCell>
           <TableCell component="th" scope="row">
-            {row.name}
+            {row.id}
           </TableCell>
-          <TableCell align="right">{row.calories}</TableCell>
-          <TableCell align="right">{row.fat}</TableCell>
+          <TableCell>{row.eng}</TableCell>
+          <TableCell>{row.transcription}</TableCell>
+          <TableCell>{row.rus}</TableCell>
+          {/* {row.status} */}
+          <TableCell>
+            <Chip label={row.status} variant="outlined" color="info" deleteIcon={<DoneIcon />} onDelete={handleDelete} />
+            </TableCell>
 
         </TableRow>
         <TableRow>
-          <TableCell style={{ padding: 0, paddingTop: 0 }}  colSpan={4}>
+          <TableCell sx={{ padding: "0px", border: "0px" }}  colSpan={4}>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
                 <Typography variant="h6" gutterBottom component="div">
-                  History
+                  Usage examples:
                 </Typography>
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Date</TableCell>
-                      <TableCell>Customer</TableCell>
-                      <TableCell align="right">Amount</TableCell>
-                      <TableCell align="right">Total price ($)</TableCell>
+                      <TableCell>English</TableCell>
+                      <TableCell>Russian</TableCell>
+                      
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {row.history.map((historyRow) => (
-                      <TableRow key={historyRow.date}>
+                    {row.examples.map((exampleRow) => (
+                      <TableRow key={exampleRow.eng}>
                         <TableCell component="th" scope="row">
-                          {historyRow.date}
+                          {exampleRow.eng}
                         </TableCell>
-                        <TableCell>{historyRow.customerId}</TableCell>
-                        <TableCell align="right">{historyRow.amount}</TableCell>
-                        <TableCell align="right">
-                          {Math.round(historyRow.amount * row.price * 100) / 100}
-                        </TableCell>
+                        <TableCell>{exampleRow.rus}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -173,54 +160,36 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  price: number = 2,
+  word: WordType
 ) {
   return {
-    name,
-    calories,
-    fat,
-    price,
-    history: [
+    ...word,
+    examples: [
       {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
+        eng: 'Example sentence',
+        rus: 'Пример предложения',
       },
       {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
+        eng: 'Example sentence',
+        rus: 'Пример предложения',
       },
     ],
   };
 }
 
-const rows = [
-  createData('Cupcake', 305, 3.7),
-  createData('Donut', 452, 25.0),
-  createData('Eclair', 262, 16.0),
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Gingerbread', 356, 16.0),
-  createData('Honeycomb', 408, 3.2),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Jelly Bean', 375, 0.0),
-  createData('KitKat', 518, 26.0),
-  createData('Lollipop', 392, 0.2),
-  createData('Marshmallow', 318, 0),
-  createData('Nougat', 360, 19.0),
-  createData('Oreo', 437, 18.0),
-].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+
 
 
 interface IProps {
-    words: wordsType;
+    words: WordType[];
   }
   
 
 const WordsTable: React.FC<IProps> = ({ words }) => {
+  const rows = words.map(word => createData(word))
+                    .sort((a, b) => (a.id < b.id ? -1 : 1));
+
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(7);
 
@@ -246,14 +215,15 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
     <Paper elevation={3}>
     <TableContainer >
       
-      <Table size="small" sx={{ minWidth: 400}} aria-label="custom pagination table">
+      <Table size="small" sx={{ minWidth: 200}} aria-label="custom pagination table">
         <TableHead>
             <TableRow>
-            <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>Id</TableCell>
               <TableCell>English</TableCell>
-              <TableCell align="right">Transcription</TableCell>
-              <TableCell align="right">Russian</TableCell>
-
+              <TableCell>Transcription</TableCell>
+              <TableCell>Russian</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
 
@@ -262,11 +232,11 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row) => (
-            <Row key={row.name} row={row} />
+            <Row key={row.id} row={row} />
           ))}
           {emptyRows > 0 && (
             <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={4}  />
+              <TableCell colSpan={6}  />
             </TableRow>
           )}
         </TableBody>
@@ -274,7 +244,7 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[10, 25, { label: 'All', value: -1 }]}
-              colSpan={4}
+              colSpan={6}
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
