@@ -35,6 +35,18 @@ export class DictionaryService {
         const deletedWord = await DictionaryModel.findByIdAndDelete(id).exec();
         return  deletedWord;
     }
+
+    async modifyWord (id: string, dto: CreateWordDto){
+
+        // Check for existence.
+        const existedWord = await DictionaryModel.findById(id);
+        if(!existedWord) {
+            return null;
+        }
+
+        const modifiedWord = await DictionaryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
+        return  modifiedWord;
+    }
 }
 
 export default new DictionaryService();
