@@ -39,7 +39,7 @@ const categories = [
     ],
   },
   {
-    id: 'Quality',
+    id: 'Statisctics',
     children: [
       { id: 'Analytics', icon: <SettingsIcon /> },
       { id: 'Performance', icon: <TimerIcon /> },

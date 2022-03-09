@@ -24,6 +24,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { WordType} from '../../types/types';
 import DoneIcon from '@mui/icons-material/Done';
+import SplitButton from '../ButtonSplit/ButtonSplit';
 
 
 
@@ -36,7 +37,7 @@ import DoneIcon from '@mui/icons-material/Done';
     return (
       <React.Fragment>
         <TableRow  sx={{ '& > *': { borderBottom: 'none' }, height: 20 }}>
-          <TableCell>
+          <TableCell width={40}>
             <IconButton
               aria-label="expand row"
               size="small"
@@ -45,15 +46,15 @@ import DoneIcon from '@mui/icons-material/Done';
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell component="th" scope="row">
+          <TableCell width={40} component="th" scope="row">
             {row.id}
           </TableCell>
           <TableCell>{row.eng}</TableCell>
           <TableCell>{row.transcription}</TableCell>
-          <TableCell>{row.rus}</TableCell>
-          {/* {row.status} */}
-          <TableCell>
-            <Chip label={row.status} variant="outlined" color="info" deleteIcon={<DoneIcon />} onDelete={handleDelete} />
+          <TableCell width={200}>{row.rus}</TableCell>
+          <TableCell width={150} align='center'>
+            {/* <Chip label={row.status} variant="outlined" color="info" deleteIcon={<DoneIcon />} onDelete={handleDelete} /> */}
+            <SplitButton />
             </TableCell>
 
         </TableRow>
@@ -212,7 +213,7 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
   };
 
   return (
-    <Paper elevation={3}>
+    <Paper elevation={0} style={{boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"}}>
     <TableContainer >
       
       <Table size="small" sx={{ minWidth: 200}} aria-label="custom pagination table">
@@ -223,7 +224,7 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
               <TableCell>English</TableCell>
               <TableCell>Transcription</TableCell>
               <TableCell>Russian</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell align='center'>Status</TableCell>
             </TableRow>
           </TableHead>
 
@@ -243,7 +244,7 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[]}
               colSpan={6}
               count={rows.length}
               rowsPerPage={rowsPerPage}
@@ -252,7 +253,7 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
                 inputProps: {
                   'aria-label': 'rows per page',
                 },
-                native: true,
+                native: false,
               }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
