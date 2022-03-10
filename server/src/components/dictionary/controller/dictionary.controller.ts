@@ -3,14 +3,14 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import ApiError from '../../../abstractions/ApiError';
 import validationMiddleware from '../../../middleware/validate.middleware';
 import * as responsehandler from '../../../lib/response-handler';
-import BaseApi from '../../BaseApi';
+import BaseController from '../../BaseController';
 import CreateWordDto from '../dto/create-word.dto';
 import service from '../service/dictionary.service';
 
 /**
  * Dictionary controller
  */
-export default class DictionaryController extends BaseApi {
+export default class DictionaryController extends BaseController {
 
     constructor(express: Application) {
         super();

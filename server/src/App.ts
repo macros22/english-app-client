@@ -4,6 +4,7 @@ import http from 'http';
 import helmet from 'helmet';
 import registerRoutes from './routes';
 import addErrorHandler from './middleware/error-handler';
+import cookieParser from 'cookie-parser';  
 
 // import * as mongoose from 'mongoose';
 const mongoose = require("mongoose");
@@ -64,6 +65,8 @@ export default class App {
         this.express.use(express.json({ limit: '100mb' }));
         this.express.use(express.urlencoded({ limit: '100mb', extended: true }));
         this.express.use(cors());
+        this.express.use(cookieParser());
+        
     }
 
     private basePathRoute(request: express.Request, response: express.Response): void {

@@ -7,7 +7,7 @@ import {
 } from 'http-status-codes';
 import * as responsehandler from '../../lib/response-handler';
 import ApiError from '../../abstractions/ApiError';
-import BaseApi from '../BaseApi';
+import BaseApi from '../BaseController';
 import { IServerTimeResponse, IResourceUsageResponse, IProcessInfoResponse, ISystemInfoResponse } from './system-status.types';
 
 /**

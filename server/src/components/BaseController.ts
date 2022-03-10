@@ -3,7 +3,7 @@ import { Application, Router } from 'express';
 /**
  * Provides services common to all API methods
  */
-export default abstract class BaseApi {
+export default abstract class Controller {
     protected router: Router;
 
     protected constructor() {
