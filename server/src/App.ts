@@ -23,13 +23,19 @@ export default class App {
     }
 
     private connectToTheDatabase() {
-        const mongoUrl = 'mongodb://admin:pass@localhost:27017';
+        const mongoUrl = 'mongodb://admin:pass@localhost:27017/dictionary';
 
+            
 
         // Connect to MongoDB
         mongoose.connect(mongoUrl, {
+            authSource: 'admin',
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            // useCreateIndex: true,
+            user: "admin",
+            pass: "pass",
+            serverSelectionTimeoutMS: 5000,
           })
             .then(() => {
                 console.log("MongoDB Connected");
