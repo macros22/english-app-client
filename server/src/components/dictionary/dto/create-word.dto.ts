@@ -1,4 +1,5 @@
-import { IsString, IsArray, ArrayMinSize } from 'class-validator';
+import { IsString, IsArray, ArrayMinSize, IsOptional } from 'class-validator';
+import { UsageExample } from '../model/dictionary.model';
  
 class CreateWordDto {
   @IsString()
@@ -7,6 +8,12 @@ class CreateWordDto {
   @IsArray()
   @ArrayMinSize(1)
   public rus: string[];
+
+  @IsOptional()
+  public transcription: string;
+
+  @IsOptional()
+  public usageExamples: UsageExample[];
  
 }
  
