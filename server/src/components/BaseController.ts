@@ -10,5 +10,5 @@ export default abstract class Controller {
       this.router = Router();
     }
 
-    public abstract register(express: Application): void;
+    public abstract registerRoutes(express: Application): void;
 }

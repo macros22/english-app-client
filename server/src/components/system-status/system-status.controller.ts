@@ -17,10 +17,10 @@ export default class SystemStatusController extends BaseApi {
 
     constructor(express: Application) {
         super();
-        this.register(express);
+        this.registerRoutes(express);
     }
 
-    public register(express: Application): void {
+    public registerRoutes(express: Application): void {
         express.use('/api/status', this.router);
         this.router.get('/system', this.getSystemInfo);
         this.router.get('/time', this.getServerTime);

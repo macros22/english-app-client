@@ -11,14 +11,14 @@ import service from '../service/dictionary.service';
  * Dictionary controller
  */
 export default class DictionaryController extends BaseController {
-
+    public path = '/api/dictionary';
     constructor(express: Application) {
         super();
-        this.register(express);
+        this.registerRoutes(express);
     }
 
-    public register(express: Application): void {
-        express.use('/api/dictionary', this.router);
+    public registerRoutes(express: Application): void {
+        express.use(this.path, this.router);
         this.router.get('/words', this.getWords);
         this.router.post('/addWord', validationMiddleware(CreateWordDto), this.addWord);
         this.router.delete('/deleteWord/:id', this.deleteWord);
