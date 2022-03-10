@@ -2,7 +2,6 @@ import * as express from 'express';
 
 import BaseController from '../../BaseController';
 import CreateUserDto from '../../user/dto/create-user.dto';
-import userModel from '../../user/model/user.model';
 import UserWithThatEmailAlreadyExistsException from '../../../exceptions/ UserWithThatEmailAlreadyExistsException';
 import WrongCredentialsException from '../../../exceptions/wrong-credentials-exception';
 import validationMiddleware from '../../../middleware/validate.middleware';
@@ -13,7 +12,6 @@ import { NextFunction, Request, Response } from 'express';
 
 export default class AuthenticationController extends BaseController {
   public path = '/api/auth';
-  private user = userModel;
 
   constructor(express: express.Application) {
     super();

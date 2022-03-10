@@ -7,7 +7,7 @@ import AuthenticationTokenMissingException from '../exceptions/authentication-to
 import WrongAuthenticationTokenException from '../exceptions/wrong-authentication-token.exception';
  
 async function authMiddleware(request: RequestWithUser, response: Response, next: NextFunction) {
-  const cookies = request.cookies;
+  const { cookies } = request;
   if (cookies && cookies.Authorization) {
     const secret = process.env.JWT_SECRET;
     try {
