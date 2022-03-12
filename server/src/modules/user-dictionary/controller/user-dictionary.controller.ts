@@ -25,7 +25,8 @@ export default class DictionaryController extends BaseController {
         this.router.use('/', authMiddleware);
         this.router.get('/words', this.getWords);
         this.router.post('/addWord', validationMiddleware(AddWordToUserDto), this.addWord);
-        this.router.post('/modifyWord/:id', validationMiddleware(ModifyUserWordDto), this.modifyWord);
+        this.router.patch('/modifyWord/:id', validationMiddleware(ModifyUserWordDto), this.modifyWord);
+        this.router.delete('/deleteWord/:id', this.deleteWord);
     }
 
     public async getWords(request: Request, response: Response, next: NextFunction): Promise<void> {
@@ -113,5 +114,26 @@ export default class DictionaryController extends BaseController {
             next(err);
         }
     }
+
+    public async deleteWord({ params, user }: RequestWithUser, response: Response, next: NextFunction): Promise<void> {
+      try {        
+          const wordId  = params.id;
+          const userId  = user._id;
+          if(!wordId) {
+              throw new ApiError("Error! Word ID needed!", StatusCodes.BAD_REQUEST)
+          }
+
+          const deletedWord = await UserDictionaryService.deleteWord(userId, wordId);
+          if(!deletedWord) {
+              throw new ApiError("Error! This word does not exist!", StatusCodes.BAD_REQUEST)
+          }
+
+          response.locals.data = deletedWord;
+          responsehandler.send(response);
+      
+      } catch (err) {
+          next(err);
+      }
+  }
 
 }
