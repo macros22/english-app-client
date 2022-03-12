@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import CreateUserDto from '../../../components/user/dto/create-user.dto';
+import CreateUserDto from '../../../modules/user/dto/create-user.dto';
 
 // import { DictionaryModel } from '../model/dictionary.model';
 import TokenData from '../../../interfaces/token-data.interface';
