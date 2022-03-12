@@ -13,6 +13,7 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { BreadCrumb } from '../pages/dictionary/all-words';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -48,6 +49,7 @@ export default function Header(props: HeaderProps) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dictionary
           </Typography>
+          <BreadCrumb />
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

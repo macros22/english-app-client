@@ -8,9 +8,9 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import { wordStatusType } from '../../types/types';
+import { WordStudyStatus } from '../../types/types';
 
-const options = Object.values(wordStatusType)
+const options = Object.values(WordStudyStatus)
 // const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
 
 export default function SplitButton() {

@@ -6,41 +6,24 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import Navigator from '../components/Navigator';
-import Content from '../components/Content';
-import Header from '../components/Header';
-import WordsTable from '../components/WordsTable/WordsTable';
-import { WordType } from '../types/types';
+import Navigator from '../../components/Navigator';
+import Content from '../../components/Content';
+import Header from '../../components/Header';
+import WordsTable from '../../components/WordsTable/WordsTable';
+import { Word, WordStudyStatus } from '../../types/types';
+import { Breadcrumbs } from '@mui/material';
 
 
-enum wordStatusType {
-    LEARN = 'learn',
-    KNOW = 'know',
-    UNKNOWN = 'unknown',
-  }
-
-const  words: WordType[] = [
-    {id: 1, eng: 'neglect', transcription:"tmp", rus: ['пренебрегать'], status: wordStatusType.LEARN, timeStamp: new Date()},
-    {id: 2, eng: 'shun', transcription:"tmp", rus: ['избегать'], status: wordStatusType.LEARN, timeStamp: new Date()},
-    {id: 3, eng: 'proposal', transcription:"tmp", rus: ['предложение'], status: wordStatusType.LEARN, timeStamp: new Date()},
-    {id: 4, eng: 'attainment', transcription:"tmp", rus: ['достижение'], status: wordStatusType.LEARN, timeStamp: new Date()},
-    {id: 5, eng: 'unnecessary', transcription:"tmp", rus: ['ненужный'], status: wordStatusType.LEARN, timeStamp: new Date()},
-    {id: 6, eng: 'substrate', transcription:"tmp", rus: ['подложка'], status: wordStatusType.LEARN, timeStamp: new Date()},
-    {id: 7, eng: 'sophisticated', transcription:"tmp", rus: ['сложный', 'утонченный'], status: wordStatusType.LEARN, timeStamp: new Date()},
+const  words: Word[] = [
+    {id: 1, eng: 'neglect', transcription:"tmp", rus: ['пренебрегать'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+    {id: 2, eng: 'shun', transcription:"tmp", rus: ['избегать'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+    {id: 3, eng: 'proposal', transcription:"tmp", rus: ['предложение'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+    {id: 4, eng: 'attainment', transcription:"tmp", rus: ['достижение'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+    {id: 5, eng: 'unnecessary', transcription:"tmp", rus: ['ненужный'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+    {id: 6, eng: 'substrate', transcription:"tmp", rus: ['подложка'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+    {id: 7, eng: 'sophisticated', transcription:"tmp", rus: ['сложный', 'утонченный'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
   ];
 
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
 
 let theme = createTheme({
   palette: {
@@ -185,9 +168,29 @@ theme = {
   },
 };
 
+export const BreadCrumb = () => {
+    return (
+        <>
+        <Breadcrumbs aria-label="breadcrumb">
+  <Link underline="hover" color="inherit" href="/">
+    MUI
+  </Link>
+  <Link
+    underline="hover"
+    color="inherit"
+    href="/getting-started/installation/"
+  >
+    Core
+  </Link>
+  <Typography color="text.primary">Breadcrumbs</Typography>
+</Breadcrumbs>
+</>
+    );
+}
+
 const drawerWidth = 256;
 
-const Home: NextPage = () => {
+const AllWords: NextPage = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   
@@ -219,11 +222,7 @@ const Home: NextPage = () => {
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             <Header onDrawerToggle={handleDrawerToggle} />
             <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: 'white' }}>
-              {/* <Content /> */}
               <WordsTable words={words} />
-            </Box>
-            <Box component="footer" sx={{ p: 2, bgcolor: 'white' }}>
-              <Copyright />
             </Box>
           </Box>
         </Box>
@@ -231,4 +230,4 @@ const Home: NextPage = () => {
     );
 }
 
-export default Home
+export default AllWords
