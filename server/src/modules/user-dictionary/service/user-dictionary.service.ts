@@ -1,5 +1,6 @@
 import { DictionaryModel } from '../../dictionary/model/dictionary.model';
 import AddWordToUserDto from '../dto/add-word-to-user.dto';
+import ModifyUserWordDto from '../dto/modidy-user-word.dto';
 import { UserDictionaryModel } from '../model/user-dictionary.model';
 
 
@@ -43,17 +44,9 @@ export class UserDictionaryService {
     //     return  deletedWord;
     // }
 
-    // async modifyWord (id: string, dto: AddWordToUserDto){
-
-    //     // Check for existence.
-    //     const existedWord = await UserDictionaryModel.findById(id);
-    //     if(!existedWord) {
-    //         return null;
-    //     }
-
-    //     const modifiedWord = await UserDictionaryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
-    //     return  modifiedWord;
-    // }
+    async modifyWord (userId: string, wordId: string, dto: ModifyUserWordDto){        
+        return  await UserDictionaryModel.findOneAndUpdate({user: userId, word: wordId}, dto, { new: true });
+    }
 }
 
 export default new UserDictionaryService();

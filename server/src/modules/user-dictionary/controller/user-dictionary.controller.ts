@@ -8,6 +8,7 @@ import AddWordToUserDto from '../dto/add-word-to-user.dto';
 import UserDictionaryService from '../service/user-dictionary.service';
 import RequestWithUser from '../../../interfaces/request-with-user.interface';
 import authMiddleware from '../../../middleware/auth.middleware';
+import ModifyUserWordDto from '../dto/modidy-user-word.dto';
 
 /**
  * User dictionary controller
@@ -24,6 +25,7 @@ export default class DictionaryController extends BaseController {
         this.router.use('/', authMiddleware);
         this.router.get('/words', this.getWords);
         this.router.post('/addWord', validationMiddleware(AddWordToUserDto), this.addWord);
+        this.router.post('/modifyWord/:id', validationMiddleware(ModifyUserWordDto), this.modifyWord);
     }
 
     public async getWords(request: Request, response: Response, next: NextFunction): Promise<void> {
@@ -91,24 +93,25 @@ export default class DictionaryController extends BaseController {
     //     }
     // }
 
-    // public async modifyWord({ body, params }: Request<{ id:string }, {}, CreateWordDto>, res: Response, next: NextFunction): Promise<void> {
-    //     try {        
-    //         const id  = params.id;
-    //         if(!id) {
-    //             throw new ApiError("Error! ID needed!", StatusCodes.BAD_REQUEST)
-    //         }
+    public async modifyWord({ body, params, user }: RequestWithUser, response: Response, next: NextFunction): Promise<void> {
+        try {        
+            const wordId  = params.id;
+            const userId  = user._id;
+            if(!wordId) {
+                throw new ApiError("Error! Word ID needed!", StatusCodes.BAD_REQUEST)
+            }
 
-    //         const modifiedWord = await service.modifyWord(id, body);
-    //         if(!modifiedWord) {
-    //             throw new ApiError("Error! This word does not exist!", StatusCodes.BAD_REQUEST)
-    //         }
+            const modifiedWord = await UserDictionaryService.modifyWord(userId, wordId, body);
+            if(!modifiedWord) {
+                throw new ApiError("Error! This word does not exist!", StatusCodes.BAD_REQUEST)
+            }
 
-    //         res.locals.data = modifiedWord;
-    //         responsehandler.send(res);
+            response.locals.data = modifiedWord;
+            responsehandler.send(response);
         
-    //     } catch (err) {
-    //         next(err);
-    //     }
-    // }
+        } catch (err) {
+            next(err);
+        }
+    }
 
 }
