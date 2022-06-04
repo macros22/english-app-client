@@ -22,7 +22,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import { Chip, Collapse, TableHead, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { WordType} from '../../types/types';
+import { Word } from '../../types/types';
 import DoneIcon from '@mui/icons-material/Done';
 import SplitButton from '../ButtonSplit/ButtonSplit';
 
@@ -161,7 +161,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 function createData(
-  word: WordType
+  word: Word
 ) {
   return {
     ...word,
@@ -182,7 +182,7 @@ function createData(
 
 
 interface IProps {
-    words: WordType[];
+    words: Word[];
   }
   
 
