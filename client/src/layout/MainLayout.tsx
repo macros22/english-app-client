@@ -16,6 +16,17 @@ import Navigator from '../components/organisms/navigator/Navigator';
 // import Header from '../components/Header';
 
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        Wordly
+      </Link>{" "}
+      {new Date().getFullYear()}.
+    </Typography>
+  );
+}
 
 let theme = createTheme({
   palette: {
@@ -214,9 +225,12 @@ return (
         <Header onDrawerToggle={handleDrawerToggle} />
 
     
-        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: 'white' }}>
+        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: 'rgba(0, 0, 0, 0.04)' }}>
         {children}
         </Box>
+        <Box component="footer" sx={{ p: 2, bgcolor: "rgba(0, 0, 0, 0.11)" }}>
+             <Copyright />
+           </Box>
       </Box>
     </Box>
   </ThemeProvider>
