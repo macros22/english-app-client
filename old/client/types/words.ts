@@ -4,6 +4,7 @@ export enum wordStatusType {
   UNKNOWN = 'unknown',
 }
 
+
 export type fetchObj = {
   allWordsCount: number;
   words: wordsType;

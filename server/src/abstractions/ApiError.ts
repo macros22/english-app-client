@@ -1,3 +1,8 @@
+
+import {
+  StatusCodes,
+} from 'http-status-codes';
+
 export interface IError {
   status: number;
   fields: {
@@ -10,7 +15,7 @@ export interface IError {
 }
 
 class ApiError extends Error implements IError {
-  public status = 500;
+  public status = StatusCodes.INTERNAL_SERVER_ERROR as number;
 
   public success = false;
 

@@ -8,16 +8,16 @@ export class DictionaryService {
         return await DictionaryModel.find();
     }
 
-    async addWord ({eng, rus}: CreateWordDto){
+    async addWord ({ word, translation, transcription, usageExamples}: CreateWordDto){
 
-        const existedWord = await DictionaryModel.findOne({ eng })
+        const existedWord = await DictionaryModel.findOne({ word })
 
         // Check for existence.
         if(existedWord) {
             return null;
         }
 
-        const newWord = new DictionaryModel({ eng, rus });
+        const newWord = new DictionaryModel({ word, translation, transcription, usageExamples });
         
         await newWord.save();
     

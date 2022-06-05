@@ -1,9 +1,11 @@
-
 export enum WordStudyStatus {
     LEARN = 'learn',
     KNOW = 'know',
     UNKNOWN = 'unknown',
-  }
+}
+
+// export type WordStudyStatus = 'learn' | 'know' | 'unknown';
+
 
   export interface UsageExample {
     eng: string;

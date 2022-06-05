@@ -3,11 +3,11 @@ import { UsageExample } from '../model/dictionary.model';
  
 class CreateWordDto {
   @IsString()
-  public eng: string;
+  public word: string;
  
   @IsArray()
   @ArrayMinSize(1)
-  public rus: string[];
+  public translation: string[];
 
   @IsOptional()
   public transcription: string;

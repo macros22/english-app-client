@@ -3,29 +3,27 @@ import * as mongoose from 'mongoose';
 // 1. Create an interface representing a document in MongoDB.
 
 export interface UsageExample {
-  eng: string;
-  rus: string;
+  sentence: string;
+  translation: string;
 }
 interface Dictionary {
-  eng: string;
+  word: string;
   transcription: string;
-  rus: string[];
+  translation: string[];
   usageExamples: UsageExample[];
 }
 
 // 2. Create a Schema corresponding to the document interface.
-
-
 const usageExampleSchema = new mongoose.Schema<UsageExample>({
-  eng: String,
-  rus: String,
+  sentence: String,
+  translation: String,
 });
 
 const schema = new mongoose.Schema<Dictionary>({
-  eng: { type: String, required: true },
+  word: { type: String, required: true },
   transcription: {type: String, default: "transcription"},
-  rus: { type: [String], required: true },
-  usageExamples: {type: [usageExampleSchema], default: [{eng:"", rus:""}]},
+  translation: { type: [String], required: true },
+  usageExamples: {type: [usageExampleSchema], default: [{sentence:"", translation:""}]},
 
 }, { timestamps: true });
 

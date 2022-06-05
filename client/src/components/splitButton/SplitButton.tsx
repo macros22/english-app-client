@@ -9,17 +9,21 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { WordStudyStatus } from '../../types/types';
+import { SplitButtonProps } from './SplitButton.props';
 
 const options = Object.values(WordStudyStatus)
 // const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
 
-export default function SplitButton() {
+const SplitButton: React.FC<SplitButtonProps> = ({setState, state}) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const initialSelectedIndex = Object.values(WordStudyStatus).findIndex(s => state == s);
+  const [selectedIndex, setSelectedIndex] = React.useState(initialSelectedIndex);
 
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
+    setState(options[selectedIndex])
   };
 
   const handleMenuItemClick = (
@@ -27,6 +31,7 @@ export default function SplitButton() {
     index: number,
   ) => {
     setSelectedIndex(index);
+    setState(options[index])
     setOpen(false);
   };
 
@@ -47,7 +52,7 @@ export default function SplitButton() {
 
   return (
     <React.Fragment>
-      <ButtonGroup  ref={anchorRef} aria-label="split button" disableElevation={true}>
+      <ButtonGroup fullWidth  ref={anchorRef} aria-label="split button" disableElevation={true}>
         <Button
             size="small"
             onClick={handleClick}
@@ -105,3 +110,5 @@ export default function SplitButton() {
     </React.Fragment>
   );
 }
+
+export default SplitButton;

@@ -24,7 +24,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Word } from '../../types/types';
 import DoneIcon from '@mui/icons-material/Done';
-import SplitButton from '../ButtonSplit/ButtonSplit';
+import SplitButton from '../splitButton/SplitButton';
 
 
 
@@ -54,7 +54,7 @@ import SplitButton from '../ButtonSplit/ButtonSplit';
           <TableCell width={200}>{row.rus}</TableCell>
           <TableCell width={150} align='center'>
             {/* <Chip label={row.status} variant="outlined" color="info" deleteIcon={<DoneIcon />} onDelete={handleDelete} /> */}
-            <SplitButton />
+            {/* <SplitButton /> */}
             </TableCell>
 
         </TableRow>

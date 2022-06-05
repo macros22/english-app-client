@@ -47,6 +47,7 @@ export default class DictionaryController extends BaseController {
           const addedUserWord = await UserDictionaryService.addWord(userId, wordId);
         
           if(!addedUserWord){
+            
               throw new ApiError("Error! This word does not exist!", StatusCodes.BAD_REQUEST)
           }
 
@@ -57,42 +58,6 @@ export default class DictionaryController extends BaseController {
         next(error);
       }
     }
-
-
-    // public async addWord({ body }: Request<{}, {}, CreateWordDto>, res: Response, next: NextFunction): Promise<void> {
-    //     try {        
-    //         const newWord = await service.addWord(body);
-    //         if(!newWord) {
-    //             throw new ApiError("Error! This word already exist!", StatusCodes.BAD_REQUEST)
-    //         }
-
-    //         res.locals.data = newWord;
-    //         responsehandler.send(res);
-        
-    //     } catch (err) {
-    //         next(err);
-    //     }
-    // }
-
-    // public async deleteWord(req: Request, res: Response, next: NextFunction): Promise<void> {
-    //     try {        
-    //         const id  = req.params.id;
-    //         if(!id) {
-    //             throw new ApiError("Error! ID needed!", StatusCodes.BAD_REQUEST)
-    //         }
-
-    //         const deletedWord = await service.deleteWord(id);
-    //         if(!deletedWord) {
-    //             throw new ApiError("Error! This word does not exist!", StatusCodes.BAD_REQUEST)
-    //         }
-
-    //         res.locals.data = deletedWord;
-    //         responsehandler.send(res);
-        
-    //     } catch (err) {
-    //         next(err);
-    //     }
-    // }
 
     public async modifyWord({ body, params, user }: RequestWithUser, response: Response, next: NextFunction): Promise<void> {
         try {        
