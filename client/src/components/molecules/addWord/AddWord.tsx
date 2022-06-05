@@ -3,8 +3,8 @@ import React from "react";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
-import SplitButton from "components/splitButton/SplitButton";
 import { WordStudyStatus } from "types/types";
+import { SplitButton } from "components";
 
 const validationSchema = yup.object({
   word: yup

@@ -5,9 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import Navigator from "../components/Navigator";
-import Header from "../components/Header";
-import { AddWord, AllWords } from "components";
+import { AddWord, AllWords, Navigator, Header  } from "components";
 import { Paper } from "@mui/material";
 
 function Copyright() {
@@ -15,7 +13,7 @@ function Copyright() {
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Wordly
       </Link>{" "}
       {new Date().getFullYear()}.
     </Typography>

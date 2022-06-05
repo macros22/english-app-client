@@ -24,7 +24,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Word } from '../../../types/types';
 import DoneIcon from '@mui/icons-material/Done';
-import SplitButton from '../../splitButton/SplitButton';
+import SplitButton from '../../atoms/splitButton/SplitButton';
 
 
 
