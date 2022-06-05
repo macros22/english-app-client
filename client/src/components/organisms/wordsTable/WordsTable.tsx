@@ -19,12 +19,12 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Chip, Collapse, TableHead, Typography } from '@mui/material';
+import { Chip, Collapse, Divider, TableHead, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Word } from '../../types/types';
+import { Word } from '../../../types/types';
 import DoneIcon from '@mui/icons-material/Done';
-import SplitButton from '../splitButton/SplitButton';
+import SplitButton from '../../splitButton/SplitButton';
 
 
 
@@ -49,11 +49,10 @@ import SplitButton from '../splitButton/SplitButton';
           <TableCell width={40} component="th" scope="row">
             {row.id}
           </TableCell>
-          <TableCell>{row.eng}</TableCell>
+          <TableCell>{row.word}</TableCell>
           <TableCell>{row.transcription}</TableCell>
-          <TableCell width={200}>{row.rus}</TableCell>
+          <TableCell width={200}>{row.translation}</TableCell>
           <TableCell width={150} align='center'>
-            {/* <Chip label={row.status} variant="outlined" color="info" deleteIcon={<DoneIcon />} onDelete={handleDelete} /> */}
             {/* <SplitButton /> */}
             </TableCell>
 
@@ -74,12 +73,12 @@ import SplitButton from '../splitButton/SplitButton';
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {row.examples.map((exampleRow) => (
-                      <TableRow key={exampleRow.eng}>
+                    {row.usageExamples.map((exampleRow) => (
+                      <TableRow key={exampleRow.sentence}>
                         <TableCell component="th" scope="row">
-                          {exampleRow.eng}
+                          {exampleRow.sentence}
                         </TableCell>
-                        <TableCell>{exampleRow.rus}</TableCell>
+                        <TableCell>{exampleRow.translation}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -165,16 +164,6 @@ function createData(
 ) {
   return {
     ...word,
-    examples: [
-      {
-        eng: 'Example sentence',
-        rus: 'Пример предложения',
-      },
-      {
-        eng: 'Example sentence',
-        rus: 'Пример предложения',
-      },
-    ],
   };
 }
 
@@ -213,7 +202,11 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
   };
 
   return (
-    <Paper elevation={0} style={{boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"}}>
+    <>
+         <Typography variant="h4" gutterBottom component="div">
+        Table
+      </Typography>
+    
     <TableContainer >
       
       <Table size="small" sx={{ minWidth: 200}} aria-label="custom pagination table">
@@ -263,7 +256,7 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
         </TableFooter>
       </Table>
     </TableContainer>
-    </Paper >
+    </ >
   );
 }
 

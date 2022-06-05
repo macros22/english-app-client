@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 
 import { useFormik } from "formik";
@@ -19,21 +19,20 @@ const validationSchema = yup.object({
     .string()
     .min(2, "Translation should be of minimum 2 characters length")
     .required("Translation is required"),
-  usageExample: yup
-    .string()
-    .required("Usage example is required"),
+  usageExample: yup.string().required("Usage example is required"),
   usageExampleTranslation: yup
     .string()
     .required("Usage example translation is required"),
 });
 
 const AddWord: React.FC = () => {
+  const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
+    WordStudyStatus.UNKNOWN
+  );
 
-  const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(WordStudyStatus.UNKNOWN);
-  
-  React.useEffect(()=> {
-    console.log(studyStatus)
-  }, [studyStatus])
+  React.useEffect(() => {
+    console.log(studyStatus);
+  }, [studyStatus]);
 
   const postWord = async (formData: any) => {
     let response = await fetch("http://localhost:3146/api/dictionary/addWord", {
@@ -62,10 +61,12 @@ const AddWord: React.FC = () => {
         word: values.word,
         transcription: values.transcription,
         translation: [values.translation],
-        usageExamples: [{
-          sentence: values.usageExample,
-          translation: values.usageExampleTranslation,
-        }],
+        usageExamples: [
+          {
+            sentence: values.usageExample,
+            translation: values.usageExampleTranslation,
+          },
+        ],
       });
     },
   });
@@ -77,6 +78,13 @@ const AddWord: React.FC = () => {
           <Grid container spacing={2}>
             <Grid container item spacing={2}>
               <Grid item xs>
+                <Typography variant="h4" gutterBottom component="div">
+                  Add new word.
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container item spacing={2}>
+              <Grid item xs>
                 <TextField
                   fullWidth
                   id="word"
@@ -84,9 +92,7 @@ const AddWord: React.FC = () => {
                   label="word"
                   value={formik.values.word}
                   onChange={formik.handleChange}
-                  error={
-                    formik.touched.word && Boolean(formik.errors.word)
-                  }
+                  error={formik.touched.word && Boolean(formik.errors.word)}
                   helperText={formik.touched.word && formik.errors.word}
                 />
               </Grid>
@@ -129,7 +135,7 @@ const AddWord: React.FC = () => {
             </Grid>
             <Grid container item spacing={2}>
               <Grid item xs>
-              <TextField
+                <TextField
                   fullWidth
                   id="usageExample"
                   name="usageExample"
@@ -147,7 +153,7 @@ const AddWord: React.FC = () => {
                 />
               </Grid>
               <Grid item xs>
-              <TextField
+                <TextField
                   fullWidth
                   id="usageExampleTranslation"
                   name="usageExampleTranslation"
@@ -160,12 +166,13 @@ const AddWord: React.FC = () => {
                     Boolean(formik.errors.usageExampleTranslation)
                   }
                   helperText={
-                    formik.touched.usageExampleTranslation && formik.errors.usageExampleTranslation
+                    formik.touched.usageExampleTranslation &&
+                    formik.errors.usageExampleTranslation
                   }
                 />
               </Grid>
               <Grid item xs>
-              <SplitButton state={studyStatus} setState={setStudyStatus}/>
+                <SplitButton state={studyStatus} setState={setStudyStatus} />
               </Grid>
             </Grid>
             <Grid container item>

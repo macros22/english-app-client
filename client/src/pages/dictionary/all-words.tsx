@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import * as React from 'react';
-import WordsTable from '../../components/WordsTable/WordsTable';
+import WordsTable from '../../components/organisms/wordsTable/WordsTable';
 import { Word, WordStudyStatus } from '../../types/types';
 
 import { withLayout } from '../../layout/MainLayout';

@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import Navigator from '../../components/Navigator';
 import Content from '../../components/Content';
 import Header from '../../components/Header';
-import WordsTable from '../../components/WordsTable/WordsTable';
+import WordsTable from '../../components/organisms/wordsTable/WordsTable';
 import { Word, WordStudyStatus } from '../../types/types';
 import { Breadcrumbs } from '@mui/material';
 

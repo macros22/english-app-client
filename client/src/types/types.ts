@@ -8,15 +8,15 @@ export enum WordStudyStatus {
 
 
   export interface UsageExample {
-    eng: string;
-    rus: string;
+    sentence: string;
+    translation: string;
   }
   
   export interface Word {
     id: number;
-    eng: string;
+    word: string;
     transcription: string;
-    rus: string[];
+    translation: string[];
     usageExamples: UsageExample[];
     studyStatus: WordStudyStatus;
   }
