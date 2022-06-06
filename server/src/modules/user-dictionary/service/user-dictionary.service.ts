@@ -3,8 +3,6 @@ import AddWordToUserDto from '../dto/add-word-to-user.dto';
 import ModifyUserWordDto from '../dto/modidy-user-word.dto';
 import { UserDictionaryModel } from '../model/user-dictionary.model';
 
-
-var ObjectId = require('mongoose').Types.ObjectId;
 export class UserDictionaryService {
 
     async getWords() {
@@ -16,22 +14,23 @@ export class UserDictionaryService {
     async addWord (userId,{ wordFromCommonDictionaryId, word, translation, transcription, usageExamples}: AddWordToUserDto){
     
         let isWordFromCommonDictionaryExist = false;
-        
-        if(wordFromCommonDictionaryId && ObjectId.isValid(wordFromCommonDictionaryId)) {
+       
+        if(wordFromCommonDictionaryId) {
             const existedWordFromCommonDictionary = await WordInDictionaryModel.findById(wordFromCommonDictionaryId);
 
             isWordFromCommonDictionaryExist = Boolean(existedWordFromCommonDictionary);
             // Check for word existence in common dictionary.
             if(!isWordFromCommonDictionaryExist) {
                 return null;
+            }else {
+                isWordFromCommonDictionaryExist = true;
             }
         }
         
 
-        
         const newUserWord = new UserDictionaryModel({
             user: userId,
-            wordFromCommonDictionary: wordFromCommonDictionaryId || "d",
+            wordFromCommonDictionary: isWordFromCommonDictionaryExist ? wordFromCommonDictionaryId : "",
             userWord: {
                 word,
                 translation,
