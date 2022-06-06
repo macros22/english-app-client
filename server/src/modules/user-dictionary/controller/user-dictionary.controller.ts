@@ -39,16 +39,16 @@ export default class DictionaryController extends BaseController {
     }
 
     private addWord = async (request: RequestWithUser, response: Response, next: NextFunction) => {
-        const { wordId }: AddWordToUserDto = request.body;
+        const addWordToUserDto: AddWordToUserDto = request.body;
         const userId = request.user._id;
 
         try {
 
-          const addedUserWord = await UserDictionaryService.addWord(userId, wordId);
+          const addedUserWord = await UserDictionaryService.addWord(userId, addWordToUserDto);
         
           if(!addedUserWord){
             
-              throw new ApiError("Error! This word does not exist!", StatusCodes.BAD_REQUEST)
+              throw new ApiError("Error! This word does not exist in common dictionary!", StatusCodes.BAD_REQUEST)
           }
 
           response.locals.data = addedUserWord;

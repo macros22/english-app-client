@@ -1,12 +1,11 @@
 import * as mongoose from 'mongoose';
 
 // 1. Create an interface representing a document in MongoDB.
-
 export interface UsageExample {
   sentence: string;
   translation: string;
 }
-interface Dictionary {
+export interface WordInDictionary {
   word: string;
   transcription: string;
   translation: string[];
@@ -19,15 +18,15 @@ const usageExampleSchema = new mongoose.Schema<UsageExample>({
   translation: String,
 });
 
-const schema = new mongoose.Schema<Dictionary>({
+export const wordInDictionarySchema = new mongoose.Schema<WordInDictionary>({
   word: { type: String, required: true },
-  transcription: {type: String, default: "transcription"},
+  transcription: { type: String, default: "transcription"},
   translation: { type: [String], required: true },
-  usageExamples: {type: [usageExampleSchema], default: [{sentence:"", translation:""}]},
+  usageExamples: { type: [usageExampleSchema], default: [{sentence:"", translation:""}]},
 
 }, { timestamps: true });
 
 
 
 // 3. Create a Model.
-export const DictionaryModel = mongoose.model<Dictionary & mongoose.Document>('Dictionary', schema);
+export const WordInDictionaryModel = mongoose.model<WordInDictionary & mongoose.Document>('WordInDictionary', wordInDictionarySchema);

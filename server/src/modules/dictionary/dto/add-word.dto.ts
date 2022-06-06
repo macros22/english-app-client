@@ -1,7 +1,7 @@
 import { IsString, IsArray, ArrayMinSize, IsOptional } from 'class-validator';
 import { UsageExample } from '../model/dictionary.model';
  
-class CreateWordDto {
+class AddWordDto {
   @IsString()
   public word: string;
  
@@ -17,4 +17,4 @@ class CreateWordDto {
  
 }
  
-export default CreateWordDto;
+export default AddWordDto;

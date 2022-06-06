@@ -1,8 +1,11 @@
-import { IsString } from 'class-validator';
- 
-class AddWordToUserDto {
+import { IsOptional, IsString } from 'class-validator';
+
+import AddWordDto from '../../dictionary/dto/add-word.dto';
+
+class AddWordToUserDto extends AddWordDto {
   @IsString()
-  public wordId: string;
+  @IsOptional()
+  public wordFromCommonDictionaryId: string;
 }
  
 export default AddWordToUserDto;

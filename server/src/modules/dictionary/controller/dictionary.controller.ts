@@ -4,7 +4,7 @@ import ApiError from '../../../abstractions/ApiError';
 import validationMiddleware from '../../../middleware/validate.middleware';
 import * as responsehandler from '../../../lib/response-handler';
 import BaseController from '../../BaseController';
-import CreateWordDto from '../dto/create-word.dto';
+import CreateWordDto from '../dto/add-word.dto';
 import service from '../service/dictionary.service';
 
 /**

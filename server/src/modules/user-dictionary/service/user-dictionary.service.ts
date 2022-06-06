@@ -1,7 +1,10 @@
-import { DictionaryModel } from '../../dictionary/model/dictionary.model';
+import { WordInDictionaryModel } from '../../dictionary/model/dictionary.model';
+import AddWordToUserDto from '../dto/add-word-to-user.dto';
 import ModifyUserWordDto from '../dto/modidy-user-word.dto';
 import { UserDictionaryModel } from '../model/user-dictionary.model';
 
+
+var ObjectId = require('mongoose').Types.ObjectId;
 export class UserDictionaryService {
 
     async getWords() {
@@ -9,24 +12,38 @@ export class UserDictionaryService {
     }
 
 
-    async addWord (userId, wordId){
+    // async addWord (userId, wordId){
+    async addWord (userId,{ wordFromCommonDictionaryId, word, translation, transcription, usageExamples}: AddWordToUserDto){
+    
+        let isWordFromCommonDictionaryExist = false;
+        
+        if(wordFromCommonDictionaryId && ObjectId.isValid(wordFromCommonDictionaryId)) {
+            const existedWordFromCommonDictionary = await WordInDictionaryModel.findById(wordFromCommonDictionaryId);
 
-        // const existedWord = await UserDictionaryModel.findOne({ word: wordId })
-        const existedWordInCommonDictionary = await DictionaryModel.findById(wordId)
-
-        // Check for word existence in common dictionary.
-        if(!existedWordInCommonDictionary) {
-            return null;
+            isWordFromCommonDictionaryExist = Boolean(existedWordFromCommonDictionary);
+            // Check for word existence in common dictionary.
+            if(!isWordFromCommonDictionaryExist) {
+                return null;
+            }
         }
+        
 
+        
         const newUserWord = new UserDictionaryModel({
             user: userId,
-            word: wordId,
+            wordFromCommonDictionary: wordFromCommonDictionaryId || "d",
+            userWord: {
+                word,
+                translation,
+                transcription,
+                usageExamples
+            }
           });
                 
         const savedNewUserWord = await newUserWord.save();
-        await (await savedNewUserWord.populate('user', '-password')).populate('word');
-    
+        await (await savedNewUserWord.populate('user', '-password')).populate('wordFromCommonDictionary');
+        
+        
         return savedNewUserWord;
     }
 

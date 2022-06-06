@@ -1,23 +1,23 @@
-import CreateWordDto from '../dto/create-word.dto';
-import { DictionaryModel } from '../model/dictionary.model';
+import AddWordDto from '../dto/add-word.dto';
+import { WordInDictionaryModel } from '../model/dictionary.model';
 
 
 export class DictionaryService {
 
     async getWords() {
-        return await DictionaryModel.find();
+        return await WordInDictionaryModel.find();
     }
 
-    async addWord ({ word, translation, transcription, usageExamples}: CreateWordDto){
+    async addWord ({ word, translation, transcription, usageExamples}: AddWordDto){
 
-        const existedWord = await DictionaryModel.findOne({ word })
+        const existedWord = await WordInDictionaryModel.findOne({ word })
 
         // Check for existence.
         if(existedWord) {
             return null;
         }
 
-        const newWord = new DictionaryModel({ word, translation, transcription, usageExamples });
+        const newWord = new WordInDictionaryModel({ word, translation, transcription, usageExamples });
         
         await newWord.save();
     
@@ -27,24 +27,24 @@ export class DictionaryService {
     async deleteWord (id: string){
 
         // Check for existence.
-        const existedWord = await DictionaryModel.findById(id);
+        const existedWord = await WordInDictionaryModel.findById(id);
         if(!existedWord) {
             return null;
         }
 
-        const deletedWord = await DictionaryModel.findByIdAndDelete(id).exec();
+        const deletedWord = await WordInDictionaryModel.findByIdAndDelete(id).exec();
         return  deletedWord;
     }
 
-    async modifyWord (id: string, dto: CreateWordDto){
+    async modifyWord (id: string, dto: AddWordDto){
 
         // Check for existence.
-        const existedWord = await DictionaryModel.findById(id);
+        const existedWord = await WordInDictionaryModel.findById(id);
         if(!existedWord) {
             return null;
         }
 
-        const modifiedWord = await DictionaryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
+        const modifiedWord = await WordInDictionaryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
         return  modifiedWord;
     }
 }
