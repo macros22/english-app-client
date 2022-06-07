@@ -27,6 +27,9 @@ export class UserDictionaryService {
             }
         }
         
+        // Todo - check if english wordInCommonDict === user word
+        // ...
+        //
 
         const newUserWord = new UserDictionaryModel({
             user: userId,
@@ -40,23 +43,23 @@ export class UserDictionaryService {
           });
                 
         const savedNewUserWord = await newUserWord.save();
-        
-        
-        // if(isWordInCommonDictionaryExist){
-            await (await savedNewUserWord.populate('user', '-password')).populate('wordInCommonDictionary');
-        // }else {
-        //     await savedNewUserWord.populate('user', '-password');
-        // }
+        await (await savedNewUserWord.populate('user', '-password')).populate('wordInCommonDictionary');
+       
         
         return savedNewUserWord;
     }
 
     async deleteWord (userId: string, wordId: string){        
-        return  await UserDictionaryModel.findOneAndDelete({user: userId, word: wordId});
+        const deletedWord =  await UserDictionaryModel.findOneAndDelete({user: userId, word: wordId}).exec();
+        return deletedWord;
     }
 
     async modifyWord (userId: string, wordId: string, dto: ModifyUserWordDto){        
-        return  await UserDictionaryModel.findOneAndUpdate({user: userId, word: wordId}, dto, { new: true });
+        const modifiedWord =  await UserDictionaryModel.findOneAndUpdate({user: userId, word: wordId}, dto, { new: true }).exec();
+        if(dto.wordInCommonDictionaryId){
+            await modifiedWord.populate('wordInCommonDictionary')
+        }
+        return modifiedWord;
     }
 }
 
