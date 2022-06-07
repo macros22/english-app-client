@@ -1,23 +1,23 @@
 import AddWordDto from '../dto/add-word.dto';
-import { WordInDictionaryModel } from '../model/dictionary.model';
+import { WordInCommonDictionaryModel } from '../model/common-dictionary.model';
 
 
 export class DictionaryService {
 
     async getWords() {
-        return await WordInDictionaryModel.find();
+        return await WordInCommonDictionaryModel.find();
     }
 
     async addWord ({ word, translation, transcription, usageExamples}: AddWordDto){
 
-        const existedWord = await WordInDictionaryModel.findOne({ word })
+        const existedWord = await WordInCommonDictionaryModel.findOne({ word })
 
         // Check for existence.
         if(existedWord) {
             return null;
         }
 
-        const newWord = new WordInDictionaryModel({ word, translation, transcription, usageExamples });
+        const newWord = new WordInCommonDictionaryModel({ word, translation, transcription, usageExamples });
         
         await newWord.save();
     
@@ -27,24 +27,24 @@ export class DictionaryService {
     async deleteWord (id: string){
 
         // Check for existence.
-        const existedWord = await WordInDictionaryModel.findById(id);
+        const existedWord = await WordInCommonDictionaryModel.findById(id);
         if(!existedWord) {
             return null;
         }
 
-        const deletedWord = await WordInDictionaryModel.findByIdAndDelete(id).exec();
+        const deletedWord = await WordInCommonDictionaryModel.findByIdAndDelete(id).exec();
         return  deletedWord;
     }
 
     async modifyWord (id: string, dto: AddWordDto){
 
         // Check for existence.
-        const existedWord = await WordInDictionaryModel.findById(id);
+        const existedWord = await WordInCommonDictionaryModel.findById(id);
         if(!existedWord) {
             return null;
         }
 
-        const modifiedWord = await WordInDictionaryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
+        const modifiedWord = await WordInCommonDictionaryModel.findByIdAndUpdate(id, dto, { new: true }).exec();
         return  modifiedWord;
     }
 }

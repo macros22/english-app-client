@@ -4,12 +4,12 @@ import ApiError from '../../../abstractions/ApiError';
 import validationMiddleware from '../../../middleware/validate.middleware';
 import * as responsehandler from '../../../lib/response-handler';
 import BaseController from '../../BaseController';
-import CreateWordDto from '../dto/add-word.dto';
-import service from '../service/dictionary.service';
+import AddWordDto from '../dto/add-word.dto';
+import service from '../service/common-dictionary.service';
 
-/**
- * Dictionary controller
- */
+
+// Common Dictionary controller.
+
 export default class DictionaryController extends BaseController {
     public path = '/api/dictionary';
     constructor(express: Application) {
@@ -20,7 +20,7 @@ export default class DictionaryController extends BaseController {
     public registerRoutes(express: Application): void {
         express.use(this.path, this.router);
         this.router.get('/words', this.getWords);
-        this.router.post('/addWord', validationMiddleware(CreateWordDto), this.addWord);
+        this.router.post('/addWord', validationMiddleware(AddWordDto), this.addWord);
         this.router.delete('/deleteWord/:id', this.deleteWord);
         this.router.patch('/modifyWord/:id', this.modifyWord);
 
@@ -35,7 +35,7 @@ export default class DictionaryController extends BaseController {
         }
     }
 
-    public async addWord({ body }: Request<{}, {}, CreateWordDto>, res: Response, next: NextFunction): Promise<void> {
+    public async addWord({ body }: Request<{}, {}, AddWordDto>, res: Response, next: NextFunction): Promise<void> {
         try {        
             const newWord = await service.addWord(body);
             if(!newWord) {
@@ -70,7 +70,7 @@ export default class DictionaryController extends BaseController {
         }
     }
 
-    public async modifyWord({ body, params }: Request<{ id:string }, {}, CreateWordDto>, res: Response, next: NextFunction): Promise<void> {
+    public async modifyWord({ body, params }: Request<{ id:string }, {}, AddWordDto>, res: Response, next: NextFunction): Promise<void> {
         try {        
             const id  = params.id;
             if(!id) {

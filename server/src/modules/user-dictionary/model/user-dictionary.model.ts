@@ -1,13 +1,13 @@
 import * as mongoose from 'mongoose';
-import { WordInDictionary, wordInDictionarySchema } from '../../../../src/modules/dictionary/model/dictionary.model';
+import { WordInCommonDictionary, wordInCommonDictionarySchema } from '../../common-dictionary/model/common-dictionary.model';
 // import { wordInDictionarySchema } from 'src/modules/dictionary/model/dictionary.model';
 
 
 // 1. Create an interface representing a document in MongoDB.
 export interface UserDictionary {
   user: mongoose.Schema.Types.ObjectId;
-  wordFromCommonDictionary: mongoose.Schema.Types.ObjectId;
-  userWord: WordInDictionary,
+  wordInCommonDictionary: mongoose.Schema.Types.ObjectId | null;
+  userWord: WordInCommonDictionary,
   status: string;
 }
 
@@ -18,11 +18,11 @@ const schema = new mongoose.Schema<UserDictionary>({
     ref: 'User',
     type: mongoose.Schema.Types.ObjectId,
   },
-  wordFromCommonDictionary: {
-    ref: 'WordInDictionary',
+  wordInCommonDictionary: {
+    ref: 'WordInCommonDictionary',
     type: mongoose.Schema.Types.ObjectId,
   },
-  userWord: { type: wordInDictionarySchema },
+  userWord: { type: wordInCommonDictionarySchema },
   status: { type: String, default: "In process" },
 
 }, { timestamps: true });

@@ -1,5 +1,5 @@
 import { IsString, IsArray, ArrayMinSize, IsOptional } from 'class-validator';
-import { UsageExample } from '../model/dictionary.model';
+import { UsageExample } from '../model/common-dictionary.model';
  
 class AddWordDto {
   @IsString()

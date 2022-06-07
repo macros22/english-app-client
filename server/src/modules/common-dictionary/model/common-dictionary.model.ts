@@ -5,7 +5,7 @@ export interface UsageExample {
   sentence: string;
   translation: string;
 }
-export interface WordInDictionary {
+export interface WordInCommonDictionary {
   word: string;
   transcription: string;
   translation: string[];
@@ -18,7 +18,7 @@ const usageExampleSchema = new mongoose.Schema<UsageExample>({
   translation: String,
 });
 
-export const wordInDictionarySchema = new mongoose.Schema<WordInDictionary>({
+export const wordInCommonDictionarySchema = new mongoose.Schema<WordInCommonDictionary>({
   word: { type: String, required: true },
   transcription: { type: String, default: "transcription"},
   translation: { type: [String], required: true },
@@ -29,4 +29,4 @@ export const wordInDictionarySchema = new mongoose.Schema<WordInDictionary>({
 
 
 // 3. Create a Model.
-export const WordInDictionaryModel = mongoose.model<WordInDictionary & mongoose.Document>('WordInDictionary', wordInDictionarySchema);
+export const WordInCommonDictionaryModel = mongoose.model<WordInCommonDictionary & mongoose.Document>('WordInCommonDictionary', wordInCommonDictionarySchema);

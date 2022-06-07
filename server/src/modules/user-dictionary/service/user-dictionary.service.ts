@@ -1,4 +1,4 @@
-import { WordInDictionaryModel } from '../../dictionary/model/dictionary.model';
+import { WordInCommonDictionaryModel } from '../../common-dictionary/model/common-dictionary.model';
 import AddWordToUserDto from '../dto/add-word-to-user.dto';
 import ModifyUserWordDto from '../dto/modidy-user-word.dto';
 import { UserDictionaryModel } from '../model/user-dictionary.model';
@@ -11,26 +11,26 @@ export class UserDictionaryService {
 
 
     // async addWord (userId, wordId){
-    async addWord (userId,{ wordFromCommonDictionaryId, word, translation, transcription, usageExamples}: AddWordToUserDto){
+    async addWord (userId,{ wordInCommonDictionaryId, word, translation, transcription, usageExamples}: AddWordToUserDto){
     
-        let isWordFromCommonDictionaryExist = false;
+        let isWordInCommonDictionaryExist = false;
        
-        if(wordFromCommonDictionaryId) {
-            const existedWordFromCommonDictionary = await WordInDictionaryModel.findById(wordFromCommonDictionaryId);
+        if(wordInCommonDictionaryId) {
+            const existedWordInCommonDictionary = await WordInCommonDictionaryModel.findById(wordInCommonDictionaryId);
 
-            isWordFromCommonDictionaryExist = Boolean(existedWordFromCommonDictionary);
+            isWordInCommonDictionaryExist = Boolean(existedWordInCommonDictionary);
             // Check for word existence in common dictionary.
-            if(!isWordFromCommonDictionaryExist) {
+            if(!isWordInCommonDictionaryExist) {
                 return null;
             }else {
-                isWordFromCommonDictionaryExist = true;
+                isWordInCommonDictionaryExist = true;
             }
         }
         
 
         const newUserWord = new UserDictionaryModel({
             user: userId,
-            wordFromCommonDictionary: isWordFromCommonDictionaryExist ? wordFromCommonDictionaryId : "",
+            wordInCommonDictionary: isWordInCommonDictionaryExist ? wordInCommonDictionaryId : null,
             userWord: {
                 word,
                 translation,
@@ -40,8 +40,13 @@ export class UserDictionaryService {
           });
                 
         const savedNewUserWord = await newUserWord.save();
-        await (await savedNewUserWord.populate('user', '-password')).populate('wordFromCommonDictionary');
         
+        
+        // if(isWordInCommonDictionaryExist){
+            await (await savedNewUserWord.populate('user', '-password')).populate('wordInCommonDictionary');
+        // }else {
+        //     await savedNewUserWord.populate('user', '-password');
+        // }
         
         return savedNewUserWord;
     }
