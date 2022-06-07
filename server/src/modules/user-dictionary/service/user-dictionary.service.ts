@@ -11,7 +11,7 @@ export class UserDictionaryService {
 
 
     // async addWord (userId, wordId){
-    async addWord (userId,{ wordInCommonDictionaryId, word, translation, transcription, usageExamples}: AddWordToUserDto){
+    async addWord (userId,{ wordInCommonDictionaryId, word, translation, transcription, usageExamples, studyStatus}: AddWordToUserDto){
     
         let isWordInCommonDictionaryExist = false;
        
@@ -38,8 +38,9 @@ export class UserDictionaryService {
                 word,
                 translation,
                 transcription,
-                usageExamples
-            }
+                usageExamples,
+            },
+            studyStatus,
           });
                 
         const savedNewUserWord = await newUserWord.save();

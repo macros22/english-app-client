@@ -1,6 +1,10 @@
 import * as mongoose from 'mongoose';
+import { WordStudyStatus } from '../../../types/types';
+// import { WordStudyStatus } from 'src/types/types';
 import { WordInCommonDictionary, wordInCommonDictionarySchema } from '../../common-dictionary/model/common-dictionary.model';
 // import { wordInDictionarySchema } from 'src/modules/dictionary/model/dictionary.model';
+
+
 
 
 // 1. Create an interface representing a document in MongoDB.
@@ -8,7 +12,7 @@ export interface UserDictionary {
   user: mongoose.Schema.Types.ObjectId;
   wordInCommonDictionary: mongoose.Schema.Types.ObjectId | null;
   userWord: WordInCommonDictionary,
-  status: string;
+  studyStatus: WordStudyStatus;
 }
 
 
@@ -23,7 +27,7 @@ const schema = new mongoose.Schema<UserDictionary>({
     type: mongoose.Schema.Types.ObjectId,
   },
   userWord: { type: wordInCommonDictionarySchema },
-  status: { type: String, default: "In process" },
+  studyStatus: { type: String, default: WordStudyStatus.UNKNOWN },
 
 }, { timestamps: true });
 
