@@ -54,6 +54,9 @@ import SplitButton from '../../atoms/splitButton/SplitButton';
           <TableCell width={200}>{row.translation}</TableCell>
           <TableCell width={150} align='center'>
             {/* <SplitButton /> */}
+
+          <Chip color="primary"  icon={<DoneIcon />} />
+
             </TableCell>
 
         </TableRow>

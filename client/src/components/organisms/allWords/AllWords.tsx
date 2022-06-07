@@ -12,7 +12,7 @@ const wordsDefault: Word[] = [{id: 1,
 
 const AllWords = () => {
 
-  const [words, setWords] = React.useState<Word[] | null>([])
+  const [words, setWords] = React.useState<Word[]>(wordsDefault)
 
   
 
@@ -24,7 +24,7 @@ const AllWords = () => {
 
   return (
     <>
-    <Paper elevation={1} sx={{padding: '1rem', maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+    <Paper elevation={1} sx={{padding: '1rem', maxWidth: 1000, margin: 'auto', overflow: 'hidden' }}>
       <WordsTable words={words || wordsDefault} />
     </Paper>
 

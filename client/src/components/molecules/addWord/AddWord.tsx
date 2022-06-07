@@ -1,10 +1,11 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import React from "react";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { WordStudyStatus } from "types/types";
-import { SplitButton } from "components";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+
 
 const validationSchema = yup.object({
   word: yup
@@ -47,11 +48,11 @@ const AddWord: React.FC = () => {
 
   const formik = useFormik({
     initialValues: {
-      word: "erf",
-      transcription: "erf",
-      translation: "erfe",
-      usageExample: "wefw",
-      usageExampleTranslation: "wef",
+      word: "example",
+      transcription: "example",
+      translation: "example",
+      usageExample: "example",
+      usageExampleTranslation: "example",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -71,10 +72,15 @@ const AddWord: React.FC = () => {
     },
   });
 
+  const handleSelectStatusChange = (event: SelectChangeEvent) => {
+    setStudyStatus(event.target.value as WordStudyStatus);
+  };
+
+
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        <Box sx={{ flexGrow: 1, padding: "2rem" }}>
+        <Box sx={{ flexGrow: 1, padding: "1rem" }}>
           <Grid container spacing={2}>
             <Grid container item spacing={2}>
               <Grid item xs>
@@ -89,7 +95,7 @@ const AddWord: React.FC = () => {
                   fullWidth
                   id="word"
                   name="word"
-                  label="word"
+                  label="Word"
                   value={formik.values.word}
                   onChange={formik.handleChange}
                   error={formik.touched.word && Boolean(formik.errors.word)}
@@ -101,7 +107,7 @@ const AddWord: React.FC = () => {
                   fullWidth
                   id="transcription"
                   name="transcription"
-                  label="transcription"
+                  label="Transcription"
                   type="transcription"
                   value={formik.values.transcription}
                   onChange={formik.handleChange}
@@ -119,7 +125,7 @@ const AddWord: React.FC = () => {
                   fullWidth
                   id="translation"
                   name="translation"
-                  label="translation"
+                  label="Translation"
                   type="translation"
                   value={formik.values.translation}
                   onChange={formik.handleChange}
@@ -172,7 +178,21 @@ const AddWord: React.FC = () => {
                 />
               </Grid>
               <Grid item xs>
-                <SplitButton state={studyStatus} setState={setStudyStatus} />
+                {/* <SplitButton state={studyStatus} setState={setStudyStatus} /> */}
+                <FormControl fullWidth>
+                  <InputLabel id="study-status-select-label">Study status</InputLabel>
+                  <Select
+                    labelId="study-status-select-label"
+                    id="study-status-select"
+                    value={studyStatus}
+                    label="Study status"
+                    onChange={handleSelectStatusChange }
+                  >
+                    <MenuItem value={WordStudyStatus.LEARN}>{WordStudyStatus.LEARN}</MenuItem>
+                    <MenuItem value={WordStudyStatus.KNOW}>{WordStudyStatus.KNOW}</MenuItem>
+                    <MenuItem value={WordStudyStatus.UNKNOWN}>{WordStudyStatus.UNKNOWN}</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
             <Grid container item>
@@ -180,10 +200,12 @@ const AddWord: React.FC = () => {
                 <Button
                   color="primary"
                   variant="contained"
+                  disableElevation
+                  startIcon={<AddBoxIcon />}
                   fullWidth
                   type="submit"
                 >
-                  Submit
+                  Add word
                 </Button>
               </Grid>
             </Grid>
