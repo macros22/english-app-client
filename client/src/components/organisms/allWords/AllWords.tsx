@@ -8,7 +8,7 @@ const wordsDefault: Word[] = [{id: 1,
   transcription: "string;",
   translation: ["sd"],
   usageExamples: [{sentence: "sdf", translation: "sad"} as UsageExample],
-  studyStatus: WordStudyStatus.UNKNOWN}]
+  studyStatus: WordStudyStatus.LEARN}]
 
 const AllWords = () => {
 

@@ -22,17 +22,17 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import { Chip, Collapse, Divider, TableHead, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Word } from '../../../types/types';
+import { Word, WordStudyStatus } from '../../../types/types';
 import DoneIcon from '@mui/icons-material/Done';
-import SplitButton from '../../atoms/splitButton/SplitButton';
-
-
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import CloseIcon from '@mui/icons-material/Close';
 
   function Row(props: { row: ReturnType<typeof createData> }) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
   
-    const handleDelete = () => {};
+
+  
 
     return (
       <React.Fragment>
@@ -53,10 +53,23 @@ import SplitButton from '../../atoms/splitButton/SplitButton';
           <TableCell>{row.transcription}</TableCell>
           <TableCell width={200}>{row.translation}</TableCell>
           <TableCell width={150} align='center'>
-            {/* <SplitButton /> */}
+            
 
-          <Chip color="primary"  icon={<DoneIcon />} />
-
+          {
+              row.studyStatus == WordStudyStatus.KNOW 
+              &&
+              <Chip color={"success"} label={row.studyStatus} icon={<DoneIcon />} />
+          }
+          {
+              row.studyStatus == WordStudyStatus.UNKNOWN 
+              &&
+              <Chip color={"error"} label={row.studyStatus} icon={<CloseIcon />} />
+          }
+          {
+              row.studyStatus == WordStudyStatus.LEARN 
+              &&
+              <Chip color={"info"} label={row.studyStatus} icon={<AccessTimeFilledIcon />} />
+          }
             </TableCell>
 
         </TableRow>
@@ -71,7 +84,7 @@ import SplitButton from '../../atoms/splitButton/SplitButton';
                   <TableHead>
                     <TableRow>
                       <TableCell>English</TableCell>
-                      <TableCell>Russian</TableCell>
+                      <TableCell>Translation</TableCell>
                       
                     </TableRow>
                   </TableHead>
