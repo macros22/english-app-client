@@ -1,11 +1,21 @@
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { WordStudyStatus } from "types/types";
-import AddBoxIcon from '@mui/icons-material/AddBox';
-
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 const validationSchema = yup.object({
   word: yup
@@ -75,7 +85,6 @@ const AddWord: React.FC = () => {
   const handleSelectStatusChange = (event: SelectChangeEvent) => {
     setStudyStatus(event.target.value as WordStudyStatus);
   };
-
 
   return (
     <div>
@@ -180,17 +189,25 @@ const AddWord: React.FC = () => {
               <Grid item xs>
                 {/* <SplitButton state={studyStatus} setState={setStudyStatus} /> */}
                 <FormControl fullWidth>
-                  <InputLabel id="study-status-select-label">Study status</InputLabel>
+                  <InputLabel id="study-status-select-label">
+                    Study status
+                  </InputLabel>
                   <Select
                     labelId="study-status-select-label"
                     id="study-status-select"
                     value={studyStatus}
                     label="Study status"
-                    onChange={handleSelectStatusChange }
+                    onChange={handleSelectStatusChange}
                   >
-                    <MenuItem value={WordStudyStatus.LEARN}>{WordStudyStatus.LEARN}</MenuItem>
-                    <MenuItem value={WordStudyStatus.KNOW}>{WordStudyStatus.KNOW}</MenuItem>
-                    <MenuItem value={WordStudyStatus.UNKNOWN}>{WordStudyStatus.UNKNOWN}</MenuItem>
+                    <MenuItem value={WordStudyStatus.LEARN}>
+                      {WordStudyStatus.LEARN}
+                    </MenuItem>
+                    <MenuItem value={WordStudyStatus.KNOW}>
+                      {WordStudyStatus.KNOW}
+                    </MenuItem>
+                    <MenuItem value={WordStudyStatus.UNKNOWN}>
+                      {WordStudyStatus.UNKNOWN}
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

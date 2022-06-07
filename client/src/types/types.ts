@@ -1,27 +1,25 @@
 export enum WordStudyStatus {
-    LEARN = 'learn',
-    KNOW = 'know',
-    UNKNOWN = 'unknown',
+  LEARN = "learn",
+  KNOW = "know",
+  UNKNOWN = "unknown",
 }
 
 // export type WordStudyStatus = 'learn' | 'know' | 'unknown';
 
+export interface UsageExample {
+  sentence: string;
+  translation: string;
+}
 
-  export interface UsageExample {
-    sentence: string;
-    translation: string;
-  }
-  
-  export interface Word {
-    id: number;
-    word: string;
-    transcription: string;
-    translation: string[];
-    usageExamples: UsageExample[];
-    studyStatus: WordStudyStatus;
-  }
+export interface Word {
+  id: number;
+  word: string;
+  transcription: string;
+  translation: string[];
+  usageExamples: UsageExample[];
+  studyStatus: WordStudyStatus;
+}
 
-  export interface UserWord extends Word {
-    createdAt: Date;
-  }
-  
+export interface UserWord extends Word {
+  createdAt: Date;
+}
