@@ -19,7 +19,16 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
-import { Chip, Collapse, Divider, TableHead, Typography, TextField, SelectChangeEvent, Button } from "@mui/material";
+import {
+  Chip,
+  Collapse,
+  Divider,
+  TableHead,
+  Typography,
+  TextField,
+  SelectChangeEvent,
+  Button,
+} from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Word, WordStudyStatus } from "../../../types/types";
@@ -27,16 +36,15 @@ import DoneIcon from "@mui/icons-material/Done";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { useFormik,  useFormikContext  } from "formik";
 import * as yup from "yup";
-
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
-    
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "none" }, height: 20 }}>
         <TableCell width={40}>
@@ -108,10 +116,8 @@ function Row(props: { row: ReturnType<typeof createData> }) {
         </TableCell>
       </TableRow>
     </React.Fragment>
-   
   );
 }
-
 
 const validationSchema = yup.object({
   word: yup
@@ -132,48 +138,63 @@ const validationSchema = yup.object({
     .required("Usage example translation is required"),
 });
 
-
-
-
+export interface FormData {
+  word: string;
+  transcription: string;
+  translation: string;
+  usageExample: string;
+  usageExampleTranslation: string;
+}
 
 function EditRow(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
-
   const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
     row.studyStatus
   );
 
-    
+  const defaultValues = {
+    word: row.word,
+    transcription: row.transcription,
+    translation: row.translation[0],
+    usageExample: row.usageExamples[0].sentence,
+    usageExampleTranslation: row.usageExamples[0].translation,
+  };
 
-  const formik = useFormik({
-    initialValues: {
-      word: row.word,
-      transcription: row.transcription,
-      translation: row.translation[0],
-      usageExample: row.usageExamples[0].sentence,
-      usageExampleTranslation: row.usageExamples[0].translation,
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-     
-    },
+  const {
+    // register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues,
+    resolver: yupResolver(validationSchema),
   });
-
+  const onSubmit = (data: FormData) => {
+    alert(JSON.stringify(data, null, 2));
+    // postWord({
+    //   word: data.word,
+    //   transcription: data.transcription,
+    //   translation: [data.translation],
+    //   usageExamples: [
+    //     {
+    //       sentence: data.usageExample,
+    //       translation: data.usageExampleTranslation,
+    //     },
+    //   ],
+    // });
+  };
 
   const handleSelectStatusChange = (event: SelectChangeEvent) => {
     setStudyStatus(event.target.value as WordStudyStatus);
   };
 
-
   return (
-   
     <React.Fragment>
-      
       <TableRow sx={{ "& > *": { borderBottom: "none" }, height: 20 }}>
-      {/* <form onSubmit={formik.handleSubmit}> */}
+        {/* <form onSubmit={formik.handleSubmit}> */}
         <TableCell width={40}>
           <IconButton
             aria-label="expand row"
@@ -186,55 +207,59 @@ function EditRow(props: { row: ReturnType<typeof createData> }) {
         <TableCell width={40} component="th" scope="row">
           {row.id}
         </TableCell>
-        <TableCell width={140} >
-        <TextField
-                  // fullWidth
-                  variant="standard"
-                  id="word"
-                  name="word"
-                  // label="Word"
-                  value={formik.values.word}
-                  onChange={formik.handleChange}
-                  error={formik.touched.word && Boolean(formik.errors.word)}
-                  helperText={formik.touched.word && formik.errors.word}
-                />
+        <TableCell width={140}>
+          <Controller
+            name={"word"}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                variant="standard"
+                id="word"
+                name="word"
+                value={value}
+                onChange={onChange}
+                error={Boolean(errors.word)}
+                helperText={errors.word && errors?.word?.message}
+              />
+            )}
+          />
         </TableCell>
-        <TableCell width={140} >
-        <TextField
-                  // fullWidth
-                  variant="standard"
-                  id="transcription"
-                  name="transcription"
-                  // label="Transcription"
-                  type="transcription"
-                  value={formik.values.transcription}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.transcription &&
-                    Boolean(formik.errors.transcription)
-                  }
-                  helperText={
-                    formik.touched.transcription && formik.errors.transcription
-                  }
-                />
+        <TableCell width={140}>
+          <Controller
+            name={"transcription"}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                variant="standard"
+                id="transcription"
+                name="transcription"
+                value={value}
+                onChange={onChange}
+                error={Boolean(errors.transcription)}
+                helperText={
+                  errors.transcription && errors?.transcription?.message
+                }
+              />
+            )}
+          />
         </TableCell>
-        <TableCell width={200}><TextField
-                  // fullWidth
-                  variant="standard"
-                  id="translation"
-                  name="translation"
-                  // label="Translation"
-                  type="translation"
-                  value={formik.values.translation}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.translation &&
-                    Boolean(formik.errors.translation)
-                  }
-                  helperText={
-                    formik.touched.translation && formik.errors.translation
-                  }
-                /></TableCell>
+        <TableCell width={200}>
+          <Controller
+            name={"translation"}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextField
+                variant="standard"
+                id="translation"
+                name="translation"
+                value={value}
+                onChange={onChange}
+                error={Boolean(errors.translation)}
+                helperText={errors.translation && errors?.translation?.message}
+              />
+            )}
+          />
+        </TableCell>
         <TableCell width={150} align="center">
           {row.studyStatus == WordStudyStatus.KNOW && (
             <Chip
@@ -259,24 +284,19 @@ function EditRow(props: { row: ReturnType<typeof createData> }) {
           )}
         </TableCell>
         <TableCell>
-        
-        {/*
-        // @ts-ignore */}
-        <Button
-                  color="primary"
-                  variant="contained"
-                  disableElevation
-                  // startIcon={<AddBoxIcon />}
-                  
-                  onClick={formik.handleSubmit}
-                  
-                  fullWidth
-                  type="submit"
-                >
-                  Add word
-                </Button>
-          </TableCell>
-          
+         
+          <Button
+            color="primary"
+            variant="contained"
+            disableElevation
+            // startIcon={<AddBoxIcon />}
+            onClick={handleSubmit(onSubmit)}
+            fullWidth
+           
+          >
+            Change word
+          </Button>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell sx={{ padding: "0px", border: "0px" }} colSpan={4}>
@@ -307,12 +327,9 @@ function EditRow(props: { row: ReturnType<typeof createData> }) {
           </Collapse>
         </TableCell>
       </TableRow>
-    
     </React.Fragment>
-   
   );
 }
-
 
 interface TablePaginationActionsProps {
   count: number;
@@ -460,11 +477,13 @@ const WordsTable: React.FC<IProps> = ({ words }) => {
             {(rowsPerPage > 0
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
-            ).map((row) => (
-              row.isEditingNow 
-                ? <EditRow key={row.id} row={row} />
-                : <Row key={row.id} row={row} />
-            ))}
+            ).map((row) =>
+              row.isEditingNow ? (
+                <EditRow key={row.id} row={row} />
+              ) : (
+                <Row key={row.id} row={row} />
+              )
+            )}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={6} />

@@ -13,7 +13,8 @@ const Paperbase = () => {
           // variant="outlined"
           sx={{
             padding: "0.5rem",
-            minWidth: 940, maxWidth: 965,
+            minWidth: 940,
+            maxWidth: 965,
             margin: "auto",
             overflow: "hidden",
           }}
