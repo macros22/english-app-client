@@ -9,6 +9,8 @@ import LogInDto from '../dto/log-in.dto';
 import * as responsehandler from '../../../lib/response-handler';
 import authenticationService from '../service/authentication.service';
 import { NextFunction, Request, Response } from 'express';
+import RequestWithUser from '../../../interfaces/request-with-user.interface';
+import authMiddleware from '../../../middleware/auth.middleware';
 
 export default class AuthenticationController extends BaseController {
   public path = '/api/auth';
@@ -23,6 +25,7 @@ export default class AuthenticationController extends BaseController {
     
     this.router.post(`/register`, validationMiddleware(CreateUserDto), this.register);
     this.router.post(`/login`, validationMiddleware(LogInDto), this.login);
+    this.router.get(`/me`, authMiddleware, this.me);
     this.router.post(`/logout`, this.logout);
 
   }
@@ -51,10 +54,18 @@ export default class AuthenticationController extends BaseController {
       next(new WrongCredentialsException());
     }
 
-    const [user, cookie] = loginData
+    const [user, cookie, token] = loginData
 
-    res.locals.data = user;
+    res.locals.data = {user, accessToken: token};
     res.setHeader('Set-Cookie', [cookie as string]);
+    responsehandler.send(res);
+
+  }
+
+  private me = async ({user}: RequestWithUser, res: Response, next: NextFunction) => {
+
+    res.locals.data = {email: user.email};
+
     responsehandler.send(res);
 
   }
