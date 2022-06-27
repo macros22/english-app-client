@@ -52,7 +52,7 @@ export default function SignIn() {
       .then((res) => {
         console.log(res.data.accessToken);
         if(res.data.accessToken){
-          setCookie(authCookie, res.data.accessToken);
+          // setCookie(authCookie, res.data.accessToken);
           router.push("/");
         }
         

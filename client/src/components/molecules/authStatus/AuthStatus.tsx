@@ -21,8 +21,8 @@ export const AuthStatus = (): JSX.Element => {
 
     try {
       const res = await axios.post(LOGOUT_URL);
-      removeCookie(authCookie);
-      // router.push("/auth");
+      // removeCookie(authCookie);
+      router.push("/auth");
     } catch (err) {
       console.error(err);
     }
@@ -40,7 +40,7 @@ export const AuthStatus = (): JSX.Element => {
     } catch (err) {
       setLoginStatus("Not logged in");
 
-      // router.push("/auth");
+      router.push("/auth");
     }
   }
 
