@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    
     "lib": ["es2018"],
     "rootDirs": ["tests", "src"],
     "target": "es2018",
@@ -11,7 +12,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
+    "baseUrl": "./src/",
        "paths": {
            "*": [
                "node_modules/*",

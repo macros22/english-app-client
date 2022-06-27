@@ -27,18 +27,7 @@ const AllWords = () => {
 
   return (
     <>
-      <Paper
-        elevation={1}
-        sx={{
-          padding: "1.2rem",
-          minWidth: 940,
-          maxWidth: 965,
-          margin: "auto",
-          overflow: "hidden",
-        }}
-      >
-        <WordsTable words={words || wordsDefault} />
-      </Paper>
+      <WordsTable words={words || wordsDefault} />
     </>
   );
 };

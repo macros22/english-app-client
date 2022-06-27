@@ -14,6 +14,7 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { AuthStatus } from 'components/molecules/authStatus/AuthStatus';
 
 
 
@@ -51,7 +52,8 @@ export default function Header(props: HeaderProps) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dictionary
           </Typography>
-          <Button color="inherit">Login</Button>
+          {/* <Button color="inherit">Login</Button> */}
+          <AuthStatus />
         </Toolbar>
       </AppBar>
 

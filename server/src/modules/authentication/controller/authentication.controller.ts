@@ -57,9 +57,11 @@ export default class AuthenticationController extends BaseController {
     const [user, cookie, token] = loginData
 
     res.locals.data = {user, accessToken: token};
-    res.setHeader('Set-Cookie', [cookie as string]);
+    res.cookie('Authorization', token, {
+      maxAge: 1000 * 60 * 60, // 1 min * 60
+      // httpOnly: true // http only, prevents JavaScript cookie access
+  });
     responsehandler.send(res);
-
   }
 
   private me = async ({user}: RequestWithUser, res: Response, next: NextFunction) => {
@@ -71,8 +73,9 @@ export default class AuthenticationController extends BaseController {
   }
 
   private logout = (request: express.Request, response: express.Response) => {
-    response.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);
-    response.sendStatus(200);
+    response.clearCookie('Authorization')
+    response.status(200);
+    response.end();
   }
 
 }

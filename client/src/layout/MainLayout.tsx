@@ -172,7 +172,8 @@ theme = {
 };
 
 
-const drawerWidth = 256;
+// const drawerWidth = 256;
+const drawerWidth = 200;
 
 
 
