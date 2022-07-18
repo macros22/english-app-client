@@ -1,1 +1,0 @@
-{"c":["pages/index","webpack"],"r":["pages/auth/[authMode]"],"m":["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Fauth%2F%5BauthMode%5D&absolutePagePath=%2Fhome%2Fmax%2Fcode%2Fenglish-app%2Fclient%2Fsrc%2Fpages%2Fauth%2F%5BauthMode%5D.tsx!","./src/pages/auth/[authMode].tsx"]}
