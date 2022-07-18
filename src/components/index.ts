@@ -1,5 +1,8 @@
-export {default as  Header} from './organisms/header/Header';
-export {default as  Navigator} from './organisms/navigator/Navigator';
-export {default as  WordsTable} from './organisms/wordsTable/WordsTable';
-export {default as  AllWords} from './organisms/allWords/AllWords';
-export {default as  AddWord} from './molecules/addWord/AddWord';
+export { SignUp } from './SignUp/SignUp';
+export { SignIn } from './SignIn/SignIn';
+export { NavBar } from './NavBar/NavBar';
+export { Layout } from './Layout/Layout';
+export { AllWordsTable } from './AllWordsTable/AllWordsTable';
+export { AddWord } from './AddWord/AddWord';
+
+
