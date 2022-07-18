@@ -1,13 +1,15 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { Button, Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
+import { Word } from 'types/types';
 import { RowType } from './AllWordsTable';
 
 export interface RowProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	rowData: RowType;
+	rowData: Word;
+	toggleIsEditingNow: () => void;
 }
 
-export const Row = ({ rowData }: RowProps) => {
+export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
 	const handleOpenExamplesButton = () => {
@@ -22,19 +24,19 @@ export const Row = ({ rowData }: RowProps) => {
 				<Table.Cell>{rowData.transcription}</Table.Cell>
 				<Table.Cell>{rowData.translation}</Table.Cell>
 				<Table.Cell>
-					<Label color={'green'} size="large">
+					<Label color={'green'} size="large" >
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<Button icon size="medium">
-						<Icon name="edit" />
+					<Button icon size="medium" onClick={toggleIsEditingNow}>
+						<Icon name="edit" size='large'/>
 					</Button>
 					<Button icon size="medium">
-						<Icon name="trash alternate" />
+						<Icon name="trash alternate" size='large'/>
 					</Button>
 					<Button icon size="medium" onClick={handleOpenExamplesButton}>
-						<Icon name={`chevron ${isExamplesOpen ? 'up' : 'down'}`} />
+						<Icon name={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large'/>
 					</Button>
 				</Table.Cell>
 			</Table.Row>

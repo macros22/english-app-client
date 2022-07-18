@@ -1,13 +1,15 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { Button, Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
+import { Word } from 'types/types';
 import { RowType } from './AllWordsTable';
 
 export interface RowWithEditProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	rowData: RowType;
+	rowData: Word;
+	toggleIsEditingNow: () => void;
 }
 
-export const RowWithEdit = ({ rowData }: RowWithEditProps) => {
+export const RowWithEdit = ({ rowData, toggleIsEditingNow }: RowWithEditProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
 	const handleOpenExamplesButton = () => {
@@ -28,13 +30,13 @@ export const RowWithEdit = ({ rowData }: RowWithEditProps) => {
 				</Table.Cell>
 				<Table.Cell>
 					<Button icon size="medium">
-						<Icon name="edit" />
+						<Icon name="edit" onClick={toggleIsEditingNow} size='large'/>
 					</Button>
 					<Button icon size="medium">
-						<Icon name="trash alternate" />
+						<Icon name="trash alternate" size='large' />
 					</Button>
 					<Button icon size="medium" onClick={handleOpenExamplesButton}>
-						<Icon name={`chevron ${isExamplesOpen ? 'up' : 'down'}`} />
+						<Icon name={`chevron ${isExamplesOpen ? 'up' : 'down'}`}  size='large'/>
 					</Button>
 				</Table.Cell>
 			</Table.Row>

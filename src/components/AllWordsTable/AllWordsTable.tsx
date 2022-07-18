@@ -5,26 +5,35 @@ import { wordsDefault } from './defaultWords';
 import { Row } from './Row';
 import { RowWithEdit } from './RowWithEdit';
 
-export function createData(word: Word) {
+export function createRowData(word: Word) {
 	return {
 		...word,
 		isEditingNow: false,
 	};
 }
 
-export type RowType = ReturnType<typeof createData>;
+export type RowType = ReturnType<typeof createRowData>;
 
 export const AllWordsTable = () => {
 
-	const rows = wordsDefault
-		.map((word) => createData(word))
+	const rowsPerPage = 5;
+	const rows = wordsDefault.slice(0, rowsPerPage)
 		.sort((a, b) => (a.id < b.id ? -1 : 1));
 
-	rows[0].isEditingNow = true;
+
+	const [rowsEditStatus, setRowsEditStatus] = React.useState(new Array(rows.length).fill({ toggleIsEditingNow: false }));
+
+	const toggleIsEditingNow = (index: number) => {
+		setRowsEditStatus(rowsRowsEdit => {
+			const newRowsEditStatus = [...rowsEditStatus];
+			newRowsEditStatus[index] = !rowsRowsEdit[index];
+			return newRowsEditStatus;
+		})
+	}
 
 	return (
 		<>
-			<Table basic style={{ width: '1050px', backgroundColor: 'white'}}>
+			<Table basic style={{ width: '1050px', backgroundColor: 'white' }}>
 				<Table.Header >
 					<Table.Row textAlign='center'>
 						<Table.HeaderCell >Id</Table.HeaderCell>
@@ -37,11 +46,11 @@ export const AllWordsTable = () => {
 				</Table.Header>
 
 				<Table.Body>
-					{rows.map((row) => {
-						return row.isEditingNow ? (
-							<RowWithEdit rowData={row} key={row.id} />
+					{rowsEditStatus.map((rowEditStatus, index) => {
+						return rowEditStatus ? (
+							<RowWithEdit rowData={rows[index]} key={rows[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						) : (
-							<Row rowData={row} key={row.id} />
+							<Row rowData={rows[index]} key={rows[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						);
 					})}
 				</Table.Body>
