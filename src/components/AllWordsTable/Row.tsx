@@ -16,7 +16,7 @@ export const Row = ({ rowData }: RowProps) => {
 
 	return (
 		<>
-			<Table.Row>
+			<Table.Row textAlign='center'>
 				<Table.Cell>{rowData.id}</Table.Cell>
 				<Table.Cell>{rowData.word}</Table.Cell>
 				<Table.Cell>{rowData.transcription}</Table.Cell>

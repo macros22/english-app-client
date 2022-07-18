@@ -16,7 +16,7 @@ export const RowWithEdit = ({ rowData }: RowWithEditProps) => {
 
 	return (
 		<>
-			<Table.Row>
+			<Table.Row textAlign='center'>
 				<Table.Cell>{rowData.id}</Table.Cell>
 				<Table.Cell><Input placeholder='english...' value={rowData.word} /></Table.Cell>
 				<Table.Cell><Input placeholder='transcription...' value={rowData.transcription} /></Table.Cell>

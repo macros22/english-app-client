@@ -24,15 +24,15 @@ export const AllWordsTable = () => {
 
 	return (
 		<>
-			<Table celled style={{ width: '1050px' }}>
-				<Table.Header>
-					<Table.Row>
-						<Table.HeaderCell>Id</Table.HeaderCell>
-						<Table.HeaderCell>English</Table.HeaderCell>
-						<Table.HeaderCell>Transcription</Table.HeaderCell>
-						<Table.HeaderCell>Translation</Table.HeaderCell>
-						<Table.HeaderCell>Status</Table.HeaderCell>
-						<Table.HeaderCell></Table.HeaderCell>
+			<Table basic style={{ width: '1050px', backgroundColor: 'white'}}>
+				<Table.Header >
+					<Table.Row textAlign='center'>
+						<Table.HeaderCell >Id</Table.HeaderCell>
+						<Table.HeaderCell >English</Table.HeaderCell>
+						<Table.HeaderCell >Transcription</Table.HeaderCell>
+						<Table.HeaderCell >Translation</Table.HeaderCell>
+						<Table.HeaderCell >Status</Table.HeaderCell>
+						<Table.HeaderCell ></Table.HeaderCell>
 					</Table.Row>
 				</Table.Header>
 
