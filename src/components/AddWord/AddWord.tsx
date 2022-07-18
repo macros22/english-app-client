@@ -205,7 +205,7 @@ export const AddWord = (): JSX.Element => {
 							<Form.Input {...register(`usageExamples.${index}.translation` as const, {
 								required: true
 							})} placeholder="Translation sentence"  />
-							<Form.Button size='large' type="submit" content="Delete" onClick={() => remove(index)} width={2}/>
+							<Form.Button size='large' color='red' content="Delete" onClick={() => remove(index)} width={2}/>
                   
 						</Form.Group>
 					);
@@ -213,7 +213,7 @@ export const AddWord = (): JSX.Element => {
 
 
 				<Form.Group >
-					<Form.Button size='large' type="submit" content="Save" />
+					<Form.Button primary size='large' type="submit" content="Save" />
 					<Form.Button size='large' content="Reset" />
 					<Form.Button size='large' content="Add usage example"  onClick={() =>
             append({

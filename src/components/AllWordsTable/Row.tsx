@@ -1,7 +1,7 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { Button, Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
 import { Word } from 'types/types';
-import { RowType } from './AllWordsTable';
+
 
 export interface RowProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -18,7 +18,7 @@ export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
 
 	return (
 		<>
-			<Table.Row textAlign='center'>
+			<Table.Row textAlign='center' >
 				<Table.Cell>{rowData.id}</Table.Cell>
 				<Table.Cell>{rowData.word}</Table.Cell>
 				<Table.Cell>{rowData.transcription}</Table.Cell>
@@ -29,15 +29,10 @@ export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<Button icon size="medium" onClick={toggleIsEditingNow}>
-						<Icon name="edit" size='large'/>
-					</Button>
-					<Button icon size="medium">
-						<Icon name="trash alternate" size='large'/>
-					</Button>
-					<Button icon size="medium" onClick={handleOpenExamplesButton}>
-						<Icon name={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large'/>
-					</Button>
+					<Button basic icon="edit" size="large" onClick={toggleIsEditingNow} />
+					<Button basic icon="trash alternate" size="large" />
+					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
+
 				</Table.Cell>
 			</Table.Row>
 			{isExamplesOpen &&

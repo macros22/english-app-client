@@ -5,14 +5,7 @@ import { wordsDefault } from './defaultWords';
 import { Row } from './Row';
 import { RowWithEdit } from './RowWithEdit';
 
-export function createRowData(word: Word) {
-	return {
-		...word,
-		isEditingNow: false,
-	};
-}
 
-export type RowType = ReturnType<typeof createRowData>;
 
 export const AllWordsTable = () => {
 
@@ -33,7 +26,7 @@ export const AllWordsTable = () => {
 
 	return (
 		<>
-			<Table basic style={{ width: '1050px', backgroundColor: 'white' }}>
+			<Table basic style={{ width: '98%', backgroundColor: 'white' }}>
 				<Table.Header >
 					<Table.Row textAlign='center'>
 						<Table.HeaderCell >Id</Table.HeaderCell>

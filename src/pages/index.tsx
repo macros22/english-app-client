@@ -7,7 +7,7 @@ const Home = () => {
 	return (
 		<Layout>
 			<AllWordsTable />
-			<Segment style={{width: '1050px'}}>
+			<Segment style={{width: '95%'}}>
 				<AddWord />
 			</Segment>
 		</Layout>

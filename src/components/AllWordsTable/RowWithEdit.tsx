@@ -1,7 +1,6 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { Button, Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
 import { Word } from 'types/types';
-import { RowType } from './AllWordsTable';
 
 export interface RowWithEditProps
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -29,15 +28,9 @@ export const RowWithEdit = ({ rowData, toggleIsEditingNow }: RowWithEditProps) =
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<Button icon size="medium">
-						<Icon name="edit" onClick={toggleIsEditingNow} size='large'/>
-					</Button>
-					<Button icon size="medium">
-						<Icon name="trash alternate" size='large' />
-					</Button>
-					<Button icon size="medium" onClick={handleOpenExamplesButton}>
-						<Icon name={`chevron ${isExamplesOpen ? 'up' : 'down'}`}  size='large'/>
-					</Button>
+					<Button basic icon="edit" size="large" onClick={toggleIsEditingNow} />
+					<Button basic icon="trash alternate" size="large" />
+					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
 				</Table.Cell>
 			</Table.Row>
 			{isExamplesOpen &&
