@@ -1,5 +1,4 @@
 .idea/
-.next/
 .vscode/
 node_modules/
 build/
@@ -8,6 +7,10 @@ temp/
 /coverage/
 /.nyc_output/
 logs/
+
+# next.js
+/.next/
+/out/
 
 # don't check in  env files
 .env.prod
