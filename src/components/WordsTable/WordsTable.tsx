@@ -1,20 +1,24 @@
 import React from 'react';
 import { Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
 import { Word } from 'types/types';
-import { wordsDefault } from './defaultWords';
 import { Row } from './Row';
 import { RowWithEdit } from './RowWithEdit';
+import { WordsTableProps } from './WordsTable.props';
 
 
 
-export const AllWordsTable = () => {
+export const WordsTable = ({ words }: WordsTableProps): JSX.Element => {
 
-	const rowsPerPage = 5;
-	const rows = wordsDefault.slice(0, rowsPerPage)
+	if (!words) {
+		return <h1>No words</h1>
+	}
+
+	const rowsPerPage = words.length > 5 ? words.length : 5;
+	const rows = words.slice(0, rowsPerPage)
 		.sort((a, b) => (a.id < b.id ? -1 : 1));
 
 
-	const [rowsEditStatus, setRowsEditStatus] = React.useState(new Array(rows.length).fill({ toggleIsEditingNow: false }));
+	const [rowsEditStatus, setRowsEditStatus] = React.useState<boolean[]>(new Array(rows.length).fill(false));
 
 	const toggleIsEditingNow = (index: number) => {
 		setRowsEditStatus(rowsRowsEdit => {

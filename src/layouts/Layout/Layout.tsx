@@ -1,4 +1,4 @@
-import { NavBar } from 'components';
+import { NavBar } from 'layouts';
 import useUser from 'hooks/useUser.hook';
 import { useRouter } from 'next/router';
 import React from 'react';

@@ -1,5 +1,17 @@
 import { Word, UsageExample, WordStudyStatus } from "types/types";
 
+// const  words: Word[] = [
+//   {id: 1, eng: 'neglect', transcription:"tmp", rus: ['пренебрегать'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+//   {id: 2, eng: 'shun', transcription:"tmp", rus: ['избегать'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+//   {id: 3, eng: 'proposal', transcription:"tmp", rus: ['предложение'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+//   {id: 4, eng: 'attainment', transcription:"tmp", rus: ['достижение'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+//   {id: 5, eng: 'unnecessary', transcription:"tmp", rus: ['ненужный'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+//   {id: 6, eng: 'substrate', transcription:"tmp", rus: ['подложка'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+//   {id: 7, eng: 'sophisticated', transcription:"tmp", rus: ['сложный', 'утонченный'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},
+// ];
+
+
+
 export const wordsDefault: Word[] = [
   {
     id: 1,

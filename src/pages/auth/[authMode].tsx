@@ -1,5 +1,5 @@
-import { SignIn } from 'components/SignIn/SignIn';
-import { SignUp } from 'components/SignUp/SignUp';
+import { SignIn } from 'components/auth/SignIn/SignIn';
+import { SignUp } from 'components/auth/SignUp/SignUp';
 import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 
@@ -15,7 +15,10 @@ export const getServerSideProps: GetServerSideProps<AuthPageProps> = async (
 };
 
 const AuthPage = ({ isSignIn }: AuthPageProps): JSX.Element => {
-	return <>{isSignIn ? <SignIn /> : <SignUp />}</>;
+	return (
+		<>
+			{isSignIn ? <SignIn /> : <SignUp />}
+		</>);
 };
 
 export default AuthPage;
