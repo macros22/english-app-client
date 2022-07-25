@@ -1,6 +1,5 @@
-import { SignIn } from 'components/auth/SignIn/SignIn';
-import { SignUp } from 'components/auth/SignUp/SignUp';
-import { GetServerSideProps, NextPage } from 'next';
+import { SignIn, SignUp } from 'components';
+import { GetServerSideProps } from 'next';
 import React from 'react';
 
 interface AuthPageProps extends Record<string, unknown> {

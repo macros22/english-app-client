@@ -1,5 +1,5 @@
+import { useUser } from 'hooks';
 import { NavBar } from 'layouts';
-import useUser from 'hooks/useUser.hook';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { Container } from 'semantic-ui-react';

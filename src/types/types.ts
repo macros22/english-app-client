@@ -3,9 +3,6 @@ export enum WordStudyStatus {
   KNOW = "know",
   UNKNOWN = "unknown",
 }
-
-// export type WordStudyStatus = 'learn' | 'know' | 'unknown';
-
 export interface UsageExample {
   sentence: string;
   translation: string;

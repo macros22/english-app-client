@@ -1,7 +1,7 @@
 import { getUser } from "libs/auth.api";
 import useSWR from "swr";
 
-export default function useUser() {
+export const useUser = () => {
   const { data, mutate, error } = useSWR("api_user", getUser);
 
   const loading = !data && !error;

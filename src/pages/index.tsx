@@ -1,7 +1,7 @@
 import { Layout } from 'layouts';
-import { useCommonWords } from 'hooks/useCommonWords';
 import React from 'react';
 import { WordsTable, AddWord } from 'components';
+import { useCommonWords } from 'hooks';
 
 const Home = () => {
 

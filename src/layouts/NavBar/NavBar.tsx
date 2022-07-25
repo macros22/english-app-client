@@ -1,9 +1,8 @@
-import { Container, Menu, Button, Dropdown } from 'semantic-ui-react';
-import Image from 'next/image';
+import {  Menu, Dropdown } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import styles from './NavBar.module.scss';
-import useUser from 'hooks/useUser.hook';
 import { logout } from 'libs/auth.api';
+import { useUser } from 'hooks';
 
 export const NavBar = () => {
 	const router = useRouter();

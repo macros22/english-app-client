@@ -1,4 +1,4 @@
-import useUser from 'hooks/useUser.hook';
+import { useUser } from 'hooks';
 import { login } from 'libs/auth.api';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

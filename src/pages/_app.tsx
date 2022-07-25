@@ -9,17 +9,13 @@ import '@fontsource/roboto/700.css';
 
 import '../styles/globals.css';
 import { CookiesProvider } from 'react-cookie';
-import { AuthProvider } from 'contexts/auth.context';
 
-const MyApp: React.FunctionComponent<AppProps> = (props) => {
-	const { Component, pageProps } = props;
+const MyApp: React.FunctionComponent<AppProps> = ({ Component, pageProps }) => {
 
 	return (
-		<AuthProvider>
-			<CookiesProvider>
-				<Component {...pageProps} />
-			</CookiesProvider>
-		</AuthProvider>
+		<CookiesProvider>
+			<Component {...pageProps} />
+		</CookiesProvider>
 	);
 };
 
