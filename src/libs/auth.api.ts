@@ -11,7 +11,7 @@ export const login = async (email: string, password: string) => {
 			},
 			{ withCredentials: true }
 		);
-		return res.data.data.accessToken;
+		return res.data.accessToken;
 	} catch (error) {
 		console.log(error);
 	}
@@ -23,7 +23,7 @@ export const getUser = async () => {
 	try {
 		let res = await axios.get(AUTH_ME_URL, { withCredentials: true });
 
-		return res.data.data;
+		return res.data;
 	} catch (error) {
 		// console.log(error);
 		throw error;

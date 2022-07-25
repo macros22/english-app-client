@@ -1,5 +1,6 @@
 import {
 
+	Divider,
 	DropdownProps,
 
 } from 'semantic-ui-react';
@@ -139,88 +140,95 @@ export const AddWord = (): JSX.Element => {
 	return (
 		<>
 			<Form size="large" onSubmit={handleSubmit(onSubmit)} >
-				<Form.Group widths={'equal'}>
-					<Controller
-						name={'word'}
-						control={control}
-						render={({ field: { onChange, value } }) => (
-							<Form.Input
-								
-								value={value}
-								onChange={onChange}
-								error={errors.word?.message}
-								label="English word"
-								placeholder="English word"
+				{/* <Form.Group widths={'equal'}> */}
+				<Controller
+					name={'word'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
 
-							/>
-						)}
-					/>
-					<Controller
-						name={'transcription'}
-						control={control}
-						render={({ field: { onChange, value } }) => (
-							<Form.Input
-								error={errors.transcription?.message}
-								value={value}
-								onChange={onChange}
-								label="Transcription"
-								placeholder="Transcription"
+							value={value}
+							onChange={onChange}
+							error={errors.word?.message}
+							label="English word"
+							placeholder="English word"
 
-							/>
-						)}
-					/>
-					<Controller
-						name={'translation'}
-						control={control}
-						render={({ field: { onChange, value } }) => (
-							<Form.Input
-								
-								value={value}
-								onChange={onChange}
-								label="Translation"
-								placeholder="Translation"
-								error={errors.translation?.message}
-							/>
-						)}
-					/>
-					<Form.Select
-						label="Study status"
-						required
-						name='studyStatus'
-						onChange={handleSelectStatusChange}
-						placeholder="Select study status"
+						/>
+					)}
+				/>
+				<Controller
+					name={'transcription'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
+							error={errors.transcription?.message}
+							value={value}
+							onChange={onChange}
+							label="Transcription"
+							placeholder="Transcription"
 
-						value={studyStatus}
-						options={studyStatusOptions}
+						/>
+					)}
+				/>
+				{/* </Form.Group> */}
+				{/* <Form.Group widths={'equal'}> */}
+				<Controller
+					name={'translation'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
 
-					/>
-				</Form.Group>
+							value={value}
+							onChange={onChange}
+							label="Translation"
+							placeholder="Translation"
+							error={errors.translation?.message}
+						/>
+					)}
+				/>
+				<Form.Select
+					label="Study status"
+					required
+					name='studyStatus'
+					onChange={handleSelectStatusChange}
+					placeholder="Select study status"
+
+					value={studyStatus}
+					options={studyStatusOptions}
+
+				/>
+				{/* </Form.Group> */}
 
 				{fields.map((field, index) => {
 					return (
-						<Form.Group key={field.id} widths='equal'>
-							<Form.Input {...register(`usageExamples.${index}.sentence` as const, {
+						
+						<React.Fragment key={field.id}> 
+						<Form.Group  widths='equal'>
+							<Form.Input label={`Example #${index + 1}`} {...register(`usageExamples.${index}.sentence` as const, {
 								required: true
-							})} placeholder="English sentence"  />
-							<Form.Input {...register(`usageExamples.${index}.translation` as const, {
+							})} placeholder="English sentence" />
+							<Form.Input label={`Example #${index + 1}`} {...register(`usageExamples.${index}.translation` as const, {
 								required: true
-							})} placeholder="Translation sentence"  />
-							<Form.Button size='large' color='red' content="Delete" onClick={() => remove(index)} width={2}/>
-                  
-						</Form.Group>
+							})} placeholder="Translation sentence" />
+							<Form.Button icon='trash' label={``} size='large' color='red' onClick={() => remove(index)} width={2} />
+							
+						
+						</Form.Group> 
+						<Divider clearing />
+						</React.Fragment > 
 					);
 				})}
 
 
 				<Form.Group >
-					<Form.Button primary size='large' type="submit" content="Save" />
-					<Form.Button size='large' content="Reset" />
-					<Form.Button size='large' content="Add usage example"  onClick={() =>
-            append({
-              sentence: '',
-              translation: '',
-            })
-          }/>
+					<Form.Button icon='save' primary size='large' type="submit" content="Save" />
+					<Form.Button icon='undo' size='large' content="Reset" />
+					<Form.Button icon='add' labelPosition='left' size='large' content="Add usage example" onClick={() =>
+						append({
+							sentence: '',
+							translation: '',
+						})
+					} />
 				</Form.Group>
 			</Form>
 		</>

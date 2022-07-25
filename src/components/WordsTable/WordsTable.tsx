@@ -13,7 +13,7 @@ export const WordsTable = ({ words }: WordsTableProps): JSX.Element => {
 		return <h1>No words</h1>
 	}
 
-	const rowsPerPage = words.length > 5 ? words.length : 5;
+	const rowsPerPage = words.length < 5 ? words.length : 5;
 	const rows = words.slice(0, rowsPerPage)
 		.sort((a, b) => (a.id < b.id ? -1 : 1));
 

@@ -5,11 +5,11 @@ import { Word } from 'types/types';
 export const getCommonWords = async (skip: number, limit: number) => {
 	try {
 		const res = await axios.get(
-			GET_COMMON_WORDS
+			GET_COMMON_WORDS,
 	
-			// { withCredentials: true }
+			{ withCredentials: true }
 		);
-		return res.data.data as Word[];
+		return res.data as Word[];
 	} catch (error) {
 		console.log(error);
 	}
