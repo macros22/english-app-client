@@ -1,4 +1,4 @@
-import {  Menu, Dropdown } from 'semantic-ui-react';
+import {  Menu, Dropdown, Icon } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import styles from './NavBar.module.scss';
 import { logout } from 'libs/auth.api';
@@ -43,7 +43,8 @@ export const NavBar = () => {
 							'loading'
 						) : (
 							<Menu.Item name="logout" onClick={logoutHandler}>
-								Logout
+									Logout
+								    <Icon name='log out' size='large' />
 							</Menu.Item>
 						)
 					) : (

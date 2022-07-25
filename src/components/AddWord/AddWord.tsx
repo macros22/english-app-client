@@ -140,38 +140,37 @@ export const AddWord = (): JSX.Element => {
 	return (
 		<>
 			<Form size="large" onSubmit={handleSubmit(onSubmit)} >
-				{/* <Form.Group widths={'equal'}> */}
-				<Controller
-					name={'word'}
-					control={control}
-					render={({ field: { onChange, value } }) => (
-						<Form.Input
+				<Form.Group widths={'equal'}>
+					<Controller
+						name={'word'}
+						control={control}
+						render={({ field: { onChange, value } }) => (
+							<Form.Input
+								value={value}
+								onChange={onChange}
+								error={errors.word?.message}
+								label="English word"
+								placeholder="English word"
 
-							value={value}
-							onChange={onChange}
-							error={errors.word?.message}
-							label="English word"
-							placeholder="English word"
+							/>
+						)}
+					/>
+					<Controller
+						name={'transcription'}
+						control={control}
+						render={({ field: { onChange, value } }) => (
+							<Form.Input
+								error={errors.transcription?.message}
+								value={value}
+								onChange={onChange}
+								label="Transcription"
+								placeholder="Transcription"
 
-						/>
-					)}
-				/>
-				<Controller
-					name={'transcription'}
-					control={control}
-					render={({ field: { onChange, value } }) => (
-						<Form.Input
-							error={errors.transcription?.message}
-							value={value}
-							onChange={onChange}
-							label="Transcription"
-							placeholder="Transcription"
-
-						/>
-					)}
-				/>
-				{/* </Form.Group> */}
-				{/* <Form.Group widths={'equal'}> */}
+							/>
+						)}
+					/>
+				</Form.Group>
+				 <Form.Group widths={'equal'}> 
 				<Controller
 					name={'translation'}
 					control={control}
@@ -197,28 +196,29 @@ export const AddWord = (): JSX.Element => {
 					options={studyStatusOptions}
 
 				/>
-				{/* </Form.Group> */}
+				 </Form.Group> 
 
 				{fields.map((field, index) => {
 					return (
-						
-						<React.Fragment key={field.id}> 
-						<Form.Group  widths='equal'>
+
+						<React.Fragment key={field.id}>
+							{/* <Form.Group  widths='equal'> */}
 							<Form.Input label={`Example #${index + 1}`} {...register(`usageExamples.${index}.sentence` as const, {
 								required: true
 							})} placeholder="English sentence" />
-							<Form.Input label={`Example #${index + 1}`} {...register(`usageExamples.${index}.translation` as const, {
+							<Form.Input label={`Example #${index + 1} translation`} {...register(`usageExamples.${index}.translation` as const, {
 								required: true
 							})} placeholder="Translation sentence" />
-							<Form.Button icon='trash' label={``} size='large' color='red' onClick={() => remove(index)} width={2} />
-							
-						
-						</Form.Group> 
-						<Divider clearing />
-						</React.Fragment > 
+							<Form.Button icon='trash' labelPosition='left' content={`Delete example ${index+1}`}  size='large' color='red' onClick={() => remove(index)} width={2} />
+
+
+							{/* </Form.Group>  */}
+							<Divider clearing />
+						</React.Fragment >
 					);
 				})}
 
+				
 
 				<Form.Group >
 					<Form.Button icon='save' primary size='large' type="submit" content="Save" />
