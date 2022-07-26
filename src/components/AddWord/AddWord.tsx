@@ -12,33 +12,15 @@ import { postUserWord } from 'libs/user-words.api';
 import { useUserWords } from 'hooks';
 import { validationSchema } from './form.schema';
 import { IFormValues } from './interfaces';
+import { defaultFormValues, studyStatusOptions } from './constants';
 
-const studyStatusOptions = [
-	{ key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
-	{ key: WordStudyStatus.LEARN, value: WordStudyStatus.LEARN, text: WordStudyStatus.LEARN, label: { color: 'yellow', empty: true, circular: true } },
-	{ key: WordStudyStatus.UNKNOWN, value: WordStudyStatus.UNKNOWN, text: WordStudyStatus.UNKNOWN, label: { color: 'red', empty: true, circular: true } },
-];
 
 export const AddWord = (): JSX.Element => {
 	const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
 		WordStudyStatus.UNKNOWN
 	);
 
-	const { mutate: mutateUserWords} =  useUserWords();
-
-	const defaultValues: IFormValues = {
-		word: '',
-		transcription: '',
-		translation: '',
-		studyStatus,
-		usageExamples: [
-			{
-				sentence: 'asd',
-				translation: 'asd'
-			}
-		]
-	};
-
+	const { mutate: mutateUserWords } = useUserWords();
 	const {
 		handleSubmit,
 		reset,
@@ -47,7 +29,7 @@ export const AddWord = (): JSX.Element => {
 		trigger,
 		formState: { errors },
 	} = useForm<IFormValues>({
-		defaultValues,
+		defaultValues: defaultFormValues,
 		resolver: yupResolver(validationSchema),
 	});
 
@@ -56,11 +38,11 @@ export const AddWord = (): JSX.Element => {
 		control
 	});
 
-	const [loading, setLoading] = React.useState(false);
+	const [loadingPostWord, setLoadingPostWord] = React.useState(false);
 
 	const onSubmit = async (data: IFormValues) => {
 		reset();
-		setLoading(true);
+		setLoadingPostWord(true);
 		await postUserWord({
 			word: data.word,
 			transcription: data.transcription,
@@ -71,10 +53,10 @@ export const AddWord = (): JSX.Element => {
 					translation: fields[0].translation,
 				},
 			],
-		} as UserWord );
-		
+		} as UserWord);
+
 		mutateUserWords();
-		setLoading(false);
+		setLoadingPostWord(false);
 	};
 
 	const handleSelectStatusChange = (
@@ -119,33 +101,33 @@ export const AddWord = (): JSX.Element => {
 						)}
 					/>
 				</Form.Group>
-				 <Form.Group widths={'equal'}> 
-				<Controller
-					name={'translation'}
-					control={control}
-					render={({ field: { onChange, value } }) => (
-						<Form.Input
+				<Form.Group widths={'equal'}>
+					<Controller
+						name={'translation'}
+						control={control}
+						render={({ field: { onChange, value } }) => (
+							<Form.Input
 
-							value={value}
-							onChange={onChange}
-							label="Translation"
-							placeholder="Translation"
-							error={errors.translation?.message}
-						/>
-					)}
-				/>
-				<Form.Select
-					label="Study status"
-					required
-					name='studyStatus'
-					onChange={handleSelectStatusChange}
-					placeholder="Select study status"
+								value={value}
+								onChange={onChange}
+								label="Translation"
+								placeholder="Translation"
+								error={errors.translation?.message}
+							/>
+						)}
+					/>
+					<Form.Select
+						label="Study status"
+						required
+						name='studyStatus'
+						onChange={handleSelectStatusChange}
+						placeholder="Select study status"
 
-					value={studyStatus}
-					options={studyStatusOptions}
+						value={studyStatus}
+						options={studyStatusOptions}
 
-				/>
-				 </Form.Group> 
+					/>
+				</Form.Group>
 
 				{fields.map((field, index) => {
 					return (
@@ -158,7 +140,7 @@ export const AddWord = (): JSX.Element => {
 							<Form.Input label={`Example #${index + 1} translation`} {...register(`usageExamples.${index}.translation` as const, {
 								required: true
 							})} placeholder="Translation sentence" />
-							<Form.Button icon='trash' labelPosition='left' content={`Delete example ${index+1}`}  size='large' color='red' onClick={() => remove(index)} width={2} />
+							<Form.Button icon='trash' labelPosition='left' content={`Delete example ${index + 1}`} size='large' color='red' onClick={() => remove(index)} width={2} />
 
 
 							{/* </Form.Group>  */}
@@ -167,9 +149,8 @@ export const AddWord = (): JSX.Element => {
 					);
 				})}
 
-				
 				<Form.Group >
-					<Form.Button loading={loading} icon='save' primary size='large' type="submit" content="Save" />
+					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" />
 					<Form.Button icon='undo' size='large' content="Reset" />
 					<Form.Button icon='add' labelPosition='left' size='large' content="Add usage example" onClick={() =>
 						append({
