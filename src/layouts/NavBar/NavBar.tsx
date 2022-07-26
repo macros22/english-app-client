@@ -10,11 +10,11 @@ export const NavBar = () => {
 	const router = useRouter();
 
 
-	const { loading, loggedIn, user, mutate } = useUser();
+	const { loading, loggedIn, user, mutate: mutateUser } = useUser();
 
 	const logoutHandler = async () => {
 		await logout();
-		mutate();
+		mutateUser();
 	};
 
 	return (
@@ -46,7 +46,7 @@ export const NavBar = () => {
 						) : (
 							<Menu.Item >
 								{/* <Icon name='log out' size='big' className='ui transparent icon input'/> */}
-								<Button basic icon="log out" size="big" content='Logout' onClick={logoutHandler}/>
+								<Button basic icon="log out" size="big" content='Logout' onClick={logoutHandler} />
 							</Menu.Item>
 						)
 					) : (

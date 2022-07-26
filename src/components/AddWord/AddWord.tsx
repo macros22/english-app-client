@@ -11,6 +11,7 @@ import { UserWord, WordStudyStatus } from 'types/types';
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { postUserWord } from 'libs/user-words.api';
+import { useUserWords } from 'hooks';
 
 
 const studyStatusOptions = [
@@ -64,7 +65,7 @@ export const AddWord = (): JSX.Element => {
 		WordStudyStatus.UNKNOWN
 	);
 
-
+		const { mutate: mutateUserWords} =  useUserWords();
 
 
 	const defaultValues: IFormValues = {
@@ -101,10 +102,10 @@ export const AddWord = (): JSX.Element => {
 	});
 
 
-	const onSubmit = (data: IFormValues) => {
+	const onSubmit = async (data: IFormValues) => {
 		// alert(JSON.stringify(data, null, 2));
 		reset();
-		postUserWord({
+		await postUserWord({
 			word: data.word,
 			transcription: data.transcription,
 			translation: [data.translation],
@@ -115,6 +116,7 @@ export const AddWord = (): JSX.Element => {
 				},
 			],
 		} as UserWord );
+		mutateUserWords();
 	};
 
 	const handleSelectStatusChange = (
