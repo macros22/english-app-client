@@ -1,62 +1,23 @@
+import React from 'react';
 import {
 	Divider,
 	DropdownProps,
+	Form
 } from 'semantic-ui-react';
-import * as yup from 'yup';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { UserWord, WordStudyStatus } from 'types/types';
-import React from 'react';
-import { Form } from 'semantic-ui-react';
 import { postUserWord } from 'libs/user-words.api';
 import { useUserWords } from 'hooks';
-
+import { validationSchema } from './form.schema';
+import { IFormValues } from './interfaces';
 
 const studyStatusOptions = [
-
 	{ key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
 	{ key: WordStudyStatus.LEARN, value: WordStudyStatus.LEARN, text: WordStudyStatus.LEARN, label: { color: 'yellow', empty: true, circular: true } },
 	{ key: WordStudyStatus.UNKNOWN, value: WordStudyStatus.UNKNOWN, text: WordStudyStatus.UNKNOWN, label: { color: 'red', empty: true, circular: true } },
 ];
-
-interface IUsageExample {
-	sentence: string;
-	translation: string;
-}
-
-interface IFormValues {
-	word: string;
-	transcription: string;
-	translation: string;
-	studyStatus: string;
-	usageExamples: IUsageExample[];
-}
-
-const validationSchema = yup.object({
-	word: yup
-		.string()
-		.min(2, 'Word should be of minimum 2 characters length')
-		.required('Word is required'),
-	transcription: yup
-		.string()
-		.min(2, 'Transcription should be of minimum 2 characters length')
-		.required('Transcription is required'),
-	translation: yup
-		.string()
-		.min(2, 'Translation should be of minimum 2 characters length')
-		.required('Translation is required'),
-	studyStatus: yup
-		.string()
-		.required(),
-	usageExamples: yup.array()
-		.of(
-			yup.object().shape({
-				sentence: yup.string(),
-				translation: yup.boolean(),
-			})
-		)
-		.required('Required'),
-});
 
 export const AddWord = (): JSX.Element => {
 	const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
@@ -65,14 +26,11 @@ export const AddWord = (): JSX.Element => {
 
 	const { mutate: mutateUserWords} =  useUserWords();
 
-	
-
-
 	const defaultValues: IFormValues = {
 		word: '',
 		transcription: '',
 		translation: '',
-		studyStatus: WordStudyStatus.UNKNOWN,
+		studyStatus,
 		usageExamples: [
 			{
 				sentence: 'asd',
@@ -81,10 +39,7 @@ export const AddWord = (): JSX.Element => {
 		]
 	};
 
-
-
 	const {
-		// register,
 		handleSubmit,
 		reset,
 		register,
@@ -101,14 +56,10 @@ export const AddWord = (): JSX.Element => {
 		control
 	});
 
-
-
 	const [loading, setLoading] = React.useState(false);
 
 	const onSubmit = async (data: IFormValues) => {
-		// alert(JSON.stringify(data, null, 2));
 		reset();
-
 		setLoading(true);
 		await postUserWord({
 			word: data.word,
