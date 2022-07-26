@@ -1,27 +1,38 @@
 import { useUserWords } from 'hooks';
 import React from 'react';
-import { Icon, Menu, Table } from 'semantic-ui-react';
+import { Icon, Menu, Pagination, PaginationProps, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { RowWithEdit } from '../Row/RowWithEdit';
 import { WordsTableProps } from './WordsTable.props';
 
-export const WordsTable = ({ words: dadsas }: WordsTableProps): JSX.Element => {
+export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 
-	const { words, loading } = useUserWords();
+	// ! TMP
+	const wordsCount = 4;
 
-	
+	const [page, setPage] = React.useState(3);
 
-	
-	// const [page, setPage] = React.useState(1);
-	const defaultRowsPerPage = 5;
+	const defaultWordsPerPageCount = 5;
+	const wordsPerPageCount = defaultWordsPerPageCount > wordsCount ? wordsCount : defaultWordsPerPageCount;
 
-	const rowsPerPage = defaultRowsPerPage > words.length ? words.length : defaultRowsPerPage;
+	const [skip, setSkip] = React.useState((page - 1) * wordsPerPageCount);
 
-	// const [skip, setSkip] = React.useState((page-1) * defaultRowsPerPage);
-	const rows = words.slice(0, rowsPerPage)
+	// const { words, loading, mutate: mutateUserWords } = useUserWords({ skip, limit: wordsPerPageCount });
+	const { words, loading} = useUserWords(skip, wordsPerPageCount);
 
+	React.useEffect(() => {
+		console.log(words)
+	}, [loading])
 
-	const [rowsEditStatus, setRowsEditStatus] = React.useState<boolean[]>(new Array(rows.length).fill(false));
+	const handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { activePage }: PaginationProps) => {
+		setPage(Number(activePage) || 1);
+	}
+
+	React.useEffect(() => {
+		setSkip((page - 1) * wordsPerPageCount);
+	}, [page])
+
+	const [rowsEditStatus, setRowsEditStatus] = React.useState<boolean[]>(new Array(wordsPerPageCount).fill(false));
 
 	const toggleIsEditingNow = (index: number) => {
 		setRowsEditStatus(rowsRowsEdit => {
@@ -56,9 +67,9 @@ export const WordsTable = ({ words: dadsas }: WordsTableProps): JSX.Element => {
 				<Table.Body>
 					{rowsEditStatus.map((rowEditStatus, index) => {
 						return rowEditStatus ? (
-							<RowWithEdit rowData={rows[index]} key={rows[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
+							<RowWithEdit rowData={words[index]} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						) : (
-							<Row rowData={rows[index]} key={rows[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
+							<Row rowData={words[index]} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						);
 					})}
 				</Table.Body>
@@ -66,18 +77,21 @@ export const WordsTable = ({ words: dadsas }: WordsTableProps): JSX.Element => {
 				<Table.Footer>
 					<Table.Row>
 						<Table.HeaderCell colSpan="6">
-							<Menu floated="right" pagination>
-								<Menu.Item as="a" icon>
-									<Icon name="chevron left" />
-								</Menu.Item>
-								<Menu.Item as="a">1</Menu.Item>
-								<Menu.Item as="a">2</Menu.Item>
-								<Menu.Item as="a">3</Menu.Item>
-								<Menu.Item as="a">4</Menu.Item>
-								<Menu.Item as="a" icon>
-									<Icon name="chevron right" />
-								</Menu.Item>
-							</Menu>
+							<Pagination
+								activePage={page}
+								onPageChange={handlePaginationChange}
+								// boundaryRange={boundaryRange}
+								// onPageChange={this.handlePaginationChange}
+								// size='mini'
+								// siblingRange={siblingRange}
+								totalPages={wordsCount}
+							// // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
+							// ellipsisItem={showEllipsis ? undefined : null}
+							// firstItem={showFirstAndLastNav ? undefined : null}
+							// lastItem={showFirstAndLastNav ? undefined : null}
+							// prevItem={showPreviousAndNextNav ? undefined : null}
+							// nextItem={showPreviousAndNextNav ? undefined : null}
+							/>
 						</Table.HeaderCell>
 					</Table.Row>
 				</Table.Footer>

@@ -16,11 +16,10 @@ import { defaultFormValues, studyStatusOptions } from './constants';
 
 
 export const AddWord = (): JSX.Element => {
-	const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
-		WordStudyStatus.UNKNOWN
-	);
 
 	const { mutate: mutateUserWords } = useUserWords();
+
+	// Form initialization.
 	const {
 		handleSubmit,
 		reset,
@@ -33,7 +32,7 @@ export const AddWord = (): JSX.Element => {
 		resolver: yupResolver(validationSchema),
 	});
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields: usageExamplesFields, append, remove } = useFieldArray({
 		name: "usageExamples",
 		control
 	});
@@ -42,23 +41,32 @@ export const AddWord = (): JSX.Element => {
 
 	const onSubmit = async (data: IFormValues) => {
 		reset();
-		setLoadingPostWord(true);
-		await postUserWord({
-			word: data.word,
-			transcription: data.transcription,
-			translation: [data.translation],
-			usageExamples: [
-				{
-					sentence: fields[0].sentence,
-					translation: fields[0].translation,
-				},
-			],
-		} as UserWord);
+		try {
+			setLoadingPostWord(true);
+			await postUserWord({
+				word: data.word,
+				transcription: data.transcription,
+				translation: [data.translation],
+				usageExamples: [
+					{
+						sentence: usageExamplesFields[0].sentence,
+						translation: usageExamplesFields[0].translation,
+					},
+				],
+			} as UserWord);
 
-		mutateUserWords();
+			mutateUserWords();
+			
+		} catch (e) {
+			
+		}
 		setLoadingPostWord(false);
 	};
 
+	// Study status dropdown.
+	const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
+		WordStudyStatus.UNKNOWN
+	);
 	const handleSelectStatusChange = (
 		event: React.SyntheticEvent<HTMLElement, Event>,
 		data: DropdownProps
@@ -129,7 +137,7 @@ export const AddWord = (): JSX.Element => {
 					/>
 				</Form.Group>
 
-				{fields.map((field, index) => {
+				{usageExamplesFields.map((field, index) => {
 					return (
 
 						<React.Fragment key={field.id}>

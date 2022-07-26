@@ -1,14 +1,10 @@
 import axios from 'axios';
-import { GET_USER_WORDS, POST_USER_WORD } from 'constants/url';
+import { POST_USER_WORD } from 'constants/url';
 import { UserWord } from 'types/types';
 
-export const getUserWords = async (skip: number, limit: number) => {
+export const getUserWords = async (url: string) => {
     try {
-        const res = await axios.get(
-            GET_USER_WORDS,
-
-            { withCredentials: true }
-        );
+        const res = await axios.get(url, { withCredentials: true });
         return res.data as UserWord[];
     } catch (error) {
         console.log(error);

@@ -5,15 +5,11 @@ import { useCommonWords } from 'hooks';
 
 const Home = () => {
 
-	const { words, loading } = useCommonWords();
 
 	return (
 		<Layout>
-			{
-				loading
-					? <h1>Loading</h1>
-					: <WordsTable words={words ? words : []} />
-			}
+		 <WordsTable />
+		
 		</Layout>
 	);
 };
