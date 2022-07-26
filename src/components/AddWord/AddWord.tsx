@@ -7,9 +7,10 @@ import {
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { WordStudyStatus } from 'types/types';
+import { UserWord, WordStudyStatus } from 'types/types';
 import React from 'react';
 import { Form } from 'semantic-ui-react';
+import { postUserWord } from 'libs/user-words.api';
 
 
 const studyStatusOptions = [
@@ -64,17 +65,6 @@ export const AddWord = (): JSX.Element => {
 	);
 
 
-	const postWord = async (formData: any) => {
-		// let response = await fetch('http://localhost:3146/api/dictionary/addWord', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// 	body: JSON.stringify(formData),
-		// });
-		// console.log(await response.json());
-	};
-
 
 
 	const defaultValues: IFormValues = {
@@ -114,18 +104,17 @@ export const AddWord = (): JSX.Element => {
 	const onSubmit = (data: IFormValues) => {
 		// alert(JSON.stringify(data, null, 2));
 		reset();
-		console.log('sdasd', data)
-		// postWord({
-		// 	word: data.word,
-		// 	transcription: data.transcription,
-		// 	translation: [data.translation],
-		// 	usageExamples: [
-		// 		{
-		// 			sentence: data.usageExample,
-		// 			translation: data.usageExampleTranslation,
-		// 		},
-		// 	],
-		// });
+		postUserWord({
+			word: data.word,
+			transcription: data.transcription,
+			translation: [data.translation],
+			usageExamples: [
+				{
+					sentence: fields[0].sentence,
+					translation: fields[0].translation,
+				},
+			],
+		} as UserWord );
 	};
 
 	const handleSelectStatusChange = (

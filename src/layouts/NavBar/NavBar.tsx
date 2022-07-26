@@ -28,6 +28,7 @@ export const NavBar = () => {
 
 					<Menu.Item name="Add word" link active={router.pathname === '/add-word'} onClick={() => router.push('/add-word')}>
 						{/* <Link href="/add-word">Add word</Link> */}
+						{/* <Button icon='add' size='small'  /> */}
 					</Menu.Item>
 
 					<Menu.Item name="All words" link active={router.pathname === '/'} onClick={() => router.push('/')}>

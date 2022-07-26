@@ -1,21 +1,24 @@
+import { useUserWords } from 'hooks';
 import React from 'react';
-import { Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
-import { Word } from 'types/types';
-import { Row } from './Row';
-import { RowWithEdit } from './RowWithEdit';
+import { Icon, Menu, Table } from 'semantic-ui-react';
+import { Row } from '../Row/Row';
+import { RowWithEdit } from '../Row/RowWithEdit';
 import { WordsTableProps } from './WordsTable.props';
 
+export const WordsTable = ({ words: dadsas }: WordsTableProps): JSX.Element => {
 
+	const { words, loading } = useUserWords();
 
-export const WordsTable = ({ words }: WordsTableProps): JSX.Element => {
+	
 
-	if (!words) {
-		return <h1>No words</h1>
-	}
+	
+	// const [page, setPage] = React.useState(1);
+	const defaultRowsPerPage = 5;
 
-	const rowsPerPage = words.length < 5 ? words.length : 5;
+	const rowsPerPage = defaultRowsPerPage > words.length ? words.length : defaultRowsPerPage;
+
+	// const [skip, setSkip] = React.useState((page-1) * defaultRowsPerPage);
 	const rows = words.slice(0, rowsPerPage)
-		.sort((a, b) => (a.id < b.id ? -1 : 1));
 
 
 	const [rowsEditStatus, setRowsEditStatus] = React.useState<boolean[]>(new Array(rows.length).fill(false));
@@ -26,6 +29,14 @@ export const WordsTable = ({ words }: WordsTableProps): JSX.Element => {
 			newRowsEditStatus[index] = !rowsRowsEdit[index];
 			return newRowsEditStatus;
 		})
+	}
+
+	if (loading) {
+		return <h1>loadign</h1>
+	}
+
+	if (!words?.length) {
+		return <h1>No words</h1>
 	}
 
 	return (
