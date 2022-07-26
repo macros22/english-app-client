@@ -1,8 +1,6 @@
 import {
-
 	Divider,
 	DropdownProps,
-
 } from 'semantic-ui-react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -65,7 +63,9 @@ export const AddWord = (): JSX.Element => {
 		WordStudyStatus.UNKNOWN
 	);
 
-		const { mutate: mutateUserWords} =  useUserWords();
+	const { mutate: mutateUserWords} =  useUserWords();
+
+	
 
 
 	const defaultValues: IFormValues = {
@@ -102,9 +102,14 @@ export const AddWord = (): JSX.Element => {
 	});
 
 
+
+	const [loading, setLoading] = React.useState(false);
+
 	const onSubmit = async (data: IFormValues) => {
 		// alert(JSON.stringify(data, null, 2));
 		reset();
+
+		setLoading(true);
 		await postUserWord({
 			word: data.word,
 			transcription: data.transcription,
@@ -116,7 +121,9 @@ export const AddWord = (): JSX.Element => {
 				},
 			],
 		} as UserWord );
+		
 		mutateUserWords();
+		setLoading(false);
 	};
 
 	const handleSelectStatusChange = (
@@ -210,9 +217,8 @@ export const AddWord = (): JSX.Element => {
 				})}
 
 				
-
 				<Form.Group >
-					<Form.Button icon='save' primary size='large' type="submit" content="Save" />
+					<Form.Button loading={loading} icon='save' primary size='large' type="submit" content="Save" />
 					<Form.Button icon='undo' size='large' content="Reset" />
 					<Form.Button icon='add' labelPosition='left' size='large' content="Add usage example" onClick={() =>
 						append({
