@@ -1,11 +1,14 @@
-import {  Menu, Dropdown, Icon } from 'semantic-ui-react';
+import { Menu, Dropdown, Icon, Button } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import styles from './NavBar.module.scss';
 import { logout } from 'libs/auth.api';
 import { useUser } from 'hooks';
+import React from 'react';
+import Link from 'next/link';
 
 export const NavBar = () => {
 	const router = useRouter();
+
 
 	const { loading, loggedIn, user, mutate } = useUser();
 
@@ -22,16 +25,14 @@ export const NavBar = () => {
 				</Menu.Item>
 
 				<Menu.Menu position="right">
-					<Dropdown item text="Language">
-						<Dropdown.Menu>
-							<Dropdown.Item>English</Dropdown.Item>
-							<Dropdown.Item>Russian</Dropdown.Item>
-							<Dropdown.Item>Spanish</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
 
-					<Menu.Item name="Add word" active={true} />
-					<Menu.Item name="All words" />
+					<Menu.Item name="Add word" link active={router.pathname === '/add-word'} onClick={() => router.push('/add-word')}>
+						{/* <Link href="/add-word">Add word</Link> */}
+					</Menu.Item>
+
+					<Menu.Item name="All words" link active={router.pathname === '/'} onClick={() => router.push('/')}>
+						{/* <Link href="/">All words</Link> */}
+					</Menu.Item>
 
 					{loggedIn ? (
 						<Menu.Item name="user">{user.name}</Menu.Item>
@@ -42,9 +43,9 @@ export const NavBar = () => {
 						loading ? (
 							'loading'
 						) : (
-							<Menu.Item name="logout" onClick={logoutHandler}>
-									Logout
-								    <Icon name='log out' size='large' />
+							<Menu.Item >
+								{/* <Icon name='log out' size='big' className='ui transparent icon input'/> */}
+								<Button basic icon="log out" size="big" content='Logout' onClick={logoutHandler}/>
 							</Menu.Item>
 						)
 					) : (

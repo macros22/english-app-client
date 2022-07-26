@@ -20,12 +20,10 @@ export const SignIn = () => {
 
 	const router = useRouter();
 
-  React.useEffect(() => {
-    console.log(user)
-  }, [user]);
+
 
   React.useEffect(() => {
-    // if (loggedIn) router.replace("/");
+    if (loggedIn) router.replace("/");
   }, [loggedIn]);
 
   if (loggedIn) return <> Redirecting.... </>;
