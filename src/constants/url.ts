@@ -11,4 +11,5 @@ export const GET_COMMON_WORDS = BASE_URL + 'words';
 
 // Users words.
 export const GET_USER_WORDS = BASE_URL + 'user-words';
+export const GET_USER_WORDS_COUNT = GET_USER_WORDS + '/count';
 export const POST_USER_WORD = BASE_URL + 'user-words';

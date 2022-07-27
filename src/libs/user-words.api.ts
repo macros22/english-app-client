@@ -13,6 +13,18 @@ export const getUserWords = async (url: string) => {
     return null;
 };
 
+export const getUserWordsCount = async (url: string) => {
+    try {
+        const res = await axios.get(url, { withCredentials: true });
+        return res.data as number;
+    } catch (error) {
+        console.log(error);
+    }
+
+    return null;
+};
+
+
 export const postUserWord = async (word: UserWord) => {
     try {
         const res = await axios.post(
