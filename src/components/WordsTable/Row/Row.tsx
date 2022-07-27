@@ -1,6 +1,6 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Button, Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
-import { Word } from 'types/types';
+import { Button, Icon, Input, Label, Menu, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Word, WordStudyStatus } from 'types/types';
 
 
 export interface RowProps
@@ -9,8 +9,15 @@ export interface RowProps
 	toggleIsEditingNow: () => void;
 }
 
+const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
+	[WordStudyStatus.KNOW] : 'green',
+	[WordStudyStatus.LEARN] : 'yellow',
+	[WordStudyStatus.UNKNOWN] : 'red',
+}
+
 export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
+
 
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
@@ -24,7 +31,7 @@ export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
 				<Table.Cell>{rowData.transcription}</Table.Cell>
 				<Table.Cell>{rowData.translation}</Table.Cell>
 				<Table.Cell>
-					<Label color={'green'} size="large" >
+					<Label color={labelColors[rowData.studyStatus]} size="large" >
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>

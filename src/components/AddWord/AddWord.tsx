@@ -53,6 +53,7 @@ export const AddWord = (): JSX.Element => {
 						translation: usageExamplesFields[0].translation,
 					},
 				],
+				studyStatus,
 			} as UserWord);
 
 			mutateUserWords();

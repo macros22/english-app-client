@@ -22,7 +22,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 	// Pagination logic.
 	React.useEffect(() => {
 		if (count) {
-			const pages = count > defaultWordsPerPageCount ? Number(Math.ceil(count / defaultWordsPerPageCount)) : 1
+			const pages = count > defaultWordsPerPageCount ? Number(Math.ceil(count / defaultWordsPerPageCount)) : 1;
 			setTotalPages(pages);
 		}
 	}, [count])
@@ -33,7 +33,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 		if (count) {
 			if (count < defaultWordsPerPageCount) {
 				tmpWordsPerPage = count;
-			} else if (page == (totalPages)) { // for last page
+			} else if (page == (totalPages) && (page != 1)) { // for last page
 				tmpWordsPerPage = count - (page - 1) * defaultWordsPerPageCount;
 			} else {
 				tmpWordsPerPage = defaultWordsPerPageCount;
@@ -41,6 +41,8 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 		}
 		setWordsPerPageCount(tmpWordsPerPage)
 		setSkip((page - 1) * tmpWordsPerPage);
+		
+		// console.log(count);
 		setRowsEditStatus(new Array(tmpWordsPerPage).fill(false))
 	}, [page, count])
 
@@ -82,7 +84,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 
 				<Table.Body>
 					{rowsEditStatus.map((rowEditStatus, index) => {
-						console.log(index)
+						// console.log(index)
 						return rowEditStatus ? (
 							<RowWithEdit rowData={words[index]} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						) : (
