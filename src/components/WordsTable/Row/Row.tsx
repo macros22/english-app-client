@@ -38,9 +38,9 @@ export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 			</Table.Row>
 			{isExamplesOpen &&
 				rowData.usageExamples.map((exampleRow) => (
-					<Table.Row key={exampleRow.sentence}>
+					<Table.Row key={exampleRow.sentence} >
 						<Table.Cell></Table.Cell>
-						<Table.Cell>{exampleRow.sentence}</Table.Cell>
+						<Table.Cell colspan={3}>{exampleRow.sentence}</Table.Cell>
 						<Table.Cell></Table.Cell>
 						<Table.Cell>{exampleRow.translation}</Table.Cell>
 					</Table.Row>

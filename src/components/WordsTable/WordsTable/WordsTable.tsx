@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUserWords, useUserWordsCount } from 'hooks';
-import { Dimmer, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
+import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { RowWithEdit } from '../Row/RowWithEdit';
 import { WordsTableProps } from './WordsTable.props';
@@ -75,6 +75,10 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 
 	return (
 		<>
+			<Label size='big' color='blue'>
+				All words
+				<Label.Detail>{wordsCount}</Label.Detail>
+			</Label>
 			<Table basic style={{ width: '98%', backgroundColor: 'white' }}>
 				<Table.Header >
 					<Table.Row textAlign='center'>
@@ -100,7 +104,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 
 				<Table.Footer>
 					<Table.Row>
-						<Table.HeaderCell colSpan="6">
+						<Table.HeaderCell textAlign='center' colSpan="6">
 							<Pagination
 								activePage={currentPage}
 								onPageChange={handlePaginationChange}
