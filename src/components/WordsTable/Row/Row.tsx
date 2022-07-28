@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Icon, Input, Label, Menu, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Button, Label, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { WordStudyStatus } from 'types/types';
 import { RowProps } from './Row.props';
 
@@ -23,7 +23,7 @@ export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 				<Table.Cell>{rowId}</Table.Cell>
 				<Table.Cell>{rowData.word}</Table.Cell>
 				<Table.Cell>{rowData.transcription}</Table.Cell>
-				<Table.Cell>{rowData.translation}</Table.Cell>
+				<Table.Cell>{rowData.translations[0]}</Table.Cell>
 				<Table.Cell>
 					<Label color={labelColors[rowData.studyStatus]} size="large" >
 						{rowData.studyStatus}

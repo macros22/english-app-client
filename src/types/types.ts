@@ -3,20 +3,21 @@ export enum WordStudyStatus {
   KNOW = "know",
   UNKNOWN = "unknown",
 }
-export interface UsageExample {
+export interface IUsageExample {
   sentence: string;
   translation: string;
 }
 
-export interface Word {
-  id: number;
+export interface IWord {
+  id: string;
   word: string;
   transcription: string;
-  translation: string[];
-  usageExamples: UsageExample[];
+  translations: string[];
+  definitions: string[];
+  usageExamples: IUsageExample[];
   studyStatus: WordStudyStatus;
 }
 
-export interface UserWord extends Word {
+export interface IUserWord extends IWord {
   createdAt: Date;
 }

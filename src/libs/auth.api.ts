@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_ME_URL, BASE_URL, LOGOUT_URL, SIGN_IN_URL } from 'constants/url';
+import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL } from 'constants/url';
 
 export const login = async (email: string, password: string) => {
 	try {

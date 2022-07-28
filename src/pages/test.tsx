@@ -8,6 +8,11 @@ type FormValues = {
     price: number;
     quantity: number;
   }[];
+  dart: {
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
 };
 
 const Total = ({ control }: { control: Control<FormValues> }) => {
@@ -30,12 +35,17 @@ export default function App() {
     formState: { errors }
   } = useForm<FormValues>({
     defaultValues: {
-      cart: [{ name: "test", quantity: 1, price: 23 }]
+      cart: [{ name: "test", quantity: 1, price: 23 }],
+      dart: [{ name: "test", quantity: 1, price: 23 }]
     },
     mode: "onBlur"
   });
   const { fields, append, remove } = useFieldArray({
     name: "cart",
+    control
+  });
+  const { fields: f, append: a, remove: r } = useFieldArray({
+    name: "dart",
     control
   });
   const onSubmit = (data: FormValues) => console.log(data);

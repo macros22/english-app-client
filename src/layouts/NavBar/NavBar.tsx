@@ -1,15 +1,12 @@
-import { Menu, Dropdown, Icon, Button, Label } from 'semantic-ui-react';
+import { Menu, Button, Label } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import styles from './NavBar.module.scss';
 import { logout } from 'libs/auth.api';
 import { useUser } from 'hooks';
 import React from 'react';
-import Link from 'next/link';
 
 export const NavBar = () => {
 	const router = useRouter();
-
-
 	const { loading, loggedIn, user, mutate: mutateUser } = useUser();
 
 	const logoutHandler = async () => {
@@ -36,7 +33,7 @@ export const NavBar = () => {
 					</Menu.Item>
 
 					{loggedIn ? (
-						<Menu.Item name="user"><Label style={{margin: 0}} size="big" icon="user" color='green' content={user.name} /></Menu.Item>
+						<Menu.Item name="user"><Label style={{ margin: 0 }} size="big" icon="user" color='green' content={user.name} /></Menu.Item>
 					) : (
 						<Menu.Item name="sign-in">Sign-in</Menu.Item>
 					)}

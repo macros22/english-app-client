@@ -82,7 +82,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 			<Table basic style={{ width: '98%', backgroundColor: 'white' }}>
 				<Table.Header >
 					<Table.Row textAlign='center'>
-						<Table.HeaderCell >Id</Table.HeaderCell>
+						<Table.HeaderCell >№</Table.HeaderCell>
 						<Table.HeaderCell >English</Table.HeaderCell>
 						<Table.HeaderCell >Transcription</Table.HeaderCell>
 						<Table.HeaderCell >Translation</Table.HeaderCell>
