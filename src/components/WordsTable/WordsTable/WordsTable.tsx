@@ -1,7 +1,7 @@
 import { useUserWords } from 'hooks';
 import { useUserWordsCount } from 'hooks/useUserWords';
 import React from 'react';
-import { Icon, Menu, Pagination, PaginationProps, Table } from 'semantic-ui-react';
+import { Pagination, PaginationProps, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { RowWithEdit } from '../Row/RowWithEdit';
 import { WordsTableProps } from './WordsTable.props';
@@ -10,8 +10,8 @@ import { WordsTableProps } from './WordsTable.props';
 const defaultWordsPerPageCount = 5;
 
 export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
-	const { count } = useUserWordsCount();
-	const [page, setPage] = React.useState(1);
+	const { count: wordsCount } = useUserWordsCount();
+	const [currentPage, setCurrentPage] = React.useState(1);
 	const [totalPages, setTotalPages] = React.useState(1);
 	const [skip, setSkip] = React.useState(0);
 	const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
@@ -21,35 +21,33 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 
 	// Pagination logic.
 	React.useEffect(() => {
-		if (count) {
-			const pages = count > defaultWordsPerPageCount ? Number(Math.ceil(count / defaultWordsPerPageCount)) : 1;
-			setTotalPages(pages);
+		if (wordsCount) {
+			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
+			setTotalPages(pagesCount);
 		}
-	}, [count])
+	}, [wordsCount])
 
 	// Logic for correct display rows count.
 	React.useEffect(() => {
-		let tmpWordsPerPage = 0;
-		if (count) {
-			if (count < defaultWordsPerPageCount) {
-				tmpWordsPerPage = count;
-			} else if (page == (totalPages) && (page != 1)) { // for last page
-				tmpWordsPerPage = count - (page - 1) * defaultWordsPerPageCount;
+		let wordsPerPage = 0;
+		if (wordsCount) {
+			if (wordsCount < defaultWordsPerPageCount) {
+				wordsPerPage = wordsCount;
+			} else if (currentPage == (totalPages) && (currentPage != 1)) { // for last page
+				wordsPerPage = wordsCount - (currentPage - 1) * defaultWordsPerPageCount;
 			} else {
-				tmpWordsPerPage = defaultWordsPerPageCount;
+				wordsPerPage = defaultWordsPerPageCount;
 			}
 		}
-		setWordsPerPageCount(tmpWordsPerPage)
-		setSkip((page - 1) * tmpWordsPerPage);
-		
-		// console.log(count);
-		setRowsEditStatus(new Array(tmpWordsPerPage).fill(false))
-	}, [page, count])
+		setWordsPerPageCount(wordsPerPage)
+		setSkip((currentPage - 1) * wordsPerPage);
+		setRowsEditStatus(new Array(wordsPerPage).fill(false))
+	}, [currentPage, wordsCount])
 
 
 	// Handlers.
 	const handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { activePage }: PaginationProps) => {
-		setPage(Number(activePage) || 1);
+		setCurrentPage(Number(activePage) || 1);
 	}
 
 	const toggleIsEditingNow = (index: number) => {
@@ -84,7 +82,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 
 				<Table.Body>
 					{rowsEditStatus.map((rowEditStatus, index) => {
-						// console.log(index)
+
 						return rowEditStatus ? (
 							<RowWithEdit rowData={words[index]} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						) : (
@@ -97,7 +95,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 					<Table.Row>
 						<Table.HeaderCell colSpan="6">
 							<Pagination
-								activePage={page}
+								activePage={currentPage}
 								onPageChange={handlePaginationChange}
 								// boundaryRange={boundaryRange}
 								// onPageChange={this.handlePaginationChange}
