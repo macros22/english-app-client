@@ -1,21 +1,15 @@
-import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
+import React from 'react';
 import { Button, Icon, Input, Label, Menu, SemanticCOLORS, Table } from 'semantic-ui-react';
-import { Word, WordStudyStatus } from 'types/types';
-
-
-export interface RowProps
-	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	rowData: Word;
-	toggleIsEditingNow: () => void;
-}
+import { WordStudyStatus } from 'types/types';
+import { RowProps } from './Row.props';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
-	[WordStudyStatus.KNOW] : 'green',
-	[WordStudyStatus.LEARN] : 'yellow',
-	[WordStudyStatus.UNKNOWN] : 'red',
+	[WordStudyStatus.KNOW]: 'green',
+	[WordStudyStatus.LEARN]: 'yellow',
+	[WordStudyStatus.UNKNOWN]: 'red',
 }
 
-export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
+export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
 
@@ -26,7 +20,7 @@ export const Row = ({ rowData, toggleIsEditingNow }: RowProps) => {
 	return (
 		<>
 			<Table.Row textAlign='center' >
-				<Table.Cell>{rowData.id}</Table.Cell>
+				<Table.Cell>{rowId}</Table.Cell>
 				<Table.Cell>{rowData.word}</Table.Cell>
 				<Table.Cell>{rowData.transcription}</Table.Cell>
 				<Table.Cell>{rowData.translation}</Table.Cell>

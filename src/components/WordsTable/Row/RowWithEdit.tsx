@@ -1,14 +1,8 @@
-import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { Button, Icon, Input, Label, Menu, Table } from 'semantic-ui-react';
-import { Word } from 'types/types';
+import React from 'react';
+import { Button, Input, Label, Table } from 'semantic-ui-react';
+import { RowProps } from './Row.props';
 
-export interface RowWithEditProps
-	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	rowData: Word;
-	toggleIsEditingNow: () => void;
-}
-
-export const RowWithEdit = ({ rowData, toggleIsEditingNow }: RowWithEditProps) => {
+export const RowWithEdit = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
 	const handleOpenExamplesButton = () => {
@@ -18,7 +12,7 @@ export const RowWithEdit = ({ rowData, toggleIsEditingNow }: RowWithEditProps) =
 	return (
 		<>
 			<Table.Row textAlign='center'>
-				<Table.Cell>{rowData.id}</Table.Cell>
+				<Table.Cell>{rowId}</Table.Cell>
 				<Table.Cell><Input placeholder='english...' value={rowData.word} /></Table.Cell>
 				<Table.Cell><Input placeholder='transcription...' value={rowData.transcription} /></Table.Cell>
 				<Table.Cell><Input placeholder='translation...' value={rowData.translation} /></Table.Cell>

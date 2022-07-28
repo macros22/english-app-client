@@ -1,7 +1,6 @@
-import { useUserWords } from 'hooks';
-import { useUserWordsCount } from 'hooks/useUserWords';
 import React from 'react';
-import { Pagination, PaginationProps, Table } from 'semantic-ui-react';
+import { useUserWords, useUserWordsCount } from 'hooks';
+import { Dimmer, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { RowWithEdit } from '../Row/RowWithEdit';
 import { WordsTableProps } from './WordsTable.props';
@@ -40,7 +39,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 			}
 		}
 		setWordsPerPageCount(wordsPerPage)
-		setSkip((currentPage - 1) * wordsPerPage);
+		setSkip((currentPage - 1) * defaultWordsPerPageCount);
 		setRowsEditStatus(new Array(wordsPerPage).fill(false))
 	}, [currentPage, wordsCount])
 
@@ -59,11 +58,19 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 	}
 
 	if (loading) {
-		return <h1>loadign</h1>
+		return (
+			<Segment>
+				<Dimmer active>
+					<Loader size='massive'>
+						Loading
+					</Loader>
+				</Dimmer>
+			</Segment>
+		);
 	}
 
 	if (!words?.length) {
-		return <h1>No words</h1>
+		return <h1>No words yet </h1>
 	}
 
 	return (
@@ -84,9 +91,9 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 					{rowsEditStatus.map((rowEditStatus, index) => {
 
 						return rowEditStatus ? (
-							<RowWithEdit rowData={words[index]} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
+							<RowWithEdit rowData={words[index]} rowId={skip + index + 1} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						) : (
-							<Row rowData={words[index]} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
+							<Row rowData={words[index]} rowId={skip + index + 1} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
 						);
 					})}
 				</Table.Body>
