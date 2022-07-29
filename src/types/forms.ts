@@ -1,16 +1,9 @@
-import { IUsageExample, IWord, WordStudyStatus } from "./types";
+import { IUserWordPayload } from "./types";
 
 // Made definitions and translations array of objects
 // instead of array of string to avoid react-hook-form errors.
-// export interface IWordFormValues extends Omit<IWord, 'id' | 'definitions' | 'translations'> {
-export interface IWordFormValues  {
+export interface IWordFormValues extends Omit<IUserWordPayload, 'definitions' | 'translations'> {
     definitions: { definition: string }[];
     translations: { translation: string }[];
-
-    word: string;
-    transcription: string;
-
-    usageExamples: IUsageExample[];
-    studyStatus: WordStudyStatus;
 }
 
