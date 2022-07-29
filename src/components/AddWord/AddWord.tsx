@@ -1,7 +1,11 @@
 import React from 'react';
 import {
+	Button,
 	Divider,
-	Form
+	Form,
+	Header,
+	Icon,
+	Input
 } from 'semantic-ui-react';
 import { useWordForm } from 'hooks';
 
@@ -24,6 +28,8 @@ export const AddWord = (): JSX.Element => {
 		register,
 		loadingPostWord,
 		appendUsageExample,
+		appendTranslation,
+		appendDefinition,
 		studyStatusOptions,
 	} = useWordForm();
 
@@ -76,48 +82,96 @@ export const AddWord = (): JSX.Element => {
 				</Form.Group>
 
 
+				<Divider horizontal>
+					<Header as='h4'>
+						<Button icon='add' content={'DEFINITIONS'} onClick={() =>
+							appendDefinition({
+								definition: '',
+							})
+						} />
+					</Header>
+				</Divider>
 				{definitionsFields.map((field, index) => {
 					return (
 
 						<React.Fragment key={field.id}>
 
 							<Form.Field>
-								<label>{`Definition #${index + 1}`}</label>
-								<input  {...register(`definitions.${index}.definition` as const, {
-									required: true
-								})} placeholder={`definition #${index + 1}`} />
+								{/* <label>{`Definition #${index + 1}`}</label> */}
+								<Input
+									label={`№ ${index + 1}`}
+									{...register(`definitions.${index}.definition` as const, {
+										required: true
+									})} placeholder={`definition #${index + 1}`}
+									action={<Button icon='trash' size='large' color='red' onClick={() => removeDefinition(index)} />} />
 							</Form.Field>
-							<Form.Button icon='trash' labelPosition='left' content={`Delete definition ${index + 1}`} size='large' color='red' onClick={() => removeDefinition(index)} width={9} />
-							<Divider clearing />
+
 						</React.Fragment >
 					);
 				})}
-
+				<Divider horizontal>
+					<Header as='h4'>
+						<Button icon='add' content={'Translations'} onClick={() =>
+							appendTranslation({
+								translation: '',
+							})
+						} />
+					</Header>
+				</Divider>
 				{translationsFields.map((field, index) => {
 					return (
 
 						<React.Fragment key={field.id}>
 
 							<Form.Field>
-								<label>{`Translation #${index + 1}`}</label>
-								<input  {...register(`translations.${index}.translation` as const, {
-									required: true
-								})} placeholder={`translation #${index + 1}`} />
+								{/* <label>{`Translation #${index + 1}`}</label> */}
+
+								<Controller
+									
+									name={`translations.${index}.translation`}
+									control={control}
+									render={({ field: { onChange, value } }) => (
+										<Input
+											// error={errors.transcription?.message}
+											value={value}
+											onChange={onChange}
+											label={`№ ${index + 1}`}
+
+											placeholder={`translation ${index + 1}`}
+											action={<Button icon='trash' size='large' color='red' onClick={() => removeTranslation(index)} />}
+
+										/>
+									)}
+								/>
 							</Form.Field>
-							<Form.Button icon='trash' labelPosition='left' content={`Delete translation ${index + 1}`} size='large' color='red' onClick={() => removeTranslation(index)} width={9} />
-							<Divider clearing />
+
 						</React.Fragment >
 					);
 				})}
 
+				<Divider horizontal>
+					<Header as='h4'>
+						<Button icon='add' content={"Usage examples"} onClick={() =>
+							appendUsageExample({
+								sentence: '',
+								translation: '',
+							})
+						} />
+					</Header>
+				</Divider>
 				{usageExamplesFields.map((field, index) => {
 					return (
 
 						<React.Fragment key={field.id}>
 							<Form.Field>
-								<label>{`Example #${index + 1}`}</label>
+								{/* <label>{`Example #${index + 1}`}</label> */}
 
-								<input
+								<Input
+									label={`№ ${index + 1}`}
+									action={
+
+										<Button icon='trash' size='large' color='red' onClick={() => removeUsageExample(index)} />
+									}
 									placeholder="English sentence"
 									{...register(`usageExamples.${index}.sentence` as const, {
 										required: true
@@ -125,7 +179,7 @@ export const AddWord = (): JSX.Element => {
 									className={errors?.usageExamples?.[index]?.sentence ? "error" : ""}
 								/>
 							</Form.Field>
-							<Form.Field>
+							{/* <Form.Field>
 								<label>{`Example #${index + 1}`}</label>
 								<input
 									placeholder="Translation sentence"
@@ -135,23 +189,17 @@ export const AddWord = (): JSX.Element => {
 									})}
 									className={errors?.usageExamples?.[index]?.translation ? "error" : ""}
 								/>
-							</Form.Field>
-							<Form.Button icon='trash' labelPosition='left' content={`Delete example ${index + 1}`} size='large' color='red' onClick={() => removeUsageExample(index)} width={7} />
+							</Form.Field> */}
 
-							<Divider clearing />
+
+
 						</React.Fragment >
 					);
 				})}
-
+				<Divider clearing />
 				<Form.Group >
 					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" />
 					<Form.Button icon='undo' size='large' content="Reset" />
-					<Form.Button icon='add' labelPosition='left' size='large' content="Add usage example" onClick={() =>
-						appendUsageExample({
-							sentence: '',
-							translation: '',
-						})
-					} />
 				</Form.Group>
 			</Form>
 		</>

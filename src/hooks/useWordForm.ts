@@ -123,6 +123,8 @@ export const useWordForm = () => {
         register,
         loadingPostWord,
         appendUsageExample,
+        appendTranslation,
+		appendDefinition,
         studyStatusOptions,
     }
 }

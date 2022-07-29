@@ -1,49 +1,67 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Button, Input, Label, Table } from 'semantic-ui-react';
-import { IWordFormValues } from 'types/forms';
+import { Button, Form, Input, Label, Table } from 'semantic-ui-react';
 import { RowProps } from './Row.props';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { wordValidationSchema } from 'utils/form.schema';
+import { useWordForm } from 'hooks';
 
 export const RowWithEdit = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
-
-	// Inputs initialization.
-	const {
-		handleSubmit,
-		reset,
-		register,
-		control,
-		trigger,
-		formState: { errors },
-	} = useForm<IWordFormValues>({
-		defaultValues: {
-			word: rowData.word,
-			transcription: rowData.transcription,
-			translations: rowData.translations,
-			definitions: rowData.definitions,
-			studyStatus: rowData.studyStatus,
-			usageExamples: rowData.usageExamples,
-		},
-		resolver: yupResolver(wordValidationSchema),
-	});
-
 
 
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
 	};
 
-
+	const {
+		Controller,
+		handleSubmit,
+		onSubmit,
+		control,
+		errors,
+		handleSelectStatusChange,
+		studyStatus,
+		definitionsFields,
+		removeDefinition,
+		translationsFields,
+		removeTranslation,
+		usageExamplesFields,
+		removeUsageExample,
+		register,
+		loadingPostWord,
+		appendUsageExample,
+		studyStatusOptions,
+	} = useWordForm();
 
 
 	return (
 		<>
 			<Table.Row textAlign='center'>
 				<Table.Cell>{rowId}</Table.Cell>
-				<Table.Cell><Input placeholder='english...' value={rowData.word} /></Table.Cell>
-				<Table.Cell><Input placeholder='transcription...' value={rowData.transcription} /></Table.Cell>
+				<Table.Cell><Controller
+					name={'word'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
+							value={value}
+							onChange={onChange}
+							error={errors.word?.message}
+							placeholder="English word"
+
+						/>
+					)}
+				/></Table.Cell>
+				<Table.Cell><Controller
+					name={'transcription'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
+							error={errors.transcription?.message}
+							value={value}
+							onChange={onChange}
+							placeholder="Transcription"
+
+						/>
+					)}
+				/></Table.Cell>
 				<Table.Cell><Input placeholder='translation...' value={rowData.translations[0]} /></Table.Cell>
 				<Table.Cell>
 					<Label color={'green'} size="large">

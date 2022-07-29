@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Label, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Button, Header, Label, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { WordStudyStatus } from 'types/types';
 import { RowProps } from './Row.props';
 
@@ -19,13 +19,28 @@ export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 
 	return (
 		<>
-			<Table.Row textAlign='center' >
-				<Table.Cell>{rowId}</Table.Cell>
-				<Table.Cell>{rowData.word}</Table.Cell>
-				<Table.Cell>{rowData.transcription}</Table.Cell>
-				<Table.Cell>{rowData.translations[0]}</Table.Cell>
+			<Table.Row textAlign='center' verticalAlign='middle'>
+				<Table.Cell width={1}>{rowId}</Table.Cell>
 				<Table.Cell>
-					<Label color={labelColors[rowData.studyStatus]} size="large" >
+					<Header as='h1'>
+						{rowData.word}
+						<Header.Subheader>
+							{rowData.transcription}
+						</Header.Subheader>
+					</Header>
+					{/* {rowData.word} <br /> {rowData.transcription} */}
+				</Table.Cell>
+				<Table.Cell verticalAlign='middle'>
+					{rowData.translations.map((translation, index) => {
+						return (
+							<React.Fragment key={translation + index}>
+								<Header style={{ margin: '0.35rem 0' }} size='small'>{translation}</Header>
+							</React.Fragment>
+						);
+					})
+					}</Table.Cell>
+				<Table.Cell>
+					<Label color={labelColors[rowData.studyStatus]} size="big" >
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
