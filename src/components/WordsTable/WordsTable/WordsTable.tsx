@@ -24,6 +24,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
 			setTotalPages(pagesCount);
 		}
+		
 	}, [wordsCount])
 
 	// Logic for correct display rows count.
@@ -68,6 +69,8 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 			</Segment>
 		);
 	}
+
+	
 
 	if (!words?.length) {
 		return <h1>No words yet </h1>

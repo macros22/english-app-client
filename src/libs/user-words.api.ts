@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { POST_USER_WORD } from 'constants/url';
-import { IUserWord } from 'types/types';
+import { IUserWord, IUserWordPayload } from 'types/types';
 
 export const getUserWords = async (url: string) => {
     try {
@@ -25,7 +25,7 @@ export const getUserWordsCount = async (url: string) => {
 };
 
 
-export const postUserWord = async (word: IUserWord) => {
+export const postUserWord = async (word: IUserWordPayload) => {
     try {
         const res = await axios.post(
             POST_USER_WORD,

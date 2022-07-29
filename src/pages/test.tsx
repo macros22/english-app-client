@@ -1,6 +1,8 @@
 
+import { defaultFormValues } from "components/AddWord/constants";
 import * as React from "react";
 import { useForm, useFieldArray, useWatch, Control } from "react-hook-form";
+import { IWordFormValues } from "types/forms";
 
 type FormValues = {
   cart: {
@@ -33,22 +35,19 @@ export default function App() {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm<FormValues>({
-    defaultValues: {
-      cart: [{ name: "test", quantity: 1, price: 23 }],
-      dart: [{ name: "test", quantity: 1, price: 23 }]
-    },
+  } = useForm<IWordFormValues>({
+    defaultValues: defaultFormValues,
     mode: "onBlur"
   });
   const { fields, append, remove } = useFieldArray({
-    name: "cart",
+    name: "usageExamples",
     control
   });
-  const { fields: f, append: a, remove: r } = useFieldArray({
-    name: "dart",
-    control
-  });
-  const onSubmit = (data: FormValues) => console.log(data);
+  // const { fields: f, append: a, remove: r } = useFieldArray({
+  //   name: "dart",
+  //   control
+  // });
+  const onSubmit = (data: IWordFormValues) => console.log(data);
 
   return (
     <div>
@@ -59,29 +58,21 @@ export default function App() {
               <section className={"section"} key={field.id}>
                 <input
                   placeholder="name"
-                  {...register(`cart.${index}.name` as const, {
+                  {...register(`usageExamples.${index}.sentence` as const, {
                     required: true
                   })}
-                  className={errors?.cart?.[index]?.name ? "error" : ""}
+                  className={errors?.usageExamples?.[index]?.sentence ? "error" : ""}
                 />
                 <input
                   placeholder="quantity"
-                  type="number"
-                  {...register(`cart.${index}.quantity` as const, {
-                    valueAsNumber: true,
+                  // type="number"
+                  {...register(`usageExamples.${index}.translation` as const, {
+                    // valueAsNumber: true,
                     required: true
                   })}
-                  className={errors?.cart?.[index]?.quantity ? "error" : ""}
+                  className={errors?.usageExamples?.[index]?.translation ? "error" : ""}
                 />
-                <input
-                  placeholder="value"
-                  type="number"
-                  {...register(`cart.${index}.price` as const, {
-                    valueAsNumber: true,
-                    required: true
-                  })}
-                  className={errors?.cart?.[index]?.price ? "error" : ""}
-                />
+                
                 <button type="button" onClick={() => remove(index)}>
                   DELETE
                 </button>
@@ -90,15 +81,15 @@ export default function App() {
           );
         })}
 
-        <Total control={control} />
+        {/* <Total control={control} /> */}
 
         <button
           type="button"
           onClick={() =>
             append({
-              name: "",
-              quantity: 0,
-              price: 0
+              // name: "",
+              // quantity: 0,
+              // price: 0
             })
           }
         >

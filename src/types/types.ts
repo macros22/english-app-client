@@ -21,3 +21,6 @@ export interface IWord {
 export interface IUserWord extends IWord {
   createdAt: Date;
 }
+
+export interface IUserWordPayload extends Omit<IWord, 'id'> {
+}

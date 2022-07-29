@@ -1,5 +1,7 @@
 import * as yup from 'yup';
 
+// Made definitions and translations array of objects
+// instead of array of string to avoid react-hook-form errors.
 export const wordValidationSchema = yup.object({
 	word: yup
 		.string()
@@ -12,19 +14,19 @@ export const wordValidationSchema = yup.object({
 	definitions: yup
 		.array()
 		.of(
-			yup
-				.string()
-				.min(2, 'Definition should be of minimum 2 characters length')
+			yup.object().shape({
+				tdefinition: yup.string(),
+			})
 		)
-		.required('Definitions required'),
+		.required('definitions required'),
 	translations: yup
 		.array()
 		.of(
-			yup
-				.string()
-				.min(2, 'Translation should be of minimum 2 characters length')
+			yup.object().shape({
+				translation: yup.string(),
+			})
 		)
-		.required('Translation required'),
+		.required('Translations required'),
 	studyStatus: yup
 		.string()
 		.required(),
@@ -33,7 +35,7 @@ export const wordValidationSchema = yup.object({
 		.of(
 			yup.object().shape({
 				sentence: yup.string(),
-				translation: yup.boolean(),
+				translation: yup.string(),
 			})
 		)
 		.required('Usage examples required'),
