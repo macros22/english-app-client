@@ -65,17 +65,15 @@ export const useWordForm = () => {
         control
     });
 
+    // Handlers.
     const [loadingPostWord, setLoadingPostWord] = React.useState(false);
-
     const onSubmit = async (data: IWordFormValues) => {
-
         try {
             setLoadingPostWord(true);
 
             const payload: IUserWordPayload = {
                 word: data.word,
                 transcription: data.transcription,
-
                 translations: data.translations.map(translationField => translationField.translation),
                 definitions: data.definitions.map(definitionField => definitionField.definition),
                 usageExamples: data.usageExamples.map(usageExamplesField => ({
@@ -84,6 +82,7 @@ export const useWordForm = () => {
                 })),
                 studyStatus,
             }
+
             await postUserWord(payload);
             mutateUserWords();
             reset();
@@ -105,10 +104,14 @@ export const useWordForm = () => {
         trigger('studyStatus');
     };
 
+    const handleReset = () => {
+        reset();
+    }
 
     return {
         Controller,
         handleSubmit,
+        handleReset,
         onSubmit,
         control,
         errors,

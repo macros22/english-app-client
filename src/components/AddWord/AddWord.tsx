@@ -31,12 +31,13 @@ export const AddWord = (): JSX.Element => {
 		appendTranslation,
 		appendDefinition,
 		studyStatusOptions,
+		handleReset,
 	} = useWordForm();
 
 
 	return (
 		<>
-			<Form size="large" onSubmit={handleSubmit(onSubmit)} >
+			<Form size="large" >
 				<Form.Group widths={'equal'}>
 					<Controller
 						name={'word'}
@@ -67,6 +68,7 @@ export const AddWord = (): JSX.Element => {
 						)}
 					/>
 				</Form.Group>
+
 				<Form.Group widths={'equal'}>
 					<Form.Select
 						label="Study status"
@@ -81,7 +83,6 @@ export const AddWord = (): JSX.Element => {
 					/>
 				</Form.Group>
 
-
 				<Divider horizontal>
 					<Header as='h4'>
 						<Button icon='add' content={'DEFINITIONS'} onClick={() =>
@@ -91,21 +92,27 @@ export const AddWord = (): JSX.Element => {
 						} />
 					</Header>
 				</Divider>
+
 				{definitionsFields.map((field, index) => {
 					return (
-
 						<React.Fragment key={field.id}>
-
 							<Form.Field>
-								{/* <label>{`Definition #${index + 1}`}</label> */}
-								<Input
-									label={`№ ${index + 1}`}
-									{...register(`definitions.${index}.definition` as const, {
-										required: true
-									})} placeholder={`definition #${index + 1}`}
-									action={<Button icon='trash' size='large' color='red' onClick={() => removeDefinition(index)} />} />
-							</Form.Field>
+								<Controller
+									name={`definitions.${index}.definition`}
+									control={control}
+									render={({ field: { onChange, value } }) => (
+										<Input
+											// error={errors.transcription?.message}
+											value={value}
+											onChange={onChange}
+											label={`№ ${index + 1}`}
+											placeholder={`definition ${index + 1}`}
+											action={<Button icon='trash' size='large' color='red' onClick={() => removeDefinition(index)} />}
 
+										/>
+									)}
+								/>
+							</Form.Field>
 						</React.Fragment >
 					);
 				})}
@@ -120,14 +127,9 @@ export const AddWord = (): JSX.Element => {
 				</Divider>
 				{translationsFields.map((field, index) => {
 					return (
-
 						<React.Fragment key={field.id}>
-
 							<Form.Field>
-								{/* <label>{`Translation #${index + 1}`}</label> */}
-
 								<Controller
-									
 									name={`translations.${index}.translation`}
 									control={control}
 									render={({ field: { onChange, value } }) => (
@@ -136,7 +138,6 @@ export const AddWord = (): JSX.Element => {
 											value={value}
 											onChange={onChange}
 											label={`№ ${index + 1}`}
-
 											placeholder={`translation ${index + 1}`}
 											action={<Button icon='trash' size='large' color='red' onClick={() => removeTranslation(index)} />}
 
@@ -144,7 +145,6 @@ export const AddWord = (): JSX.Element => {
 									)}
 								/>
 							</Form.Field>
-
 						</React.Fragment >
 					);
 				})}
@@ -164,42 +164,30 @@ export const AddWord = (): JSX.Element => {
 
 						<React.Fragment key={field.id}>
 							<Form.Field>
-								{/* <label>{`Example #${index + 1}`}</label> */}
+								<Controller
+									name={`usageExamples.${index}.sentence`}
+									control={control}
+									render={({ field: { onChange, value } }) => (
+										<Input
+											// error={errors.transcription?.message}
+											value={value}
+											onChange={onChange}
+											label={`№ ${index + 1}`}
+											placeholder={`Usage example ${index + 1}`}
+											action={<Button icon='trash' size='large' color='red' onClick={() => removeUsageExample(index)} />}
 
-								<Input
-									label={`№ ${index + 1}`}
-									action={
-
-										<Button icon='trash' size='large' color='red' onClick={() => removeUsageExample(index)} />
-									}
-									placeholder="English sentence"
-									{...register(`usageExamples.${index}.sentence` as const, {
-										required: true
-									})}
-									className={errors?.usageExamples?.[index]?.sentence ? "error" : ""}
+										/>
+									)}
 								/>
 							</Form.Field>
-							{/* <Form.Field>
-								<label>{`Example #${index + 1}`}</label>
-								<input
-									placeholder="Translation sentence"
-
-									{...register(`usageExamples.${index}.translation` as const, {
-										required: true
-									})}
-									className={errors?.usageExamples?.[index]?.translation ? "error" : ""}
-								/>
-							</Form.Field> */}
-
-
-
 						</React.Fragment >
 					);
 				})}
 				<Divider clearing />
 				<Form.Group >
-					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" />
-					<Form.Button icon='undo' size='large' content="Reset" />
+
+					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" onClick={handleSubmit(onSubmit)} />
+					<Button icon='undo' size='large' content="Reset" onClick={handleReset}/>
 				</Form.Group>
 			</Form>
 		</>
