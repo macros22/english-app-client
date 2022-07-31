@@ -4,7 +4,6 @@ import {
 	Divider,
 	Form,
 	Header,
-	Icon,
 	Input
 } from 'semantic-ui-react';
 import { useWordForm } from 'hooks';
@@ -38,7 +37,7 @@ export const AddWord = (): JSX.Element => {
 	return (
 		<>
 			<Form size="large" >
-				<Form.Group widths={'equal'}>
+				{/* <Form.Group widths={'equal'}> */}
 					<Controller
 						name={'word'}
 						control={control}
@@ -49,10 +48,10 @@ export const AddWord = (): JSX.Element => {
 								error={errors.word?.message}
 								label="English word"
 								placeholder="English word"
-
 							/>
 						)}
 					/>
+
 					<Controller
 						name={'transcription'}
 						control={control}
@@ -63,13 +62,12 @@ export const AddWord = (): JSX.Element => {
 								onChange={onChange}
 								label="Transcription"
 								placeholder="Transcription"
-
 							/>
 						)}
 					/>
-				</Form.Group>
+				{/* </Form.Group> */}
 
-				<Form.Group widths={'equal'}>
+				{/* <Form.Group widths={'equal'}> */}
 					<Form.Select
 						label="Study status"
 						required
@@ -81,11 +79,11 @@ export const AddWord = (): JSX.Element => {
 						options={studyStatusOptions}
 
 					/>
-				</Form.Group>
+				{/* </Form.Group> */}
 
 				<Divider horizontal>
 					<Header as='h4'>
-						<Button icon='add' content={'DEFINITIONS'} onClick={() =>
+						<Button icon='add' content={'Definitions'} onClick={() =>
 							appendDefinition({
 								definition: '',
 							})
@@ -108,7 +106,6 @@ export const AddWord = (): JSX.Element => {
 											label={`№ ${index + 1}`}
 											placeholder={`definition ${index + 1}`}
 											action={<Button icon='trash' size='large' color='red' onClick={() => removeDefinition(index)} />}
-
 										/>
 									)}
 								/>
@@ -159,6 +156,7 @@ export const AddWord = (): JSX.Element => {
 						} />
 					</Header>
 				</Divider>
+
 				{usageExamplesFields.map((field, index) => {
 					return (
 
@@ -183,11 +181,13 @@ export const AddWord = (): JSX.Element => {
 						</React.Fragment >
 					);
 				})}
+
 				<Divider clearing />
+
 				<Form.Group >
 
 					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" onClick={handleSubmit(onSubmit)} />
-					<Button icon='undo' size='large' content="Reset" onClick={handleReset}/>
+					<Button icon='undo' size='large' content="Reset" onClick={handleReset} />
 				</Form.Group>
 			</Form>
 		</>
