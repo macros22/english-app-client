@@ -1,10 +1,9 @@
-import { WordForm } from 'components';
-import { useUserWords } from 'hooks';
-import { deleteUserWord } from 'libs/user-words.api';
 import React from 'react';
-import { Button, Header, Label, Modal, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Button, Header, Label, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { WordStudyStatus } from 'types/types';
-import { wordDataToFormData } from 'utils/form-data.util';
+import { DeleteButtonWithModal } from './DeleteButtonWithModal';
+import { EditButtonWithModal } from './EditButtonWithModal';
+
 import { RowProps } from './Row.props';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
@@ -16,17 +15,8 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 export const Row = ({ rowData, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
-	const [isEditingNow, setIsEditingNow] = React.useState(false);
-
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
-	};
-
-	const { mutate: mutateUserWords, mutateCount } = useUserWords();
-	const handleDeleteButton = async () => {
-		await deleteUserWord(rowData.id);
-		await mutateUserWords();
-		await mutateCount();
 	};
 
 	return (
@@ -57,25 +47,9 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<Modal
-						onClose={() => setIsEditingNow(false)}
-						onOpen={() => setIsEditingNow(true)}
-						open={isEditingNow}
-						trigger={<Button basic icon="edit" size="large" />}
-					>
-						<Modal.Header>Changing word</Modal.Header>
-						<Modal.Content>
-							<WordForm mode="edit" formValues={wordDataToFormData(rowData)} wordId={rowData.id} />
-						</Modal.Content>
-						<Modal.Actions>
-							<Button color='black' onClick={() => setIsEditingNow(false)}>
-								Close
-							</Button>
-						</Modal.Actions>
-					</Modal>
-					<Button basic icon="trash alternate" size="large" onClick={handleDeleteButton} />
+					<EditButtonWithModal rowData={rowData} />
+					<DeleteButtonWithModal wordId={rowData.id} />
 					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
-
 				</Table.Cell>
 			</Table.Row>
 			{isExamplesOpen &&
