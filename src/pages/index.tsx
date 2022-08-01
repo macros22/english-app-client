@@ -1,6 +1,6 @@
 import { Layout } from 'layouts';
 import React from 'react';
-import { WordsTable, AddWord } from 'components';
+import { WordsTable } from 'components';
 
 const Home = () => {
 

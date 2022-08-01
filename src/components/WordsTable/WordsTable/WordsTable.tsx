@@ -2,7 +2,6 @@ import React from 'react';
 import { useUserWords, useUserWordsCount } from 'hooks';
 import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
-import { RowWithEdit } from '../Row/RowWithEdit';
 import { WordsTableProps } from './WordsTable.props';
 
 
@@ -14,7 +13,6 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 	const [totalPages, setTotalPages] = React.useState(1);
 	const [skip, setSkip] = React.useState(0);
 	const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
-	const [rowsEditStatus, setRowsEditStatus] = React.useState<boolean[]>([]);
 
 	const { words, loading } = useUserWords(skip, wordsPerPageCount);
 
@@ -24,7 +22,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
 			setTotalPages(pagesCount);
 		}
-		
+
 	}, [wordsCount])
 
 	// Logic for correct display rows count.
@@ -41,21 +39,12 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 		}
 		setWordsPerPageCount(wordsPerPage)
 		setSkip((currentPage - 1) * defaultWordsPerPageCount);
-		setRowsEditStatus(new Array(wordsPerPage).fill(false))
 	}, [currentPage, wordsCount])
 
 
 	// Handlers.
 	const handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { activePage }: PaginationProps) => {
 		setCurrentPage(Number(activePage) || 1);
-	}
-
-	const toggleIsEditingNow = (index: number) => {
-		setRowsEditStatus(rowsRowsEdit => {
-			const newRowsEditStatus = [...rowsEditStatus];
-			newRowsEditStatus[index] = !rowsRowsEdit[index];
-			return newRowsEditStatus;
-		})
 	}
 
 	if (loading) {
@@ -70,7 +59,7 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 		);
 	}
 
-	
+
 
 	if (!words?.length) {
 		return <h1>No words yet </h1>
@@ -83,25 +72,11 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 				<Label.Detail>{wordsCount}</Label.Detail>
 			</Label>
 			<Table basic style={{ width: '78%', backgroundColor: 'white', margin: '0 auto' }}>
-				{/* <Table.Header >
-					<Table.Row textAlign='center'>
-						<Table.HeaderCell >№</Table.HeaderCell>
-						<Table.HeaderCell >English</Table.HeaderCell>
-						<Table.HeaderCell >Transcription</Table.HeaderCell>
-						<Table.HeaderCell >Translation</Table.HeaderCell>
-						<Table.HeaderCell >Status</Table.HeaderCell>
-						<Table.HeaderCell ></Table.HeaderCell>
-					</Table.Row>
-				</Table.Header> */}
 
 				<Table.Body>
-					{rowsEditStatus.map((rowEditStatus, index) => {
-
-						return rowEditStatus ? (
-							<RowWithEdit rowData={words[index]} rowId={skip + index + 1} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
-						) : (
-							<Row rowData={words[index]} rowId={skip + index + 1} key={words[index].id} toggleIsEditingNow={() => toggleIsEditingNow(index)} />
-						);
+					{words.map((word, index) => {
+						return (
+							<Row rowData={word} rowId={skip + index + 1} key={word.id} />);
 					})}
 				</Table.Body>
 

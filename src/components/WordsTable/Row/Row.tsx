@@ -1,6 +1,8 @@
+import { WordForm } from 'components';
 import React from 'react';
-import { Button, Header, Label, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Button, Header, Label, Modal, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { WordStudyStatus } from 'types/types';
+import { wordDataToFormData } from 'utils/form-data.util';
 import { RowProps } from './Row.props';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
@@ -9,9 +11,10 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.UNKNOWN]: 'red',
 }
 
-export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
+export const Row = ({ rowData, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
+	const [isEditingNow, setIsEditingNow] = React.useState(false);
 
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
@@ -45,7 +48,22 @@ export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<Button basic icon="edit" size="large" onClick={toggleIsEditingNow} />
+					<Modal
+						onClose={() => setIsEditingNow(false)}
+						onOpen={() => setIsEditingNow(true)}
+						open={isEditingNow}
+						trigger={<Button basic icon="edit" size="large" />}
+					>
+						<Modal.Header>Changing word</Modal.Header>
+						<Modal.Content>
+							<WordForm mode="edit" formValues={wordDataToFormData(rowData)} wordId={rowData.id} />
+						</Modal.Content>
+						<Modal.Actions>
+							<Button color='black' onClick={() => setIsEditingNow(false)}>
+								Close
+							</Button>
+						</Modal.Actions>
+					</Modal>
 					<Button basic icon="trash alternate" size="large" />
 					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
 
@@ -55,11 +73,14 @@ export const Row = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 				rowData.usageExamples.map((exampleRow) => (
 					<Table.Row key={exampleRow.sentence} >
 						<Table.Cell></Table.Cell>
-						<Table.Cell colspan={3}>{exampleRow.sentence}</Table.Cell>
-						<Table.Cell></Table.Cell>
-						<Table.Cell>{exampleRow.translation}</Table.Cell>
+						<Table.Cell colspan={5}>{exampleRow.sentence}</Table.Cell>
+						{/* <Table.Cell></Table.Cell>
+						<Table.Cell>{exampleRow.translation}</Table.Cell> */}
 					</Table.Row>
 				))}
+
+
+
 		</>
 	);
 };

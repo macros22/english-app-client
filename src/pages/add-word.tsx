@@ -1,18 +1,18 @@
 import { Layout } from 'layouts';
 import React from 'react';
 import { Container, Segment } from 'semantic-ui-react';
-import { AddWord } from 'components';
+import { WordForm } from 'components';
 
-const Addword = () => {
+const AddwordPage = () => {
     return (
         <Layout>
             <Container>
-                <Segment style={{maxWidth: '700px', margin: '0 auto'}}>
-                    <AddWord />
+                <Segment style={{ maxWidth: '700px', margin: '0 auto' }}>
+                    <WordForm mode="add" />
                 </Segment>
             </Container>
         </Layout>
     );
 };
 
-export default Addword;
+export default AddwordPage;

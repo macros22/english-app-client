@@ -7,8 +7,9 @@ import {
 	Input
 } from 'semantic-ui-react';
 import { useWordForm } from 'hooks';
+import { WordFormProps } from './WordForm.props';
 
-export const AddWord = (): JSX.Element => {
+export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Element => {
 
 	const {
 		Controller,
@@ -31,54 +32,54 @@ export const AddWord = (): JSX.Element => {
 		appendDefinition,
 		studyStatusOptions,
 		handleReset,
-	} = useWordForm();
+	} = mode == 'edit' ? useWordForm(formValues, wordId) : useWordForm();
 
 
 	return (
 		<>
 			<Form size="large" >
 				{/* <Form.Group widths={'equal'}> */}
-					<Controller
-						name={'word'}
-						control={control}
-						render={({ field: { onChange, value } }) => (
-							<Form.Input
-								value={value}
-								onChange={onChange}
-								error={errors.word?.message}
-								label="English word"
-								placeholder="English word"
-							/>
-						)}
-					/>
+				<Controller
+					name={'word'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
+							value={value}
+							onChange={onChange}
+							error={errors.word?.message}
+							label="English word"
+							placeholder="English word"
+						/>
+					)}
+				/>
 
-					<Controller
-						name={'transcription'}
-						control={control}
-						render={({ field: { onChange, value } }) => (
-							<Form.Input
-								error={errors.transcription?.message}
-								value={value}
-								onChange={onChange}
-								label="Transcription"
-								placeholder="Transcription"
-							/>
-						)}
-					/>
+				<Controller
+					name={'transcription'}
+					control={control}
+					render={({ field: { onChange, value } }) => (
+						<Form.Input
+							error={errors.transcription?.message}
+							value={value}
+							onChange={onChange}
+							label="Transcription"
+							placeholder="Transcription"
+						/>
+					)}
+				/>
 				{/* </Form.Group> */}
 
 				{/* <Form.Group widths={'equal'}> */}
-					<Form.Select
-						label="Study status"
-						required
-						name='studyStatus'
-						onChange={handleSelectStatusChange}
-						placeholder="Select study status"
-						// {...register("studyStatus")}
-						value={studyStatus}
-						options={studyStatusOptions}
+				<Form.Select
+					label="Study status"
+					required
+					name='studyStatus'
+					onChange={handleSelectStatusChange}
+					placeholder="Select study status"
+					// {...register("studyStatus")}
+					value={studyStatus}
+					options={studyStatusOptions}
 
-					/>
+				/>
 				{/* </Form.Group> */}
 
 				<Divider horizontal>

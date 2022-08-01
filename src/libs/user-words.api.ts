@@ -39,3 +39,18 @@ export const postUserWord = async (word: IUserWordPayload) => {
 
     return null;
 };
+
+export const patchUserWord = async (word: IUserWordPayload, wordId: string) => {
+    try {
+        const res = await axios.patch(
+            POST_USER_WORD + `/${wordId}`,
+            word,
+            { withCredentials: true }
+        );
+        return res.data as IUserWord[];
+    } catch (error) {
+        console.log(error);
+    }
+
+    return null;
+};
