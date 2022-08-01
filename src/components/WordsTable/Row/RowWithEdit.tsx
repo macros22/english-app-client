@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Form, Input, Label, Table } from 'semantic-ui-react';
 import { RowProps } from './Row.props';
 import { useWordForm } from 'hooks';
+import { IWordFormValues } from 'types/forms';
+import { wordDataToFormData } from 'utils/form-data.util';
 
 export const RowWithEdit = ({ rowData, toggleIsEditingNow, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
@@ -10,6 +12,8 @@ export const RowWithEdit = ({ rowData, toggleIsEditingNow, rowId }: RowProps) =>
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
 	};
+
+
 
 	const {
 		Controller,
@@ -29,7 +33,14 @@ export const RowWithEdit = ({ rowData, toggleIsEditingNow, rowId }: RowProps) =>
 		loadingPostWord,
 		appendUsageExample,
 		studyStatusOptions,
-	} = useWordForm();
+	} = useWordForm(wordDataToFormData(rowData));
+
+
+	const handleSave = async (data: IWordFormValues) => {
+		console.log(data);
+		// onSubmit(data);
+		toggleIsEditingNow();
+	}
 
 
 	return (
@@ -69,7 +80,7 @@ export const RowWithEdit = ({ rowData, toggleIsEditingNow, rowId }: RowProps) =>
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<Button basic icon="edit" size="large" onClick={toggleIsEditingNow} />
+					<Button basic icon="save" size="large" onClick={handleSubmit(handleSave)} />
 					<Button basic icon="trash alternate" size="large" />
 					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
 				</Table.Cell>

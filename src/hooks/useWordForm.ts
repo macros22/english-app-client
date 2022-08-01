@@ -1,8 +1,6 @@
 import React from 'react';
 import {
-    Divider,
     DropdownProps,
-    Form
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { IUserWordPayload, WordStudyStatus } from 'types/types';
@@ -11,6 +9,7 @@ import { useUserWords } from 'hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { wordValidationSchema } from 'utils/form.schema';
 import { IWordFormValues } from 'types/forms';
+import { formDataToWordData } from 'utils/form-data.util';
 
 const studyStatusOptions = [
     { key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
@@ -32,7 +31,7 @@ const defaultFormValues: IWordFormValues = {
     ]
 };
 
-export const useWordForm = () => {
+export const useWordForm = (formValues?: IWordFormValues) => {
     const { mutate: mutateUserWords } = useUserWords();
 
 
@@ -45,7 +44,7 @@ export const useWordForm = () => {
         trigger,
         formState: { errors },
     } = useForm<IWordFormValues>({
-        defaultValues: defaultFormValues,
+        defaultValues: formValues ? formValues : defaultFormValues,
         resolver: yupResolver(wordValidationSchema),
     });
 
@@ -71,20 +70,12 @@ export const useWordForm = () => {
         try {
             setLoadingPostWord(true);
 
-            const payload: IUserWordPayload = {
-                word: data.word,
-                transcription: data.transcription,
-                translations: data.translations.map(translationField => translationField.translation),
-                definitions: data.definitions.map(definitionField => definitionField.definition),
-                usageExamples: data.usageExamples.map(usageExamplesField => ({
-                    sentence: usageExamplesField.sentence,
-                    translation: usageExamplesField.translation,
-                })),
-                studyStatus,
-            }
+            const payload = formDataToWordData(data, studyStatus);
 
             await postUserWord(payload);
+
             mutateUserWords();
+
             reset();
         } catch (e) {
 
@@ -127,7 +118,7 @@ export const useWordForm = () => {
         loadingPostWord,
         appendUsageExample,
         appendTranslation,
-		appendDefinition,
+        appendDefinition,
         studyStatusOptions,
     }
 }
