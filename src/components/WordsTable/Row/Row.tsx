@@ -1,4 +1,6 @@
 import { WordForm } from 'components';
+import { useUserWords } from 'hooks';
+import { deleteUserWord } from 'libs/user-words.api';
 import React from 'react';
 import { Button, Header, Label, Modal, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { WordStudyStatus } from 'types/types';
@@ -18,6 +20,13 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
+	};
+
+	const { mutate: mutateUserWords, mutateCount } = useUserWords();
+	const handleDeleteButton = async () => {
+		await deleteUserWord(rowData.id);
+		await mutateUserWords();
+		await mutateCount();
 	};
 
 	return (
@@ -64,7 +73,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 							</Button>
 						</Modal.Actions>
 					</Modal>
-					<Button basic icon="trash alternate" size="large" />
+					<Button basic icon="trash alternate" size="large" onClick={handleDeleteButton} />
 					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
 
 				</Table.Cell>

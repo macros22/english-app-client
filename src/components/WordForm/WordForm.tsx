@@ -25,7 +25,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 		removeTranslation,
 		usageExamplesFields,
 		removeUsageExample,
-		register,
 		loadingPostWord,
 		appendUsageExample,
 		appendTranslation,
@@ -38,7 +37,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 	return (
 		<>
 			<Form size="large" >
-				{/* <Form.Group widths={'equal'}> */}
 				<Controller
 					name={'word'}
 					control={control}
@@ -66,9 +64,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 						/>
 					)}
 				/>
-				{/* </Form.Group> */}
-
-				{/* <Form.Group widths={'equal'}> */}
 				<Form.Select
 					label="Study status"
 					required
@@ -80,7 +75,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					options={studyStatusOptions}
 
 				/>
-				{/* </Form.Group> */}
 
 				<Divider horizontal>
 					<Header as='h4'>
@@ -160,7 +154,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 
 				{usageExamplesFields.map((field, index) => {
 					return (
-
 						<React.Fragment key={field.id}>
 							<Form.Field>
 								<Controller
@@ -186,7 +179,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 				<Divider clearing />
 
 				<Form.Group >
-
 					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" onClick={handleSubmit(onSubmit)} />
 					<Button icon='undo' size='large' content="Reset" onClick={handleReset} />
 				</Form.Group>
