@@ -12,7 +12,7 @@ export const useUserWords = (skip?: number, limit?: number) => {
     //     })
     //     : '';
 
-    const searchParams = skip && limit
+    const searchParams = (skip == 0 || skip) && limit
         ? `?skip=${skip}&limit=${limit}`
         : '';
 
