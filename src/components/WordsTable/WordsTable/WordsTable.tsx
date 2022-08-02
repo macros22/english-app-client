@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSessionStorage, useWords } from 'hooks';
+import { useLocalStorage, useWords } from 'hooks';
 import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { WordsTableProps } from './WordsTable.props';
@@ -9,7 +9,8 @@ import { CURRENT_TABLE_PAGE } from 'constants/names.storage';
 const defaultWordsPerPageCount = 5;
 
 export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
-	const [currentPage, setCurrentPage] = useSessionStorage<number>(CURRENT_TABLE_PAGE, 1);
+	// const [currentPage, setCurrentPage] = useLocalStorage<number>(CURRENT_TABLE_PAGE + mode, 1);
+	const [currentPage, setCurrentPage] = React.useState(1);
 	const [totalPages, setTotalPages] = React.useState(1);
 	const [skip, setSkip] = React.useState(0);
 	const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
@@ -60,7 +61,7 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 
 
 
-	if (!words?.length) {
+	if (words && !words.length) {
 		return <h1>No words yet </h1>
 	}
 

@@ -1,19 +1,25 @@
+import { WORDS_MODE } from "constants/names.storage";
 import { USER_WORDS_URL, COMMON_WORDS_URL, COMMON_WORDS_COUNT_URL, USER_WORDS_COUNT_URL } from "constants/url";
-import { getUserWords, getUserWordsCount } from "libs/user-words.api";
+import { useLocalStorage } from "hooks";
+import { wordsApi } from "libs/words.api";
 import useSWR from "swr";
+import { WordMode } from "types/types";
+
 
 export const useWords = (mode: 'commonWords' | 'userWords', skip?: number, limit?: number) => {
+
+    const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
 
     const searchParams = (skip == 0 || skip) && limit
         ? `?skip=${skip}&limit=${limit}`
         : '';
 
     const wordsUrl = (mode == 'userWords' ? USER_WORDS_URL : COMMON_WORDS_URL) + searchParams;
-    const { data: words, mutate, error } = useSWR(wordsUrl, getUserWords);
-    const loading = !words && !error;
+    const { data: words, mutate, error } = useSWR(wordsUrl, wordsApi(wordsMode).getWords);
+    const loading: boolean = !words && !error;
 
     const countUrl = mode == 'userWords' ? USER_WORDS_COUNT_URL : COMMON_WORDS_COUNT_URL;
-    const { data: count, mutate: mutateCount, error: countError } = useSWR(countUrl, getUserWordsCount);
+    const { data: count, mutate: mutateCount, error: countError } = useSWR(countUrl, wordsApi(wordsMode).getWordsCount);
     const loadingCount = !count && !countError;
 
     return {

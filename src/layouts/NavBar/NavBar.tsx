@@ -28,12 +28,16 @@ export const NavBar = () => {
 						{/* <Button icon='add' size='small'  /> */}
 					</Menu.Item>
 
-					<Menu.Item name="All words" link active={router.pathname === '/'} onClick={() => router.push('/')}>
+					<Menu.Item name="All words" link active={router.pathname === '/common-words'} onClick={() => router.push('/common-words')}>
+						{/* <Link href="/">All words</Link> */}
+					</Menu.Item>
+
+					<Menu.Item name="My words" link active={router.pathname === '/'} onClick={() => router.push('/')}>
 						{/* <Link href="/">All words</Link> */}
 					</Menu.Item>
 
 					{loggedIn ? (
-						<Menu.Item name="user"><Label style={{ margin: 0 }} size="big" icon="user" color='green' content={user.name} /></Menu.Item>
+						<Menu.Item name="user"><Label style={{ margin: 0 }} size="big" icon="user" color='green' content={user?.name} /></Menu.Item>
 					) : (
 						<Menu.Item name="sign-in">Sign-in</Menu.Item>
 					)}

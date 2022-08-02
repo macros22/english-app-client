@@ -1,6 +1,6 @@
 import { WORDS_MODE } from 'constants/names.storage';
-import { useSessionStorage, useWords } from 'hooks';
-import { deleteUserWord } from 'libs/user-words.api';
+import { useLocalStorage, useWords } from 'hooks';
+import { wordsApi } from 'libs/words.api';
 import React from 'react';
 import { Modal, Button, Header, Icon } from 'semantic-ui-react';
 import { WordMode } from 'types/types';
@@ -9,11 +9,11 @@ export const DeleteButtonWithModal = ({ wordId }: { wordId: string }): JSX.Eleme
 
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
+    const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
 
     const { mutate: mutateUserWords, mutateCount } = useWords(wordsMode);
     const handleDeleteButton = async () => {
-        await deleteUserWord(wordId);
+        await wordsApi(wordsMode).deleteWord(wordId);
         mutateUserWords();
         mutateCount();
         setIsOpen(false);

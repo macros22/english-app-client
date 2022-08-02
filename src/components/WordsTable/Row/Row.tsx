@@ -1,6 +1,8 @@
+import { WORDS_MODE } from 'constants/names.storage';
+import { useLocalStorage, useUser } from 'hooks';
 import React from 'react';
-import { Button, Header, Label, SemanticCOLORS, Table } from 'semantic-ui-react';
-import { WordStudyStatus } from 'types/types';
+import { Button, Dimmer, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Role, WordMode, WordStudyStatus } from 'types/types';
 import { DeleteButtonWithModal } from './DeleteButtonWithModal';
 import { EditButtonWithModal } from './EditButtonWithModal';
 
@@ -15,9 +17,28 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 export const Row = ({ rowData, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
+	const { loading, user, mutate: mutateUser } = useUser();
+	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
+
+	React.useEffect(() => {
+		console.log(user)
+	}, [user])
+
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);
 	};
+
+	if (loading) {
+		return (
+			<Segment>
+				<Dimmer active>
+					<Loader size='massive'>
+						Loading
+					</Loader>
+				</Dimmer>
+			</Segment>
+		);
+	}
 
 	return (
 		<>
@@ -47,9 +68,23 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 					</Label>
 				</Table.Cell>
 				<Table.Cell>
-					<EditButtonWithModal rowData={rowData} />
-					<DeleteButtonWithModal wordId={rowData.id} />
-					<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
+					{wordsMode == 'userWords' ?
+						<>
+							<EditButtonWithModal rowData={rowData} />
+							<DeleteButtonWithModal wordId={rowData.id} />
+							<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
+						</>
+						:
+						user && user.role == Role.ADMIN
+							?
+							<>
+								<EditButtonWithModal rowData={rowData} />
+								<DeleteButtonWithModal wordId={rowData.id} />
+								<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
+							</>
+							:
+							<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
+					}
 				</Table.Cell>
 			</Table.Row>
 			{isExamplesOpen &&

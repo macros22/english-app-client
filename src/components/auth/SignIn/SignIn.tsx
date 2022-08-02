@@ -1,4 +1,5 @@
-import { useUser } from 'hooks';
+import { WORDS_MODE } from 'constants/names.storage';
+import { useLocalStorage, useUser } from 'hooks';
 import { login } from 'libs/auth.api';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,6 +12,7 @@ import {
 	Message,
 	Segment,
 } from 'semantic-ui-react';
+import { WordMode } from 'types/types';
 
 export const SignIn = () => {
 	const [email, setEmail] = React.useState('');
@@ -20,13 +22,13 @@ export const SignIn = () => {
 
 	const router = useRouter();
 
+	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'commonWords');
 
+	React.useEffect(() => {
+		if (loggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/');
+	}, [loggedIn]);
 
-  React.useEffect(() => {
-    if (loggedIn) router.replace("/");
-  }, [loggedIn]);
-
-  if (loggedIn) return <> Redirecting.... </>;
+	if (loggedIn) return <> Redirecting.... </>;
 
 
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL } from 'constants/url';
+import { IUser } from 'types/types';
 
 export const login = async (email: string, password: string) => {
 	try {
@@ -23,7 +24,7 @@ export const getUser = async () => {
 	try {
 		let res = await axios.get(AUTH_ME_URL, { withCredentials: true });
 
-		return res.data;
+		return res.data as IUser;
 	} catch (error) {
 		// console.log(error);
 		throw error;

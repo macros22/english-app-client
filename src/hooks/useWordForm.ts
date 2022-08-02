@@ -4,7 +4,7 @@ import {
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { WordMode, WordStudyStatus } from 'types/types';
-import { patchUserWord, postUserWord } from 'libs/user-words.api';
+import { wordsApi } from 'libs/words.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { wordValidationSchema } from 'utils/form.schema';
 import { IWordFormValues } from 'types/forms';
@@ -77,8 +77,8 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
             const payload = formDataToWordData(data, studyStatus);
 
             wordId
-                ? await patchUserWord(payload, wordId)
-                : await postUserWord(payload);
+                ? await wordsApi(wordsMode).patchWord(payload, wordId)
+                : await wordsApi(wordsMode).postWord(payload);
 
             mutateWords();
 
