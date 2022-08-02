@@ -3,13 +3,15 @@ import {
     DropdownProps,
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { IUserWordPayload, WordStudyStatus } from 'types/types';
+import { WordMode, WordStudyStatus } from 'types/types';
 import { patchUserWord, postUserWord } from 'libs/user-words.api';
-import { useUserWords } from 'hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { wordValidationSchema } from 'utils/form.schema';
 import { IWordFormValues } from 'types/forms';
 import { formDataToWordData } from 'utils/form-data.util';
+import { WORDS_MODE } from 'constants/names.storage';
+import { useSessionStorage } from './useSessionStorage';
+import { useWords } from './useWords';
 
 const studyStatusOptions = [
     { key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
@@ -32,7 +34,9 @@ const defaultFormValues: IWordFormValues = {
 };
 
 export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
-    const { mutate: mutateUserWords } = useUserWords();
+
+    const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
+    const { mutate: mutateWords } = useWords(wordsMode);
 
 
     // Form initialization with react-hook-form.
@@ -76,7 +80,7 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
                 ? await patchUserWord(payload, wordId)
                 : await postUserWord(payload);
 
-            mutateUserWords();
+            mutateWords();
 
             // reset();
         } catch (e) {

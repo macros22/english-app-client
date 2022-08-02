@@ -1,0 +1,2 @@
+export const WORDS_MODE = 'WORDS_MODE';
+export const CURRENT_TABLE_PAGE = 'CURRENT_TABLE_PAGE';

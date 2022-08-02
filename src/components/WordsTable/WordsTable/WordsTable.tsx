@@ -1,20 +1,20 @@
 import React from 'react';
-import { useUserWords, useUserWordsCount } from 'hooks';
+import { useSessionStorage, useWords } from 'hooks';
 import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { WordsTableProps } from './WordsTable.props';
+import { CURRENT_TABLE_PAGE } from 'constants/names.storage';
 
 
 const defaultWordsPerPageCount = 5;
 
-export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
-	const { count: wordsCount } = useUserWordsCount();
-	const [currentPage, setCurrentPage] = React.useState(1);
+export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
+	const [currentPage, setCurrentPage] = useSessionStorage<number>(CURRENT_TABLE_PAGE, 1);
 	const [totalPages, setTotalPages] = React.useState(1);
 	const [skip, setSkip] = React.useState(0);
 	const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
 
-	const { words, loading } = useUserWords(skip, wordsPerPageCount);
+	const { words, loading, count: wordsCount } = useWords(mode, skip, wordsPerPageCount);
 
 	// Pagination logic.
 	React.useEffect(() => {
@@ -22,7 +22,6 @@ export const WordsTable = ({ }: WordsTableProps): JSX.Element => {
 			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
 			setTotalPages(pagesCount);
 		}
-
 	}, [wordsCount])
 
 	// Logic for correct display rows count.
