@@ -17,12 +17,9 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 export const Row = ({ rowData, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
-	const { loading, user, mutate: mutateUser } = useUser();
+	const { loading, user} = useUser();
 	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
 
-	React.useEffect(() => {
-		console.log(user)
-	}, [user])
 
 	const handleOpenExamplesButton = () => {
 		setIsExamplesOpen((open) => !open);

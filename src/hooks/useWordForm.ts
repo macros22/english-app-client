@@ -12,6 +12,7 @@ import { formDataToWordData } from 'utils/form-data.util';
 import { WORDS_MODE } from 'constants/names.storage';
 import { useSessionStorage } from './useSessionStorage';
 import { useWords } from './useWords';
+import { useUser, useWordsApi } from 'hooks';
 
 const studyStatusOptions = [
     { key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
@@ -68,6 +69,9 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
         control
     });
 
+
+    const { api } = useWordsApi(wordsMode);
+
     // Handlers.
     const [loadingPostWord, setLoadingPostWord] = React.useState(false);
     const onSubmit = async (data: IWordFormValues) => {
@@ -75,10 +79,9 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
             setLoadingPostWord(true);
 
             const payload = formDataToWordData(data, studyStatus);
-
             wordId
-                ? await wordsApi(wordsMode).patchWord(payload, wordId)
-                : await wordsApi(wordsMode).postWord(payload);
+                ? await api.patchWord(payload, wordId)
+                : await api.postWord(payload);
 
             mutateWords();
 

@@ -6,3 +6,4 @@ export { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 export { useEventCallback } from './useEventCallback';
 // export { useSessionStorage } from './useSessionStorage';
 export { useLocalStorage } from './useLocalStorage';
+export { useWordsApi } from './useWordsApi';

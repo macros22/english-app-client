@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { USER_WORDS_URL } from 'constants/url';
-import { IUserWord, IUserWordPayload, WordMode, ICommonWord, IWord } from 'types/types';
+import { COMMON_WORDS_URL, USER_WORDS_URL } from 'constants/url';
+import { IUserWord, IUserWordPayload, WordMode, ICommonWord, IWord, Role } from 'types/types';
 
-export const wordsApi = (mode: WordMode) => {
+export const wordsApi = (userRole: Role, mode: WordMode) => {
 
     type WordTypes = { 'userWords': IUserWord; 'commonWords': IWord };
     type WordType = WordTypes[typeof mode];
@@ -12,6 +12,8 @@ export const wordsApi = (mode: WordMode) => {
             try {
                 const res = await axios.get(url, { withCredentials: true });
 
+                console.log(mode);
+                // transform common words to IWord
                 if (mode == 'commonWords') {
                     return (res.data as ICommonWord[]).map(word => {
                         const returnWord: IWord = {
@@ -21,7 +23,7 @@ export const wordsApi = (mode: WordMode) => {
                         return returnWord;
                     });
                 }
-
+                console.log(res.data);
                 return res.data as WordType[];
             } catch (error) {
                 console.log(error);
@@ -41,8 +43,13 @@ export const wordsApi = (mode: WordMode) => {
         },
         postWord: async (word: IUserWordPayload) => {
             try {
+                let url = USER_WORDS_URL;
+                if (userRole == Role.ADMIN) {
+                    url = COMMON_WORDS_URL;
+                }
+
                 const res = await axios.post(
-                    USER_WORDS_URL,
+                    url,
                     word,
                     { withCredentials: true }
                 );
@@ -55,8 +62,13 @@ export const wordsApi = (mode: WordMode) => {
         },
         patchWord: async (word: IUserWordPayload, wordId: string) => {
             try {
+                let url = USER_WORDS_URL;
+                if (userRole == Role.ADMIN) {
+                    url = COMMON_WORDS_URL;
+                }
+
                 const res = await axios.patch(
-                    USER_WORDS_URL + `/${wordId}`,
+                    url + `/${wordId}`,
                     word,
                     { withCredentials: true }
                 );
@@ -69,8 +81,14 @@ export const wordsApi = (mode: WordMode) => {
         },
         deleteWord: async (wordId: string) => {
             try {
+
+                let url = USER_WORDS_URL;
+                if (userRole == Role.ADMIN) {
+                    url = COMMON_WORDS_URL;
+                }
+
                 const res = await axios.delete(
-                    USER_WORDS_URL + `/${wordId}`,
+                    url + `/${wordId}`,
                     { withCredentials: true }
                 );
                 return res.data as WordType[];
