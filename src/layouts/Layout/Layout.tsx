@@ -22,9 +22,10 @@ export const Layout = ({
 			<NavBar />
 			<main>
 				<Container
+					textAlign='center'
 					style={{
 						minHeight: '90vh',
-						padding: '2rem'
+						padding: '1rem'
 					}}
 				>
 					{children}

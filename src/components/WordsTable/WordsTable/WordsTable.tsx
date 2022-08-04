@@ -4,7 +4,7 @@ import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } fr
 import { Row } from '../Row/Row';
 import { WordsTableProps } from './WordsTable.props';
 import { CURRENT_TABLE_PAGE } from 'constants/names.storage';
-
+import styles from './WordsTable.module.scss';
 
 const defaultWordsPerPageCount = 5;
 
@@ -67,11 +67,11 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 
 	return (
 		<>
-			<Label size='big' color='blue'>
+			<Label  size='big' color='blue' className={styles.titleLabel}>
 				All words
 				<Label.Detail>{wordsCount}</Label.Detail>
 			</Label>
-			<Table basic style={{ width: '85%', backgroundColor: 'white', margin: '0 auto' }}>
+			<Table basic style={{ width: '90%', backgroundColor: 'white', margin: '0 auto' }}>
 
 				<Table.Body>
 					{words.map((word, index) => {
@@ -82,8 +82,9 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 
 				<Table.Footer>
 					<Table.Row>
-						<Table.HeaderCell textAlign='center' colSpan="6">
+						<Table.HeaderCell textAlign='center' colSpan="16">
 							<Pagination
+							className={styles.pagination}
 								activePage={currentPage}
 								onPageChange={handlePaginationChange}
 								// boundaryRange={boundaryRange}

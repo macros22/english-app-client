@@ -5,7 +5,7 @@ import { Button, Dimmer, Header, Label, Loader, Segment, SemanticCOLORS, Table }
 import { Role, WordMode, WordStudyStatus } from 'types/types';
 import { DeleteButtonWithModal } from './DeleteButtonWithModal';
 import { EditButtonWithModal } from './EditButtonWithModal';
-
+import styles from './Row.module.scss';
 import { RowProps } from './Row.props';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
@@ -17,7 +17,7 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 export const Row = ({ rowData, rowId }: RowProps) => {
 	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
 
-	const { loading, user} = useUser();
+	const { loading, user } = useUser();
 	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
 
 
@@ -41,7 +41,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 		<>
 			<Table.Row textAlign='center' verticalAlign='middle'>
 				<Table.Cell width={1}>{rowId}</Table.Cell>
-				<Table.Cell>
+				<Table.Cell width={4}>
 					<Header as='h1'>
 						{rowData.word}
 						<Header.Subheader>
@@ -50,7 +50,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 					</Header>
 					{/* {rowData.word} <br /> {rowData.transcription} */}
 				</Table.Cell>
-				<Table.Cell verticalAlign='middle'>
+				<Table.Cell verticalAlign='middle' width={4}>
 					{rowData.translations.map((translation, index) => {
 						return (
 							<React.Fragment key={translation + index}>
@@ -59,12 +59,31 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						);
 					})
 					}</Table.Cell>
-				<Table.Cell>
+				<Table.Cell width={2}>
 					<Label color={labelColors[rowData.studyStatus]} size="big" >
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
-				<Table.Cell>
+				{/* className={styles.buttons} width={3}> */}
+				{wordsMode == 'userWords' ?
+					<>
+						<Table.Cell width={1}><EditButtonWithModal rowData={rowData} /></Table.Cell>
+						<Table.Cell width={1}><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
+						<Table.Cell width={1}><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+					</>
+					:
+					user && user.role == Role.ADMIN
+						?
+						<>
+							<Table.Cell><EditButtonWithModal rowData={rowData} /></Table.Cell>
+							<Table.Cell><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
+							<Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+						</>
+						:
+						<Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+				}
+
+				{/* <Table.Cell className={styles.buttons} width={3}>
 					{wordsMode == 'userWords' ?
 						<>
 							<EditButtonWithModal rowData={rowData} />
@@ -82,20 +101,17 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 							:
 							<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
 					}
-				</Table.Cell>
+				</Table.Cell> */}
 			</Table.Row>
 			{isExamplesOpen &&
 				rowData.usageExamples.map((exampleRow) => (
 					<Table.Row key={exampleRow.sentence} >
 						<Table.Cell></Table.Cell>
-						<Table.Cell colspan={5}>{exampleRow.sentence}</Table.Cell>
+						<Table.Cell colspan={15}>{exampleRow.sentence}</Table.Cell>
 						{/* <Table.Cell></Table.Cell>
 						<Table.Cell>{exampleRow.translation}</Table.Cell> */}
 					</Table.Row>
 				))}
-
-
-
 		</>
 	);
 };
