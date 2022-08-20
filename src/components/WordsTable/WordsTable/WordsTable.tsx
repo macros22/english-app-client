@@ -3,7 +3,6 @@ import { useLocalStorage, useWords } from 'hooks';
 import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row';
 import { WordsTableProps } from './WordsTable.props';
-import { CURRENT_TABLE_PAGE } from 'constants/names.storage';
 import styles from './WordsTable.module.scss';
 
 const defaultWordsPerPageCount = 5;
@@ -59,15 +58,13 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 		);
 	}
 
-
-
 	if (words && !words.length) {
 		return <h1>No words yet </h1>
 	}
 
 	return (
 		<>
-			<Label  size='big' color='blue' className={styles.titleLabel}>
+			<Label size='big' color='blue' className={styles.titleLabel}>
 				All words
 				<Label.Detail>{wordsCount}</Label.Detail>
 			</Label>
@@ -84,7 +81,7 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 					<Table.Row>
 						<Table.HeaderCell textAlign='center' colSpan="16">
 							<Pagination
-							className={styles.pagination}
+								className={styles.pagination}
 								activePage={currentPage}
 								onPageChange={handlePaginationChange}
 								// boundaryRange={boundaryRange}

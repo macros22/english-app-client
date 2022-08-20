@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, Dimmer, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { Role, WordMode, WordStudyStatus } from 'types/types';
 import { DeleteButtonWithModal } from './DeleteButtonWithModal';
+import { WordMoreInfoModal } from './WordMoreInfoModal';
 import { EditButtonWithModal } from './EditButtonWithModal';
 import styles from './Row.module.scss';
 import { RowProps } from './Row.props';
@@ -64,12 +65,12 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
-				{/* className={styles.buttons} width={3}> */}
 				{wordsMode == 'userWords' ?
 					<>
 						<Table.Cell width={1}><EditButtonWithModal rowData={rowData} /></Table.Cell>
 						<Table.Cell width={1}><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
-						<Table.Cell width={1}><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+						{/* <Table.Cell width={1}><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell> */}
+						<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 					</>
 					:
 					user && user.role == Role.ADMIN
@@ -77,41 +78,23 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						<>
 							<Table.Cell><EditButtonWithModal rowData={rowData} /></Table.Cell>
 							<Table.Cell><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
-							<Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+							{/* <Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell> */}
+							<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 						</>
 						:
-						<Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+						// <Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
+						<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 				}
-
-				{/* <Table.Cell className={styles.buttons} width={3}>
-					{wordsMode == 'userWords' ?
-						<>
-							<EditButtonWithModal rowData={rowData} />
-							<DeleteButtonWithModal wordId={rowData.id} />
-							<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
-						</>
-						:
-						user && user.role == Role.ADMIN
-							?
-							<>
-								<EditButtonWithModal rowData={rowData} />
-								<DeleteButtonWithModal wordId={rowData.id} />
-								<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
-							</>
-							:
-							<Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} />
-					}
-				</Table.Cell> */}
 			</Table.Row>
-			{isExamplesOpen &&
-				rowData.usageExamples.map((exampleRow) => (
-					<Table.Row key={exampleRow.sentence} >
-						<Table.Cell></Table.Cell>
-						<Table.Cell colspan={15}>{exampleRow.sentence}</Table.Cell>
-						{/* <Table.Cell></Table.Cell>
-						<Table.Cell>{exampleRow.translation}</Table.Cell> */}
-					</Table.Row>
-				))}
+			{isExamplesOpen && false
+				// <WordMoreInfoModal rowData={rowData} />
+				// rowData.usageExamples.map((exampleRow) => (
+				// 	<Table.Row key={exampleRow.sentence} >
+				// 		<Table.Cell></Table.Cell>
+				// 		<Table.Cell colspan={15}>{exampleRow.sentence}</Table.Cell>
+				// 	</Table.Row>
+				// ))
+			}
 		</>
 	);
 };
