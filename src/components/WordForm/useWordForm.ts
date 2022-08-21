@@ -93,7 +93,7 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
 
     // Study status dropdown.
     const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
-        WordStudyStatus.UNKNOWN
+        formValues ? formValues.studyStatus : WordStudyStatus.UNKNOWN
     );
     const handleSelectStatusChange = (
         event: React.SyntheticEvent<HTMLElement, Event>,
