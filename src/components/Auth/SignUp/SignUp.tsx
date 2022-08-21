@@ -1,47 +1,21 @@
 import Link from 'next/link'
-import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { signUp } from 'libs/auth.api';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import styles from '../Auth.module.scss';
+import { useAuthForm } from '../useAuthForm';
 
 export const SignUp = () => {
-  const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [errorMessage, setErrorMessage] = React.useState('');
 
-  const [isLoadingPostForm, setIsLoadingPostForm] = React.useState(false);
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setErrorMessage('');
-    setIsLoadingPostForm(true);
-    if (email && name && password) {
-      const { user, error } = await signUp({ email, name, password });
-      if (!error && user) {
-
-        console.log(user);
-      }
-      if (error) {
-        setErrorMessage(error);
-      }
-    }
-    setIsLoadingPostForm(false);
-  };
-
-  const handleEmail = (event: React.FormEvent<HTMLInputElement>) => {
-    setEmail(event.currentTarget.value);
-    setErrorMessage('');
-  };
-
-  const handleName = (event: React.FormEvent<HTMLInputElement>) => {
-    setName(event.currentTarget.value);
-    setErrorMessage('');
-  };
-
-  const handlePassword = (event: React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-    setErrorMessage('');
-  };
+  const {
+    handleSubmit,
+    email,
+    handleEmail,
+    name,
+    handleName,
+    password,
+    handlePassword,
+    errorMessage,
+    isLoadingPostForm,
+  } = useAuthForm('signUp');
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>

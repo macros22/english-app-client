@@ -15,50 +15,26 @@ import {
 } from 'semantic-ui-react';
 import { WordMode } from 'types/types';
 import styles from '../Auth.module.scss';
+import { useAuthForm } from '../useAuthForm';
 
 export const SignIn = () => {
-	const [email, setEmail] = React.useState('');
-	const [password, setPassword] = React.useState('');
-	const [errorMessage, setErrorMessage] = React.useState('');
-
-	const { mutate, isLoggedIn } = useUser();
+	const {
+		handleSubmit,
+		email,
+		handleEmail,
+		password,
+		handlePassword,
+		errorMessage,
+		isLoadingPostForm,
+		isLoggedIn,
+	} = useAuthForm('signIn');
 
 	const router = useRouter();
-
 	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'commonWords');
 
 	React.useEffect(() => {
 		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/');
 	}, [isLoggedIn]);
-
-
-	const [isLoadingPostForm, setIsLoadingPostForm] = React.useState(false);
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		setErrorMessage('');
-		setIsLoadingPostForm(true);
-		if (email && password) {
-			const { accessToken, error } = await signIn({ email, password });
-			if (!error && accessToken) {
-				mutate();
-				console.log(accessToken);
-			}
-			if (error) {
-				setErrorMessage(error);
-			}
-		}
-		setIsLoadingPostForm(false);
-	};
-
-	const handleEmail = (event: React.FormEvent<HTMLInputElement>) => {
-		setEmail(event.currentTarget.value);
-		setErrorMessage('');
-	};
-
-	const handlePassword = (event: React.FormEvent<HTMLInputElement>) => {
-		setPassword(event.currentTarget.value);
-		setErrorMessage('');
-	};
 
 	if (isLoggedIn) return <Loader size='massive' active inline='centered' />;
 
@@ -83,6 +59,7 @@ export const SignIn = () => {
 						<Form.Input
 							size='huge'
 							fluid
+							value={password}
 							onChange={handlePassword}
 							icon="lock"
 							iconPosition="left"
