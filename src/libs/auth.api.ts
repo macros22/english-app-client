@@ -39,7 +39,6 @@ export const signUp = async (signUpDto: SignUpDto) => {
 		if (error instanceof Error) {
 			return { error: error.message }
 		}
-
 		return {}
 	}
 
@@ -48,10 +47,8 @@ export const signUp = async (signUpDto: SignUpDto) => {
 export const getUser = async () => {
 	try {
 		let res = await axios.get(AUTH_ME_URL, { withCredentials: true });
-
-		return res.data as IUser;
+		return res.data as IUser
 	} catch (error) {
-		// console.log(error);
 		throw error;
 	}
 };

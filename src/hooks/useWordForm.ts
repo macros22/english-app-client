@@ -4,7 +4,6 @@ import {
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { WordMode, WordStudyStatus } from 'types/types';
-import { wordsApi } from 'libs/words.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { wordValidationSchema } from 'utils/form.schema';
 import { IWordFormValues } from 'types/forms';
@@ -12,7 +11,7 @@ import { formDataToWordData } from 'utils/form-data.util';
 import { WORDS_MODE } from 'constants/names.storage';
 import { useSessionStorage } from './useSessionStorage';
 import { useWords } from './useWords';
-import { useUser, useWordsApi } from 'hooks';
+import { useWordsApi } from 'hooks';
 
 const studyStatusOptions = [
     { key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
