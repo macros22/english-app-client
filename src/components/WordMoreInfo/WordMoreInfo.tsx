@@ -4,40 +4,40 @@ import { IWord } from 'types/types';
 export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
     return (
         <>
-            <h3>Engish word:</h3>
-            <p>{rowData.word}</p>
+            <h2>Engish word:</h2>
+            <h3>{rowData.word}</h3>
 
             {rowData.transcription &&
                 <>
-                    <h3>Transcription:</h3>
-                    <p>{rowData.transcription}</p>
+                    <h2>Transcription:</h2>
+                    <h3>{rowData.transcription}</h3>
                 </>
             }
 
             {rowData.definitions && rowData.definitions?.length &&
                 <>
-                    <h3>Definitions:</h3>
+                    <h2>Definitions:</h2>
                     {rowData.definitions.map((definition, index) => {
-                        return <p key={definition + index}>{definition}</p>
+                        return <h3 key={definition + index}>{definition}</h3>
                     })}
                 </>
             }
             {rowData.translations && rowData.translations?.length &&
                 <>
-                    <h3>Translations:</h3>
+                    <h2>Translations:</h2>
                     {rowData.translations.map((translation, index) => {
-                        return <p key={translation + index}>{translation}</p>
+                        return <h3 key={translation + index}>{translation}</h3>
                     })}
                 </>
             }
             {rowData.usageExamples && rowData.translations?.length &&
                 <>
-                    <h3>Usage examples:</h3>
+                    <h2>Usage examples:</h2>
                     {rowData.usageExamples.map((usageExample, index) => {
                         return (<>
-                            <p key={usageExample.sentence + index}>{usageExample.sentence}</p>
+                            <h3 key={usageExample.sentence + index}>{usageExample.sentence}</h3>
                             {usageExample.translation &&
-                                <p key={usageExample.translation + index}>{usageExample.translation}</p>
+                                <h3 key={usageExample.translation + index}>{usageExample.translation}</h3>
                             }
                         </>)
                     })}
