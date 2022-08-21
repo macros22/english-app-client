@@ -17,7 +17,9 @@ export const useWords = (mode: 'commonWords' | 'userWords', skip?: number, limit
     const { api } = useWordsApi(wordsMode);
 
     const wordsUrl = (mode == 'userWords' ? USER_WORDS_URL : COMMON_WORDS_URL) + searchParams;
-    const { data: words, mutate, error } = useSWR(wordsUrl, api.getWords);
+
+    // TODO! remove interval.
+    const { data: words, mutate, error } = useSWR(wordsUrl, api.getWords, { refreshInterval: 3000 });
     const loading: boolean = !words && !error;
 
     const countUrl = mode == 'userWords' ? USER_WORDS_COUNT_URL : COMMON_WORDS_COUNT_URL;

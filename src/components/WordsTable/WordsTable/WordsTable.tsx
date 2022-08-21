@@ -28,8 +28,8 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 			}
 		}
 		//Mutate here for correct display after deleting word.
-		mutateWords();
-	}, [wordsCount, JSON.stringify(words)])
+		// mutateWords();
+	}, [wordsCount])
 
 	// Logic for correct display rows count.
 	React.useEffect(() => {

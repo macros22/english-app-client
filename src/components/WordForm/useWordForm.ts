@@ -91,6 +91,7 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
             }
 
             mutateWords();
+        
             reset();
         } catch (error) {
             if (error instanceof Error) {
