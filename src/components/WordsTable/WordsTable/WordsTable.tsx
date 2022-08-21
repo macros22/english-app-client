@@ -4,6 +4,7 @@ import { Label, Loader, Pagination, PaginationProps, Segment, Table } from 'sema
 import { Row } from '../Row/Row/Row';
 import { WordsTableProps } from './WordsTable.props';
 import styles from './WordsTable.module.scss';
+import { json } from 'stream/consumers';
 
 const defaultWordsPerPageCount = 5;
 
@@ -28,7 +29,7 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 		}
 		//Mutate here for correct display after deleting word.
 		mutateWords();
-	}, [wordsCount])
+	}, [wordsCount, JSON.stringify(words)])
 
 	// Logic for correct display rows count.
 	React.useEffect(() => {
