@@ -6,7 +6,7 @@ import {
 	Header,
 	Input
 } from 'semantic-ui-react';
-import { useWordForm } from 'hooks';
+import { useWordForm } from './useWordForm';
 import { WordFormProps } from './WordForm.props';
 
 export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Element => {

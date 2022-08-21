@@ -9,8 +9,8 @@ import { wordValidationSchema } from 'utils/form.schema';
 import { IWordFormValues } from 'types/forms';
 import { formDataToWordData } from 'utils/form-data.util';
 import { WORDS_MODE } from 'constants/names.storage';
-import { useSessionStorage } from './useSessionStorage';
-import { useWords } from './useWords';
+import { useSessionStorage } from '../../hooks/useSessionStorage';
+import { useWords } from '../../hooks/useWords';
 import { useWordsApi } from 'hooks';
 
 const studyStatusOptions = [

@@ -38,7 +38,7 @@ export const NavBar = () => {
 						</Menu.Item>
 
 						{isLoggedIn ? (
-							<Menu.Item name="user"><Label style={{ margin: 0 }} size="big" icon="user" color='green' content={user?.name} /></Menu.Item>
+							<Menu.Item name="user"><Label style={{ margin: 0, padding: '0.6rem 1rem' }} size="big" color='teal' content={user?.name} /></Menu.Item>
 						) : (
 							<Menu.Item name="sign-in">Sign-in</Menu.Item>
 						)}
@@ -47,8 +47,7 @@ export const NavBar = () => {
 								'isUserLoading'
 							) : (
 								<Menu.Item >
-									{/* <Icon name='log out' size='big' className='ui transparent icon input'/> */}
-									<Button basic icon="log out" size="big" content='Logout' onClick={logoutHandler} />
+									<Button basic size="big" content='Logout' onClick={logoutHandler} />
 								</Menu.Item>
 							)
 						) : (
