@@ -2,7 +2,7 @@ export const BASE_URL = 'https://node-express-t-prod-nodejs-express-ts-gsiguz.mo
 
 // Auth.
 export const SIGN_IN_URL = BASE_URL + 'login';
-export const SIGN_UP_URL = BASE_URL + 'sign-up';
+export const SIGN_UP_URL = BASE_URL + 'signup';
 export const LOGOUT_URL = BASE_URL + 'logout';
 export const AUTH_ME_URL = BASE_URL + 'me';
 
