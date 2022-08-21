@@ -14,6 +14,7 @@ export const SignUp = () => {
     password,
     handlePassword,
     errorMessage,
+    successMessage,
     isLoadingPostForm,
   } = useAuthForm('signUp');
 
@@ -23,12 +24,12 @@ export const SignUp = () => {
         <Header as='h1' color='teal' textAlign='center'>
           Sign up
         </Header>
-        <Form error size='large' onSubmit={handleSubmit}>
+        <Form error success size='large' onSubmit={handleSubmit}>
           <Segment >
             <Form.Input
               value={email}
               onChange={handleEmail}
-              size='huge' fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+              size='huge' fluid icon='mail' iconPosition='left' placeholder='E-mail address' />
             <Form.Input
               value={name}
               onChange={handleName}
@@ -48,6 +49,12 @@ export const SignUp = () => {
                 error
                 header={errorMessage}
 
+              />
+            }
+            {successMessage &&
+              <Message
+                success
+                header={successMessage}
               />
             }
             <Button loading={isLoadingPostForm} color='teal' fluid size='huge'>

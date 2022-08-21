@@ -51,7 +51,7 @@ export const SignIn = () => {
 							onChange={handleEmail}
 							name="email"
 							fluid
-							icon="user"
+							icon="mail"
 							iconPosition="left"
 							placeholder="E-mail address"
 						/>
