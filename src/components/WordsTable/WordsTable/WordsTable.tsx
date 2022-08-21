@@ -14,14 +14,20 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 	const [skip, setSkip] = React.useState(0);
 	const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
 
-	const { words, loading, count: wordsCount } = useWords(mode, skip, wordsPerPageCount);
+	const { words, loading, count: wordsCount, mutate: mutateWords } = useWords(mode, skip, wordsPerPageCount);
 
 	// Pagination logic.
 	React.useEffect(() => {
 		if (wordsCount) {
 			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
 			setTotalPages(pagesCount);
+
+			if (currentPage > pagesCount) {
+				setCurrentPage(pagesCount);
+			}
 		}
+		//Mutate here for correct display after deleting word.
+		mutateWords();
 	}, [wordsCount])
 
 	// Logic for correct display rows count.

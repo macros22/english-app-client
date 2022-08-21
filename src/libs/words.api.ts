@@ -12,7 +12,6 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
             try {
                 const res = await axios.get(url, { withCredentials: true });
 
-                console.log(mode);
                 // transform common words to IWord
                 if (mode == 'commonWords') {
                     return (res.data as ICommonWord[]).map(word => {
@@ -23,7 +22,7 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                         return returnWord;
                     });
                 }
-                console.log(res.data);
+                console.log(res.data.length);
                 return res.data as WordType[];
             } catch (error) {
                 console.log(error);
