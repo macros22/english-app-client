@@ -5,6 +5,7 @@ import {
 	Form,
 	Header,
 	Input,
+	Message,
 } from 'semantic-ui-react';
 import { useWordForm } from './useWordForm';
 import { WordFormProps } from './WordForm.props';
@@ -32,12 +33,14 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 		appendDefinition,
 		studyStatusOptions,
 		handleReset,
+		successMessage,
+		errorMessage,
 	} = mode == 'edit' ? useWordForm(formValues, wordId) : useWordForm();
 
 
 	return (
 		<>
-			<Form size="large" >
+			<Form success error size="large" >
 				<Controller
 					name={'word'}
 					control={control}
@@ -178,7 +181,24 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 				})}
 
 				<Divider clearing />
-
+				{errorMessage &&
+					<>
+						<Message
+							error
+							header={errorMessage}
+						/>
+						<Divider clearing />
+					</>
+				}
+				{successMessage &&
+					<>
+						<Message
+							success
+							header={successMessage}
+						/>
+						<Divider clearing />
+					</>
+				}
 				<Form.Group >
 					<Form.Button loading={loadingPostWord} icon='save' primary size='large' type="submit" content="Save" onClick={handleSubmit(onSubmit)} />
 					<Button icon='undo' size='large' content="Reset" onClick={handleReset} />

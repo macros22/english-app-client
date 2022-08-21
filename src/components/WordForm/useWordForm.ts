@@ -24,7 +24,7 @@ const defaultFormValues: IWordFormValues = {
     transcription: '',
     translations: [{ translation: '' }],
     definitions: [{ definition: '' }],
-    studyStatus: WordStudyStatus.UNKNOWN,
+    studyStatus: WordStudyStatus.LEARN,
     usageExamples: [
         {
             sentence: '',
@@ -34,10 +34,8 @@ const defaultFormValues: IWordFormValues = {
 };
 
 export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
-
     const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
     const { mutate: mutateWords } = useWords(wordsMode);
-
 
     // Form initialization with react-hook-form.
     const {
@@ -45,6 +43,7 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
         reset,
         register,
         control,
+        watch,
         trigger,
         formState: { errors },
     } = useForm<IWordFormValues>({
@@ -71,22 +70,31 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
 
     const { api } = useWordsApi(wordsMode);
 
+    const [errorMessage, setErrorMessage] = React.useState('');
+    const [successMessage, setSuccessMessage] = React.useState('');
+
     // Handlers.
     const [loadingPostWord, setLoadingPostWord] = React.useState(false);
     const onSubmit = async (data: IWordFormValues) => {
+        setSuccessMessage('');
+        setErrorMessage('');
         try {
             setLoadingPostWord(true);
 
             const payload = formDataToWordData(data, studyStatus);
+            let response;
             wordId
-                ? await api.patchWord(payload, wordId)
-                : await api.postWord(payload);
+                ? response = await api.patchWord(payload, wordId)
+                : response = await api.postWord(payload);
+
+            setSuccessMessage(`Successfully added ${response!.word}`)
 
             mutateWords();
-
-            // reset();
-        } catch (e) {
-
+            reset();
+        } catch (error) {
+            if (error instanceof Error) {
+                setErrorMessage(error.message);
+            }
         }
         setLoadingPostWord(false);
     };
@@ -128,5 +136,7 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
         appendTranslation,
         appendDefinition,
         studyStatusOptions,
+        successMessage,
+        errorMessage,
     }
 }

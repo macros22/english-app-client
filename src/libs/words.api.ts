@@ -22,23 +22,19 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                         return returnWord;
                     });
                 }
-                console.log(res.data.length);
+                // console.log(res.data.length);
                 return res.data as WordType[];
             } catch (error) {
-                console.log(error);
+                throw error;
             }
-
-            return null;
         },
         getWordsCount: async (url: string) => {
             try {
                 const res = await axios.get(url, { withCredentials: true });
                 return res.data as number;
             } catch (error) {
-                console.log(error);
+                throw error;
             }
-
-            return null;
         },
         postWord: async (word: IUserWordPayload) => {
             try {
@@ -52,12 +48,10 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                     word,
                     { withCredentials: true }
                 );
-                return res.data as WordType[];
+                return res.data as WordType;
             } catch (error) {
-                console.log(error);
+                throw error;
             }
-
-            return null;
         },
         patchWord: async (word: IUserWordPayload, wordId: string) => {
             try {
@@ -71,31 +65,25 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                     word,
                     { withCredentials: true }
                 );
-                return res.data as WordType[];
+                return res.data as WordType;
             } catch (error) {
-                console.log(error);
+                throw error;
             }
-
-            return null;
         },
         deleteWord: async (wordId: string) => {
             try {
-
                 let url = USER_WORDS_URL;
                 if (userRole == Role.ADMIN) {
                     url = COMMON_WORDS_URL;
                 }
-
                 const res = await axios.delete(
                     url + `/${wordId}`,
                     { withCredentials: true }
                 );
                 return res.data as WordType[];
             } catch (error) {
-                console.log(error);
+                throw error;
             }
-
-            return null;
         },
     }
 }
