@@ -43,15 +43,6 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						</Header.Subheader>
 					</Header>
 				</Table.Cell>
-				<Table.Cell verticalAlign='middle' width={4}>
-					{rowData.translations.map((translation, index) => {
-						return (
-							<React.Fragment key={translation + index}>
-								<Header style={{ margin: '0.35rem 0' }} size='small'>{translation}</Header>
-							</React.Fragment>
-						);
-					})
-					}</Table.Cell>
 				<Table.Cell width={2}>
 					<Label color={labelColors[rowData.studyStatus]} size="big" >
 						{rowData.studyStatus}

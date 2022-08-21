@@ -1,6 +1,6 @@
 import { WORDS_MODE } from 'constants/names.storage';
 import { useLocalStorage, useUser } from 'hooks';
-import { login } from 'libs/auth.api';
+import { signIn } from 'libs/auth.api';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -37,7 +37,7 @@ export const SignIn = () => {
 		setErrorMessage('');
 		setIsLoadingPostForm(true);
 		if (email && password) {
-			const { accessToken, error } = await login(email, password);
+			const { accessToken, error } = await signIn({ email, password });
 			if (!error && accessToken) {
 				mutate();
 				console.log(accessToken);

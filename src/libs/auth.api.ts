@@ -2,17 +2,39 @@ import axios from 'axios';
 import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL } from 'constants/url';
 import { IUser } from 'types/types';
 
-export const login = async (email: string, password: string) => {
+interface SignInDto {
+	email: string;
+	password: string;
+}
+
+interface SignUpDto extends SignInDto {
+	name: string;
+}
+
+export const signIn = async (signInDto: SignInDto) => {
 	try {
 		const res = await axios.post(
 			SIGN_IN_URL,
-			{
-				email,
-				password,
-			},
+			signInDto,
 			{ withCredentials: true }
 		);
 		return { accessToken: res.data.accessToken };
+	} catch (error) {
+		if (error instanceof Error) {
+			return { error: error.message }
+		}
+		return {}
+	}
+};
+
+export const signUp = async (signUpDto: SignUpDto) => {
+	try {
+		const res = await axios.post(
+			SIGN_IN_URL,
+			signUpDto,
+			{ withCredentials: true }
+		);
+		return { user: res.data };
 	} catch (error) {
 		if (error instanceof Error) {
 			return { error: error.message }
