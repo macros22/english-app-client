@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL } from 'constants/url';
+import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL, SIGN_UP_URL } from 'constants/url';
 import { IUser } from 'types/types';
 
 interface SignInDto {
@@ -30,7 +30,7 @@ export const signIn = async (signInDto: SignInDto) => {
 export const signUp = async (signUpDto: SignUpDto) => {
 	try {
 		const res = await axios.post(
-			SIGN_IN_URL,
+			SIGN_UP_URL,
 			signUpDto,
 			{ withCredentials: true }
 		);
