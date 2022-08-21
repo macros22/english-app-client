@@ -1,6 +1,6 @@
+import React from 'react';
 import { SignIn, SignUp } from 'components';
 import { GetServerSideProps } from 'next';
-import React from 'react';
 
 interface IAuthPageProps extends Record<string, unknown> {
 	isSignIn: boolean;

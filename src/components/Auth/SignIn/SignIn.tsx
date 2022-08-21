@@ -33,7 +33,7 @@ export const SignIn = () => {
 	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'commonWords');
 
 	React.useEffect(() => {
-		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/');
+		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/user-words');
 	}, [isLoggedIn]);
 
 	if (isLoggedIn) return <Loader size='massive' active inline='centered' />;

@@ -5,7 +5,6 @@ import {
 	Form,
 	Header,
 	Input,
-	Segment
 } from 'semantic-ui-react';
 import { useWordForm } from './useWordForm';
 import { WordFormProps } from './WordForm.props';
@@ -37,7 +36,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 
 
 	return (
-		<Segment className={styles.form}>
+		<>
 			<Form size="large" >
 				<Controller
 					name={'word'}
@@ -185,6 +184,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					<Button icon='undo' size='large' content="Reset" onClick={handleReset} />
 				</Form.Group>
 			</Form>
-		</Segment>
+		</>
 	);
 };

@@ -1,5 +1,5 @@
-import { Layout } from 'layouts';
 import React from 'react';
+import { Layout } from 'layouts';
 import { WordsTable } from 'components';
 import { WordMode } from 'types/types';
 import { useLocalStorage } from 'hooks';
