@@ -29,11 +29,11 @@ export const NavBar = () => {
 							{/* <Button icon='add' size='small'  /> */}
 						</Menu.Item>
 
-						<Menu.Item name="All words" link active={router.pathname === '/common-words'} onClick={() => router.push('/common-words')}>
+						<Menu.Item name="All words" link active={router.pathname === '/common-words'} onClick={() => router.replace('/common-words')}>
 							{/* <Link href="/">All words</Link> */}
 						</Menu.Item>
 
-						<Menu.Item name="My words" link active={router.pathname === '/'} onClick={() => router.push('/')}>
+						<Menu.Item name="My words" link active={router.pathname === '/user-words'} onClick={() => router.replace('/user-words')}>
 							{/* <Link href="/">All words</Link> */}
 						</Menu.Item>
 

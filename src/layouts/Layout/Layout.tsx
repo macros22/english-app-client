@@ -14,7 +14,7 @@ export const Layout = ({
 	const router = useRouter();
 
 	React.useEffect(() => {
-		if (!isLoggedIn) router.push('/auth/sign-in');
+		if (!isLoggedIn) router.replace('/auth/sign-in');
 	}, [isLoggedIn]);
 
 	return (
@@ -25,7 +25,7 @@ export const Layout = ({
 					textAlign='center'
 					style={{
 						minHeight: '90vh',
-						padding: '1rem'
+						padding: '1.5rem 0.5rem'
 					}}
 				>
 					{children}
