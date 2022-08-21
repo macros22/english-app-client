@@ -35,7 +35,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 		<>
 			<Table.Row textAlign='center' verticalAlign='middle'>
 				<Table.Cell width={1}>{rowId}</Table.Cell>
-				<Table.Cell width={4}>
+				<Table.Cell width={9}>
 					<Header as='h1'>
 						{rowData.word}
 						<Header.Subheader>
