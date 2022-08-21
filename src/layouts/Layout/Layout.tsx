@@ -9,13 +9,13 @@ export const Layout = ({
 }: {
 	children: React.ReactNode;
 }): JSX.Element => {
-	const { loggedIn } = useUser();
+	const { isLoggedIn } = useUser();
 
 	const router = useRouter();
 
 	React.useEffect(() => {
-		if (!loggedIn) router.push('/auth/sign-in');
-	}, [loggedIn]);
+		if (!isLoggedIn) router.push('/auth/sign-in');
+	}, [isLoggedIn]);
 
 	return (
 		<div>

@@ -7,7 +7,7 @@ import React from 'react';
 
 export const NavBar = () => {
 	const router = useRouter();
-	const { loading, loggedIn, user, mutate: mutateUser } = useUser();
+	const { isUserLoading, isLoggedIn, user, mutate: mutateUser } = useUser();
 
 	const logoutHandler = async () => {
 		await logout();
@@ -37,14 +37,14 @@ export const NavBar = () => {
 							{/* <Link href="/">All words</Link> */}
 						</Menu.Item>
 
-						{loggedIn ? (
+						{isLoggedIn ? (
 							<Menu.Item name="user"><Label style={{ margin: 0 }} size="big" icon="user" color='green' content={user?.name} /></Menu.Item>
 						) : (
 							<Menu.Item name="sign-in">Sign-in</Menu.Item>
 						)}
-						{loggedIn ? (
-							loading ? (
-								'loading'
+						{isLoggedIn ? (
+							isUserLoading ? (
+								'isUserLoading'
 							) : (
 								<Menu.Item >
 									{/* <Icon name='log out' size='big' className='ui transparent icon input'/> */}

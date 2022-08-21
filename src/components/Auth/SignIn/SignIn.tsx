@@ -19,17 +19,17 @@ export const SignIn = () => {
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
 
-	const { mutate, loggedIn, user } = useUser();
+	const { mutate, isLoggedIn, isUserLoading } = useUser();
 
 	const router = useRouter();
 
 	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'commonWords');
 
 	React.useEffect(() => {
-		if (loggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/');
-	}, [loggedIn]);
+		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/');
+	}, [isLoggedIn]);
 
-	if (loggedIn) return <> Redirecting.... </>;
+	if (isLoggedIn) return <> Redirecting.... </>;
 
 
 
@@ -84,7 +84,7 @@ export const SignIn = () => {
 							type="password"
 						/>
 
-						<Button color="teal" fluid size="huge">
+						<Button loading={isUserLoading} color="teal" fluid size="huge">
 							Login
 						</Button>
 					</Segment>

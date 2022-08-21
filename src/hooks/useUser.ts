@@ -4,12 +4,12 @@ import useSWR from "swr";
 export const useUser = () => {
   const { data, mutate, error } = useSWR('user', getUser);
 
-  const loading = !data && !error;
-  const loggedIn = !error && data;
+  const isUserLoading = !data && !error;
+  const isLoggedIn = !error && data;
 
   return {
-    loading,
-    loggedIn,
+    isUserLoading,
+    isLoggedIn,
     user: data,
     mutate,
   };

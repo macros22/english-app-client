@@ -16,22 +16,15 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 }
 
 export const Row = ({ rowData, rowId }: RowProps) => {
-	const [isExamplesOpen, setIsExamplesOpen] = React.useState(false);
-
-	const { loading, user } = useUser();
+	const { isUserLoading, user } = useUser();
 	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
 
-
-	const handleOpenExamplesButton = () => {
-		setIsExamplesOpen((open) => !open);
-	};
-
-	if (loading) {
+	if (isUserLoading) {
 		return (
 			<Segment>
 				<Dimmer active>
 					<Loader size='massive'>
-						Loading
+						isUserLoading
 					</Loader>
 				</Dimmer>
 			</Segment>
@@ -49,7 +42,6 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 							{rowData.transcription}
 						</Header.Subheader>
 					</Header>
-					{/* {rowData.word} <br /> {rowData.transcription} */}
 				</Table.Cell>
 				<Table.Cell verticalAlign='middle' width={4}>
 					{rowData.translations.map((translation, index) => {
@@ -69,8 +61,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 					<>
 						<Table.Cell width={1}><EditButtonWithModal rowData={rowData} /></Table.Cell>
 						<Table.Cell width={1}><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
-						{/* <Table.Cell width={1}><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell> */}
-						<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
+						<Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 					</>
 					:
 					user && user.role == Role.ADMIN
@@ -78,23 +69,13 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						<>
 							<Table.Cell><EditButtonWithModal rowData={rowData} /></Table.Cell>
 							<Table.Cell><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
-							{/* <Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell> */}
 							<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 						</>
 						:
-						// <Table.Cell><Button basic icon={`chevron ${isExamplesOpen ? 'up' : 'down'}`} size='large' onClick={handleOpenExamplesButton} /></Table.Cell>
-						<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
+
+						<Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 				}
 			</Table.Row>
-			{isExamplesOpen && false
-				// <WordMoreInfoModal rowData={rowData} />
-				// rowData.usageExamples.map((exampleRow) => (
-				// 	<Table.Row key={exampleRow.sentence} >
-				// 		<Table.Cell></Table.Cell>
-				// 		<Table.Cell colspan={15}>{exampleRow.sentence}</Table.Cell>
-				// 	</Table.Row>
-				// ))
-			}
 		</>
 	);
 };
