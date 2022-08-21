@@ -1,7 +1,6 @@
 import React from 'react';
 import { IWord } from 'types/types';
 
-
 export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
     return (
         <>

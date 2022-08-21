@@ -12,12 +12,15 @@ export const login = async (email: string, password: string) => {
 			},
 			{ withCredentials: true }
 		);
-		return res.data.accessToken;
+		return { accessToken: res.data.accessToken };
 	} catch (error) {
-		console.log(error);
+		if (error instanceof Error) {
+			return { error: error.message }
+		}
+
+		return {}
 	}
 
-	return '';
 };
 
 export const getUser = async () => {

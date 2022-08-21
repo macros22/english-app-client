@@ -18,8 +18,9 @@ import styles from '../Auth.module.scss';
 export const SignIn = () => {
 	const [email, setEmail] = React.useState('');
 	const [password, setPassword] = React.useState('');
+	const [errorMessage, setErrorMessage] = React.useState('');
 
-	const { mutate, isLoggedIn, isUserLoading } = useUser();
+	const { mutate, isLoggedIn } = useUser();
 
 	const router = useRouter();
 
@@ -29,32 +30,36 @@ export const SignIn = () => {
 		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/');
 	}, [isLoggedIn]);
 
-	if (isLoggedIn) return <> Redirecting.... </>;
 
-
-
+	const [isLoadingPostForm, setIsLoadingPostForm] = React.useState(false);
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
+		setErrorMessage('');
+		setIsLoadingPostForm(true);
 		if (email && password) {
-			const accessToken = await login(email, password);
-			// setCookie(authCookie, `${accessToken}; Max-Age=3600; Path=/; HttpOnly; Domain=node-express-t-prod-nodejs-express-ts-gsiguz.mo2.mogenius.io`);
-			mutate();
-			console.log(accessToken);
+			const { accessToken, error } = await login(email, password);
+			if (!error && accessToken) {
+				mutate();
+				console.log(accessToken);
+			}
+			if (error) {
+				setErrorMessage(error);
+			}
 		}
-		console.log({
-			email,
-			password,
-		});
+		setIsLoadingPostForm(false);
 	};
 
 	const handleEmail = (event: React.FormEvent<HTMLInputElement>) => {
 		setEmail(event.currentTarget.value);
+		setErrorMessage('');
 	};
 
 	const handlePassword = (event: React.FormEvent<HTMLInputElement>) => {
 		setPassword(event.currentTarget.value);
+		setErrorMessage('');
 	};
+
+	if (isLoggedIn) return <> Redirecting.... </>;
 
 	return (
 		<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
@@ -62,8 +67,8 @@ export const SignIn = () => {
 				<Header as="h1" color="teal" textAlign="center">
 					Sign in
 				</Header>
-				<Form size="large" onSubmit={handleSubmit}>
-					<Segment>
+				<Form error size="large" onSubmit={handleSubmit}>
+					<Segment >
 						<Form.Input
 							size='huge'
 							value={email}
@@ -84,14 +89,22 @@ export const SignIn = () => {
 							type="password"
 						/>
 
-						<Button loading={isUserLoading} color="teal" fluid size="huge">
+						{errorMessage &&
+							<Message
+								error
+								header={errorMessage}
+
+							/>
+						}
+
+						<Button loading={isLoadingPostForm} color="teal" fluid size="huge">
 							Login
 						</Button>
 					</Segment>
 				</Form>
-				<Message>
-					Or you can <Link href="/auth/sign-up">Sign Up</Link>
-				</Message>
+				<Segment>
+					Or you can <Link href="/auth/sign-up"><strong>Sign Up</strong></Link>
+				</Segment>
 			</Grid.Column>
 		</Grid>
 	);
