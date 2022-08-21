@@ -1,6 +1,5 @@
 import { WORDS_MODE } from 'constants/names.storage';
-import { useLocalStorage, useUser } from 'hooks';
-import { signIn } from 'libs/auth.api';
+import { useLocalStorage } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -39,7 +38,7 @@ export const SignIn = () => {
 	if (isLoggedIn) return <Loader size='massive' active inline='centered' />;
 
 	return (
-		<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
+		<Grid textAlign="center" className={styles.wrapper} verticalAlign="middle">
 			<Grid.Column className={styles.form}>
 				<Header as="h1" color="teal" textAlign="center">
 					Sign in
@@ -76,12 +75,12 @@ export const SignIn = () => {
 						}
 
 						<Button loading={isLoadingPostForm} color="teal" fluid size="huge">
-							Login
+							Sign In
 						</Button>
 					</Segment>
 				</Form>
-				<Segment>
-					Or you can <Link href="/auth/sign-up"><strong>Sign Up</strong></Link>
+				<Segment className={styles.additionalAction}>
+					Or you can <Link href="/auth/sign-up"><strong><a>Sign Up</a></strong></Link>
 				</Segment>
 			</Grid.Column>
 		</Grid>

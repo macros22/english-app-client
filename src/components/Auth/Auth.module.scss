@@ -1,5 +1,20 @@
+.wrapper {
+    height: 100vh;
+}
+
 .form {
     max-width: 55%;
+}
+
+.additionalAction {
+    font-size: 18px !important;
+
+    a {
+        cursor: pointer !important;
+        &:hover {
+            color: teal;
+        }
+    }
 }
 
 @media (max-width: 700px) {

@@ -18,7 +18,7 @@ export const SignUp = () => {
   } = useAuthForm('signUp');
 
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid textAlign='center' className={styles.wrapper} verticalAlign='middle'>
       <Grid.Column className={styles.form}>
         <Header as='h1' color='teal' textAlign='center'>
           Sign up
@@ -55,8 +55,8 @@ export const SignUp = () => {
             </Button>
           </Segment>
         </Form>
-        <Segment>
-          Or you can <Link href='/auth/sign-in'><strong>Sign In</strong></Link>
+        <Segment className={styles.additionalAction}>
+          Or you can <Link href='/auth/sign-in' ><strong><a>Sign In</a></strong></Link>
         </Segment>
       </Grid.Column>
     </Grid>
