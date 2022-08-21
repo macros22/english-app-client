@@ -43,7 +43,6 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
         reset,
         register,
         control,
-        watch,
         trigger,
         formState: { errors },
     } = useForm<IWordFormValues>({
@@ -82,12 +81,14 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
             setLoadingPostWord(true);
 
             const payload = formDataToWordData(data, studyStatus);
-            let response;
-            wordId
-                ? response = await api.patchWord(payload, wordId)
-                : response = await api.postWord(payload);
 
-            setSuccessMessage(`Successfully added ${response!.word}`)
+            if (wordId) {
+                const response = await api.patchWord(payload, wordId)
+                setSuccessMessage(`Successfully updated ${response!.word}`)
+            } else {
+                const response = await api.postWord(payload);
+                setSuccessMessage(`Successfully added ${response!.word}`);
+            }
 
             mutateWords();
             reset();
