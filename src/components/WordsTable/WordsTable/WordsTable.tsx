@@ -49,11 +49,7 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 	if (loading) {
 		return (
 			<Segment>
-				<Dimmer active>
-					<Loader size='massive'>
-						Loading
-					</Loader>
-				</Dimmer>
+				<Loader size='massive' active inline='centered' />
 			</Segment>
 		);
 	}

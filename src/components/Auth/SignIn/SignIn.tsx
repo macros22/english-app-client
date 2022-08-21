@@ -11,6 +11,7 @@ import {
 	Header,
 	Message,
 	Segment,
+	Loader
 } from 'semantic-ui-react';
 import { WordMode } from 'types/types';
 import styles from '../Auth.module.scss';
@@ -59,7 +60,7 @@ export const SignIn = () => {
 		setErrorMessage('');
 	};
 
-	if (isLoggedIn) return <> Redirecting.... </>;
+	if (isLoggedIn) return <Loader size='massive' active inline='centered' />;
 
 	return (
 		<Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">

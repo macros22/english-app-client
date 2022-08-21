@@ -1,7 +1,7 @@
 import { WORDS_MODE } from 'constants/names.storage';
 import { useLocalStorage, useUser } from 'hooks';
 import React from 'react';
-import { Button, Dimmer, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { Role, WordMode, WordStudyStatus } from 'types/types';
 import { DeleteButtonWithModal } from './DeleteButtonWithModal';
 import { WordMoreInfoModal } from './WordMoreInfoModal';
@@ -22,11 +22,8 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 	if (isUserLoading) {
 		return (
 			<Segment>
-				<Dimmer active>
-					<Loader size='massive'>
-						isUserLoading
-					</Loader>
-				</Dimmer>
+				<Loader active inline='centered' />
+				<Loader size='massive' active inline='centered' />
 			</Segment>
 		);
 	}
@@ -48,23 +45,19 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
-				{wordsMode == 'userWords' ?
-					<>
+				{wordsMode == 'userWords'
+					? <>
+						<Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 						<Table.Cell width={1}><EditButtonWithModal rowData={rowData} /></Table.Cell>
 						<Table.Cell width={1}><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
-						<Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 					</>
-					:
-					user && user.role == Role.ADMIN
-						?
-						<>
+					: user && user.role == Role.ADMIN
+						? <>
+							<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 							<Table.Cell><EditButtonWithModal rowData={rowData} /></Table.Cell>
 							<Table.Cell><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
-							<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 						</>
-						:
-
-						<Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
+						: <Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 				}
 			</Table.Row>
 		</>
