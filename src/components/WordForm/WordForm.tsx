@@ -4,10 +4,12 @@ import {
 	Divider,
 	Form,
 	Header,
-	Input
+	Input,
+	Segment
 } from 'semantic-ui-react';
 import { useWordForm } from './useWordForm';
 import { WordFormProps } from './WordForm.props';
+import styles from './WordForm.module.scss';
 
 export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Element => {
 
@@ -35,7 +37,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 
 
 	return (
-		<>
+		<Segment className={styles.form}>
 			<Form size="large" >
 				<Controller
 					name={'word'}
@@ -66,7 +68,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 				/>
 				<Form.Select
 					label="Study status"
-					required
+					// required
 					name='studyStatus'
 					onChange={handleSelectStatusChange}
 					placeholder="Select study status"
@@ -98,7 +100,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 											// error={errors.transcription?.message}
 											value={value}
 											onChange={onChange}
-											label={`№ ${index + 1}`}
+											label={`${index + 1}`}
 											placeholder={`definition ${index + 1}`}
 											action={<Button icon='trash' size='large' color='red' onClick={() => removeDefinition(index)} />}
 										/>
@@ -129,7 +131,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 											// error={errors.transcription?.message}
 											value={value}
 											onChange={onChange}
-											label={`№ ${index + 1}`}
+											label={`${index + 1}`}
 											placeholder={`translation ${index + 1}`}
 											action={<Button icon='trash' size='large' color='red' onClick={() => removeTranslation(index)} />}
 
@@ -164,7 +166,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 											// error={errors.transcription?.message}
 											value={value}
 											onChange={onChange}
-											label={`№ ${index + 1}`}
+											label={`${index + 1}`}
 											placeholder={`Usage example ${index + 1}`}
 											action={<Button icon='trash' size='large' color='red' onClick={() => removeUsageExample(index)} />}
 
@@ -183,6 +185,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					<Button icon='undo' size='large' content="Reset" onClick={handleReset} />
 				</Form.Group>
 			</Form>
-		</>
+		</Segment>
 	);
 };

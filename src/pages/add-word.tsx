@@ -7,9 +7,9 @@ const AddwordPage = () => {
     return (
         <Layout>
             <Container>
-                <Segment style={{ maxWidth: '700px', margin: '0 auto' }}>
+                
                     <WordForm mode="add" />
-                </Segment>
+                {/* </Segment> */}
             </Container>
         </Layout>
     );
