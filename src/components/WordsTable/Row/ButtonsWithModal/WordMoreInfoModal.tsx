@@ -1,22 +1,20 @@
-import { WordForm } from 'components/WordForm/WordForm';
+import { WordMoreInfo } from 'components/WordMoreInfo/WordMoreInfo';
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
-import { wordDataToFormData } from 'utils/form-data.util';
-import { RowProps } from './Row.props';
+import { IWord } from 'types/types';
 
-export const EditButtonWithModal = ({ rowData }: Pick<RowProps, 'rowData'>): JSX.Element => {
-
+export const WordMoreInfoModal = ({ rowData }: { rowData: IWord }): JSX.Element => {
     const [isEditingNow, setIsEditingNow] = React.useState(false);
     return (
         <Modal
             onClose={() => setIsEditingNow(false)}
             onOpen={() => setIsEditingNow(true)}
             open={isEditingNow}
-            trigger={<Button basic icon="edit" size="large" />}
+            trigger={<Button basic icon="info" size="large" />}
         >
-            <Modal.Header>Changing word</Modal.Header>
+            <Modal.Header>More word information</Modal.Header>
             <Modal.Content>
-                <WordForm mode="edit" formValues={wordDataToFormData(rowData)} wordId={rowData.id} />
+                <WordMoreInfo rowData={rowData} />
             </Modal.Content>
             <Modal.Actions>
                 <Button color='black' onClick={() => setIsEditingNow(false)}>

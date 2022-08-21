@@ -1,7 +1,7 @@
 import React from 'react';
-import { useLocalStorage, useWords } from 'hooks';
-import { Dimmer, Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
-import { Row } from '../Row/Row';
+import { useWords } from 'hooks';
+import { Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
+import { Row } from '../Row/Row/Row';
 import { WordsTableProps } from './WordsTable.props';
 import styles from './WordsTable.module.scss';
 

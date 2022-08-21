@@ -1,11 +1,11 @@
+import React from 'react';
 import { WORDS_MODE } from 'constants/names.storage';
 import { useLocalStorage, useUser } from 'hooks';
-import React from 'react';
 import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { Role, WordMode, WordStudyStatus } from 'types/types';
-import { DeleteButtonWithModal } from './DeleteButtonWithModal';
-import { WordMoreInfoModal } from './WordMoreInfoModal';
-import { EditButtonWithModal } from './EditButtonWithModal';
+import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
+import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
+import { EditButtonWithModal } from '../ButtonsWithModal/EditButtonWithModal';
 import styles from './Row.module.scss';
 import { RowProps } from './Row.props';
 
@@ -22,7 +22,6 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 	if (isUserLoading) {
 		return (
 			<Segment>
-				<Loader active inline='centered' />
 				<Loader size='massive' active inline='centered' />
 			</Segment>
 		);
@@ -32,12 +31,14 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 		<>
 			<Table.Row textAlign='center' verticalAlign='middle'>
 				<Table.Cell width={1}>{rowId}</Table.Cell>
-				<Table.Cell width={9}>
+				<Table.Cell width={8}>
 					<Header as='h1'>
 						{rowData.word}
-						<Header.Subheader>
-							{rowData.transcription}
-						</Header.Subheader>
+						{rowData.transcription &&
+							<Header.Subheader>
+								{rowData.transcription}
+							</Header.Subheader>
+						}
 					</Header>
 				</Table.Cell>
 				<Table.Cell width={2}>
