@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { COMMON_WORDS_URL, USER_WORDS_URL } from 'libs/constants/url';
 import { IUserWord, IUserWordPayload, WordMode, ICommonWord, IWord, Role } from 'libs/types/types';
 
@@ -50,6 +50,9 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                 );
                 return res.data as WordType;
             } catch (error) {
+                if (error instanceof AxiosError) {
+                    error.message = error.response?.data.message || error.message;
+                }
                 throw error;
             }
         },
@@ -67,6 +70,9 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                 );
                 return res.data as WordType;
             } catch (error) {
+                if (error instanceof AxiosError) {
+                    error.message = error.response?.data.message || error.message;
+                }
                 throw error;
             }
         },

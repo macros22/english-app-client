@@ -1,15 +1,14 @@
 import { useUser } from 'libs/hooks';
+import React from 'react';
 import { NavBar } from 'layouts';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { Container } from 'semantic-ui-react';
 import { PaginationProvider } from 'libs/contexts/PagiantionContext';
+import styles from './Layout.module.scss'
 
-export const Layout = ({
+export const Layout: React.FC = ({
 	children,
-}: {
-	children: React.ReactNode;
-}): JSX.Element => {
+}) => {
 	const { isLoggedIn } = useUser();
 
 	const router = useRouter();
@@ -21,14 +20,12 @@ export const Layout = ({
 	return (
 		<div>
 			<NavBar />
-			<main>
+			{/* style={{ margin: "0px !important" }} */}
+			<main >
 				<PaginationProvider>
 					<Container
 						textAlign='center'
-						style={{
-							minHeight: '90vh',
-							padding: '1.5rem 0.5rem'
-						}}
+						className={styles.container}
 					>
 						{children}
 					</Container>
