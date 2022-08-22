@@ -39,11 +39,12 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
     const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
     const { mutate: mutateWords } = useWords({ mode: wordsMode, skip, limit });
 
-    const [withTranscription, setWithTranscription] = React.useState<boolean>(false);
+    const [withTranscription, setWithTranscription] = React.useState<boolean>(formValues?.transcription ? true : false);
 
     // Form initialization with react-hook-form.
     const {
         handleSubmit,
+        setValue,
         reset,
         register,
         control,
@@ -122,6 +123,11 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         reset();
     }
 
+    const handleWithTranscriptionButton = () => {
+        setWithTranscription(transcription => !transcription);
+        setValue('transcription', '');
+    }
+
     return {
         Controller,
         handleSubmit,
@@ -146,6 +152,6 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         successMessage,
         errorMessage,
         withTranscription,
-        setWithTranscription,
+        handleWithTranscriptionButton,
     }
 }

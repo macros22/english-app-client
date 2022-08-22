@@ -43,7 +43,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 		successMessage,
 		errorMessage,
 		withTranscription,
-		setWithTranscription,
+		handleWithTranscriptionButton,
 	} = mode == 'edit' ? useWordForm({ formValues, wordId, skip, limit: wordsPerPageCount }) : useWordForm({});
 
 	return (
@@ -81,7 +81,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					<Header as='h4'>
 						<Button
 							content={`Transcription: ${withTranscription ? 'Yes' : 'No'}`}
-							onClick={() => setWithTranscription(t => !t)}
+							onClick={handleWithTranscriptionButton}
 						/>
 					</Header>
 				</Divider>
@@ -94,7 +94,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 							<Form.Input
 								size='large'
 								error={errors.transcription?.message}
-								value={value}
+								value={withTranscription ? value : ''}
 								onChange={onChange}
 								placeholder="Transcription"
 								disabled={!withTranscription}
