@@ -1,7 +1,7 @@
 import { WordMoreInfo } from 'components/WordMoreInfo/WordMoreInfo';
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
-import { IWord } from 'types/types';
+import { IWord } from 'libs/types/types';
 
 export const WordMoreInfoModal = ({ rowData }: { rowData: IWord }): JSX.Element => {
     const [isEditingNow, setIsEditingNow] = React.useState(false);

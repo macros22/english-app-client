@@ -1,6 +1,6 @@
-import { wordsApi } from 'libs/words.api';
-import { useUser } from 'hooks';
-import { Role, WordMode } from 'types/types';
+import { wordsApi } from 'libs/api/words.api';
+import { useUser } from 'libs/hooks';
+import { Role, WordMode } from 'libs/types/types';
 
 export const useWordsApi = (wordsMode: WordMode) => {
     

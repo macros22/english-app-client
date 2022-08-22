@@ -1,10 +1,9 @@
 import React from 'react';
-import { useWords } from 'hooks';
+import { usePagination, useWords } from 'libs/hooks';
 import { Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row/Row';
 import { WordsTableProps } from './WordsTable.props';
 import styles from './WordsTable.module.scss';
-import { json } from 'stream/consumers';
 
 const defaultWordsPerPageCount = 5;
 
@@ -12,10 +11,15 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 	// const [currentPage, setCurrentPage] = useLocalStorage<number>(CURRENT_TABLE_PAGE + mode, 1);
 	const [currentPage, setCurrentPage] = React.useState(1);
 	const [totalPages, setTotalPages] = React.useState(1);
-	const [skip, setSkip] = React.useState(0);
-	const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
 
-	const { words, loading, count: wordsCount, mutate: mutateWords } = useWords(mode, skip, wordsPerPageCount);
+	const {
+		skip,
+		setSkip,
+		wordsPerPageCount,
+		setWordsPerPageCount,
+	} = usePagination();
+
+	const { words, loading, count: wordsCount } = useWords({ mode, skip, limit: wordsPerPageCount });
 
 	// Pagination logic.
 	React.useEffect(() => {
@@ -27,8 +31,6 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 				setCurrentPage(pagesCount);
 			}
 		}
-		//Mutate here for correct display after deleting word.
-		// mutateWords();
 	}, [wordsCount])
 
 	// Logic for correct display rows count.

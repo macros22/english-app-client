@@ -1,4 +1,4 @@
-import { getUser } from "libs/auth.api";
+import { getUser } from "libs/api/auth.api";
 import useSWR from "swr";
 
 export const useUser = () => {

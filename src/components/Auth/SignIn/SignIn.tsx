@@ -1,5 +1,5 @@
-import { WORDS_MODE } from 'constants/names.storage';
-import { useLocalStorage } from 'hooks';
+import { WORDS_MODE } from 'libs/constants/names.storage';
+import { useLocalStorage } from 'libs/hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -12,7 +12,7 @@ import {
 	Segment,
 	Loader
 } from 'semantic-ui-react';
-import { WordMode } from 'types/types';
+import { WordMode } from 'libs/types/types';
 import styles from '../Auth.module.scss';
 import { useAuthForm } from '../useAuthForm';
 

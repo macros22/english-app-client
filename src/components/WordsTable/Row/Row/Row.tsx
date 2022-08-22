@@ -1,8 +1,8 @@
 import React from 'react';
-import { WORDS_MODE } from 'constants/names.storage';
-import { useLocalStorage, useUser } from 'hooks';
+import { WORDS_MODE } from 'libs/constants/names.storage';
+import { useLocalStorage, useUser } from 'libs/hooks';
 import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
-import { Role, WordMode, WordStudyStatus } from 'types/types';
+import { Role, WordMode, WordStudyStatus } from 'libs/types/types';
 import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
 import { EditButtonWithModal } from '../ButtonsWithModal/EditButtonWithModal';

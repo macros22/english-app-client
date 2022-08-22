@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL, SIGN_UP_URL } from 'constants/url';
-import { IUser } from 'types/types';
+import { AUTH_ME_URL, LOGOUT_URL, SIGN_IN_URL, SIGN_UP_URL } from 'libs/constants/url';
+import { IUser } from 'libs/types/types';
 
 interface SignInDto {
 	email: string;

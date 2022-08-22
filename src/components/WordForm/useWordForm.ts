@@ -3,15 +3,15 @@ import {
     DropdownProps,
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { WordMode, WordStudyStatus } from 'types/types';
+import { WordMode, WordStudyStatus } from 'libs/types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { wordValidationSchema } from 'utils/form.schema';
-import { IWordFormValues } from 'types/forms';
-import { formDataToWordData } from 'utils/form-data.util';
-import { WORDS_MODE } from 'constants/names.storage';
-import { useSessionStorage } from '../../hooks/useSessionStorage';
-import { useWords } from '../../hooks/useWords';
-import { useWordsApi } from 'hooks';
+import { wordValidationSchema } from 'libs/utils/form.schema';
+import { IWordFormValues } from 'libs/types/forms';
+import { formDataToWordData } from 'libs/utils/form-data.util';
+import { WORDS_MODE } from 'libs/constants/names.storage';
+import { useSessionStorage } from 'libs/hooks/useSessionStorage';
+import { useWords } from 'libs/hooks/useWords';
+import { useWordsApi } from 'libs/hooks';
 
 const studyStatusOptions = [
     { key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
@@ -33,9 +33,16 @@ const defaultFormValues: IWordFormValues = {
     ]
 };
 
-export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
+interface IUseWordForms {
+    formValues?: IWordFormValues;
+    wordId?: string;
+    skip?: number;
+    limit?: number;
+}
+
+export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) => {
     const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
-    const { mutate: mutateWords } = useWords(wordsMode);
+    const { mutate: mutateWords } = useWords({ mode: wordsMode, skip, limit });
 
     // Form initialization with react-hook-form.
     const {
@@ -91,7 +98,7 @@ export const useWordForm = (formValues?: IWordFormValues, wordId?: string) => {
             }
 
             mutateWords();
-        
+
             reset();
         } catch (error) {
             if (error instanceof Error) {

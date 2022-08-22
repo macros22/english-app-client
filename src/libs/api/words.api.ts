@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { COMMON_WORDS_URL, USER_WORDS_URL } from 'constants/url';
-import { IUserWord, IUserWordPayload, WordMode, ICommonWord, IWord, Role } from 'types/types';
+import { COMMON_WORDS_URL, USER_WORDS_URL } from 'libs/constants/url';
+import { IUserWord, IUserWordPayload, WordMode, ICommonWord, IWord, Role } from 'libs/types/types';
 
 export const wordsApi = (userRole: Role, mode: WordMode) => {
 

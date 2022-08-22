@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 // See: https://usehooks-ts.com/react-hook/use-event-listener
-import { useEventCallback, useEventListener } from 'hooks';
+import { useEventCallback, useEventListener } from 'libs/hooks';
 
 declare global {
 	interface WindowEventMap {

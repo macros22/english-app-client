@@ -1,4 +1,4 @@
-import { IWordFormValues } from "types/forms";
+import { IWordFormValues } from "libs/types/forms";
 
 export interface WordFormProps {
     mode: 'add' | 'edit';

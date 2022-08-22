@@ -1,7 +1,7 @@
 
 import React from 'react'
-import { signUp, signIn } from 'libs/auth.api';
-import { useUser } from 'hooks';
+import { signUp, signIn } from 'libs/api/auth.api';
+import { useUser } from 'libs/hooks';
 
 type AuthMode = 'signIn' | 'signUp';
 

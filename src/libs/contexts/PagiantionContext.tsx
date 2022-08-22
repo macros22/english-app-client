@@ -1,0 +1,26 @@
+import React, { Dispatch, SetStateAction, useContext, useMemo } from "react";
+import { createContext, FC } from "react";
+
+interface IPaginationContext {
+    skip: number;
+    setSkip: Dispatch<SetStateAction<number>>,
+    wordsPerPageCount: number;
+    setWordsPerPageCount: Dispatch<SetStateAction<number>>,
+}
+export const PaginationContext = createContext<IPaginationContext>({} as IPaginationContext)
+
+export const PaginationProvider: FC = ({ children }) => {
+
+    const [skip, setSkip] = React.useState(0);
+    const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
+    const value = useMemo(() => ({
+        skip,
+        setSkip,
+        wordsPerPageCount,
+        setWordsPerPageCount,
+    }), [skip, wordsPerPageCount]);
+
+    return (
+        <PaginationContext.Provider value={value} > {children} </PaginationContext.Provider>
+    )
+}

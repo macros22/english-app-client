@@ -1,4 +1,4 @@
-import { IWord, IUsageExample, WordStudyStatus } from "types/types";
+import { IWord, IUsageExample, WordStudyStatus } from "libs/types/types";
 
 // // const  words: Word[] = [
 // //   {id: 1, eng: 'neglect', transcription:"tmp", rus: ['пренебрегать'], studyStatus: WordStudyStatus.LEARN, usageExamples: [{eng:"asd", rus: "asdas"}]},

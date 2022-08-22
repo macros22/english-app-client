@@ -1,8 +1,8 @@
-import { WORDS_MODE } from 'constants/names.storage';
-import { useLocalStorage, useWords, useWordsApi } from 'hooks';
+import { WORDS_MODE } from 'libs/constants/names.storage';
+import { useLocalStorage, useWords, useWordsApi } from 'libs/hooks';
 import React from 'react';
 import { Modal, Button, Header, Icon } from 'semantic-ui-react';
-import { WordMode } from 'types/types';
+import { WordMode } from 'libs/types/types';
 
 export const DeleteButtonWithModal = ({ wordId }: { wordId: string }): JSX.Element => {
 
@@ -10,7 +10,7 @@ export const DeleteButtonWithModal = ({ wordId }: { wordId: string }): JSX.Eleme
 
     const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
 
-    const { mutate: mutateWords, mutateCount } = useWords(wordsMode);
+    const { mutate: mutateWords, mutateCount } = useWords({ mode: wordsMode });
     const { api } = useWordsApi(wordsMode);
 
     const handleDeleteButton = async () => {

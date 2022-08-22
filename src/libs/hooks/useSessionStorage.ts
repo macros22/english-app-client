@@ -1,4 +1,4 @@
-import { useEventCallback, useEventListener } from 'hooks'
+import { useEventCallback, useEventListener } from 'libs/hooks'
 import {
   Dispatch,
   SetStateAction,

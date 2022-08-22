@@ -10,8 +10,13 @@ import {
 import { useWordForm } from './useWordForm';
 import { WordFormProps } from './WordForm.props';
 import styles from './WordForm.module.scss';
-
+import { usePagination } from 'libs/hooks';
 export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Element => {
+
+	const {
+		skip,
+		wordsPerPageCount,
+	} = usePagination();
 
 	const {
 		Controller,
@@ -35,7 +40,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 		handleReset,
 		successMessage,
 		errorMessage,
-	} = mode == 'edit' ? useWordForm(formValues, wordId) : useWordForm();
+	} = mode == 'edit' ? useWordForm({ formValues, wordId, skip, limit: wordsPerPageCount }) : useWordForm({});
 
 
 	return (
