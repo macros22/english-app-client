@@ -92,11 +92,9 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
             } else {
                 const response = await api.postWord(payload);
                 setSuccessMessage(`Successfully added ${response!.word}`);
+                reset();
             }
-
             mutateWords();
-
-            reset();
         } catch (error) {
             if (error instanceof Error) {
                 setErrorMessage(error.message);
