@@ -51,6 +51,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					control={control}
 					render={({ field: { onChange, value } }) => (
 						<Form.Input
+							size='large'
 							value={value}
 							onChange={onChange}
 							error={errors.word?.message}
@@ -65,6 +66,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					control={control}
 					render={({ field: { onChange, value } }) => (
 						<Form.Input
+							size='large'
 							error={errors.transcription?.message}
 							value={value}
 							onChange={onChange}
@@ -77,6 +79,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					label="Study status"
 					// required
 					name='studyStatus'
+					size='large'
 					onChange={handleSelectStatusChange}
 					placeholder="Select study status"
 					// {...register("studyStatus")}
@@ -104,6 +107,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 									control={control}
 									render={({ field: { onChange, value } }) => (
 										<Input
+											size='large'
 											// error={errors.transcription?.message}
 											value={value}
 											onChange={onChange}
@@ -135,6 +139,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 									control={control}
 									render={({ field: { onChange, value } }) => (
 										<Input
+											size='large'
 											// error={errors.transcription?.message}
 											value={value}
 											onChange={onChange}
@@ -170,6 +175,7 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 									control={control}
 									render={({ field: { onChange, value } }) => (
 										<Input
+											size='large'
 											// error={errors.transcription?.message}
 											value={value}
 											onChange={onChange}
