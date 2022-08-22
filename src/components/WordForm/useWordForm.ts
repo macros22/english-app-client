@@ -22,15 +22,10 @@ const studyStatusOptions = [
 const defaultFormValues: IWordFormValues = {
     word: '',
     transcription: '',
-    translations: [{ translation: '' }],
-    definitions: [{ definition: '' }],
+    translations: [],
+    definitions: [],
     studyStatus: WordStudyStatus.LEARN,
-    usageExamples: [
-        {
-            sentence: '',
-            translation: ''
-        }
-    ]
+    usageExamples: [],
 };
 
 interface IUseWordForms {
@@ -72,7 +67,6 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         name: "definitions",
         control
     });
-
 
     const { api } = useWordsApi(wordsMode);
 
@@ -121,6 +115,8 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
     };
 
     const handleReset = () => {
+        setSuccessMessage('');
+        setErrorMessage('');
         reset();
     }
 

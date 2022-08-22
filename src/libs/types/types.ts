@@ -11,10 +11,10 @@ export interface IUsageExample {
 export interface IWord {
   id: string;
   word: string;
-  transcription: string;
-  translations: string[];
-  definitions: string[];
-  usageExamples: IUsageExample[];
+  transcription?: string;
+  translations?: string[];
+  definitions?: string[];
+  usageExamples?: IUsageExample[];
   studyStatus: WordStudyStatus;
 }
 

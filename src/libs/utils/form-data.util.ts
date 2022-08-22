@@ -7,12 +7,12 @@ export const formDataToWordData = (data: IWordFormValues, studyStatus: WordStudy
     return ({
         word: data.word,
         transcription: data.transcription,
-        translations: data.translations.map(translationField => translationField.translation),
-        definitions: data.definitions.map(definitionField => definitionField.definition),
-        usageExamples: data.usageExamples.map(usageExamplesField => ({
+        translations: data.translations.length ? data.translations.map(translationField => translationField.translation) : undefined,
+        definitions: data.definitions.length ? data.definitions.map(definitionField => definitionField.definition) : undefined,
+        usageExamples: data.usageExamples.length ? data.usageExamples.map(usageExamplesField => ({
             sentence: usageExamplesField.sentence,
             translation: usageExamplesField.translation,
-        })),
+        })) : undefined,
         studyStatus,
     });
 }
@@ -21,7 +21,7 @@ export const formDataToWordData = (data: IWordFormValues, studyStatus: WordStudy
 export const wordDataToFormData = (data: IUserWordPayload): IWordFormValues => {
     return ({
         word: data.word,
-        transcription: data.transcription,
+        transcription: data.transcription || '',
         translations: data.translations ? data.translations.map(translation => ({ translation })) : [],
         definitions: data.definitions ? data.definitions.map(definition => ({ definition })) : [],
         usageExamples: data.usageExamples ? data.usageExamples.map(usageExamplesField => ({

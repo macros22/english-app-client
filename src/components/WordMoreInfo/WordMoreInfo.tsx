@@ -14,7 +14,7 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                 </>
             }
 
-            {rowData.definitions && rowData.definitions?.length &&
+            {rowData.definitions && !!rowData.definitions?.length &&
                 <>
                     <h2>Definitions:</h2>
                     {rowData.definitions.map((definition, index) => {
@@ -22,7 +22,7 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                     })}
                 </>
             }
-            {rowData.translations && rowData.translations?.length &&
+            {rowData.translations && !!rowData.translations?.length &&
                 <>
                     <h2>Translations:</h2>
                     {rowData.translations.map((translation, index) => {
@@ -30,7 +30,7 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                     })}
                 </>
             }
-            {rowData.usageExamples && rowData.translations?.length &&
+            {rowData.usageExamples && !!rowData.usageExamples?.length &&
                 <>
                     <h2>Usage examples:</h2>
                     {rowData.usageExamples.map((usageExample, index) => {

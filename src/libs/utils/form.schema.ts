@@ -5,12 +5,12 @@ import * as yup from 'yup';
 export const wordValidationSchema = yup.object({
 	word: yup
 		.string()
-		.min(2, 'Word should be of minimum 2 characters length')
-		.required('Word is required'),
+		.required('Word is required')
+		.min(2, 'Word should be of minimum 2 characters length'),
 	transcription: yup
-		.string()
-		.min(2, 'Transcription should be of minimum 2 characters length')
-		.required('Transcription is required'),
+		.string(),
+		// .required('Transcription is required'),
+		// .min(2, 'Transcription should be of minimum 2 characters length'),
 	definitions: yup
 		.array()
 		.of(
