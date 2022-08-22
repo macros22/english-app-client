@@ -1,11 +1,13 @@
 import React from 'react';
 import {
 	Button,
+	Checkbox,
 	Divider,
 	Form,
 	Header,
 	Input,
 	Message,
+	Segment,
 } from 'semantic-ui-react';
 import { useWordForm } from './useWordForm';
 import { WordFormProps } from './WordForm.props';
@@ -40,8 +42,9 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 		handleReset,
 		successMessage,
 		errorMessage,
+		withTranscription,
+		setWithTranscription,
 	} = mode == 'edit' ? useWordForm({ formValues, wordId, skip, limit: wordsPerPageCount }) : useWordForm({});
-
 
 	return (
 		<>
@@ -61,20 +64,6 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					)}
 				/>
 
-				<Controller
-					name={'transcription'}
-					control={control}
-					render={({ field: { onChange, value } }) => (
-						<Form.Input
-							size='large'
-							error={errors.transcription?.message}
-							value={value}
-							onChange={onChange}
-							label="Transcription"
-							placeholder="Transcription"
-						/>
-					)}
-				/>
 				<Form.Select
 					label="Study status"
 					// required
@@ -87,6 +76,34 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					options={studyStatusOptions}
 
 				/>
+
+				<Divider horizontal>
+					<Header as='h4'>
+						<Button
+							content={`Transcription: ${withTranscription ? 'Yes' : 'No'}`}
+							onClick={() => setWithTranscription(t => !t)}
+						/>
+					</Header>
+				</Divider>
+
+				{withTranscription &&
+					<Controller
+						name={'transcription'}
+						control={control}
+						render={({ field: { onChange, value } }) => (
+							<Form.Input
+								size='large'
+								error={errors.transcription?.message}
+								value={value}
+								onChange={onChange}
+								placeholder="Transcription"
+								disabled={!withTranscription}
+
+							/>
+						)}
+					/>
+
+				}
 
 				<Divider horizontal>
 					<Header as='h4'>

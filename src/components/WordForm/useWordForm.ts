@@ -39,6 +39,8 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
     const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
     const { mutate: mutateWords } = useWords({ mode: wordsMode, skip, limit });
 
+    const [withTranscription, setWithTranscription] = React.useState<boolean>(false);
+
     // Form initialization with react-hook-form.
     const {
         handleSubmit,
@@ -143,5 +145,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         studyStatusOptions,
         successMessage,
         errorMessage,
+        withTranscription,
+        setWithTranscription,
     }
 }
