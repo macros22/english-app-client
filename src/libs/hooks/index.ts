@@ -7,3 +7,4 @@ export { useEventCallback } from './useEventCallback';
 export { useLocalStorage } from './useLocalStorage';
 export { useWordsApi } from './useWordsApi';
 export { usePagination } from './usePagination';
+export { useMediaQuery } from './useMediaQuery';

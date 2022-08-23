@@ -2,5 +2,25 @@
   margin: 0 !important;
   min-height: 70px !important;
   border-bottom: 1px solid rgb(230, 228, 228) !important;
-  box-shadow: 0 1px 3px 0 rgba(34,36,38,.05) !important;
+  box-shadow: 0 1px 3px 0 rgba(34, 36, 38, .05) !important;
+  text-align: center;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.menuIcon {
+  margin-left: auto !important;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 30px;
+  }
+
+  .menu {
+    font-size: 20px !important;
+  }
 }
