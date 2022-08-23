@@ -20,15 +20,11 @@ export const Layout: React.FC = ({
 	return (
 		<div>
 			<NavBar />
-			{/* style={{ margin: "0px !important" }} */}
 			<main >
 				<PaginationProvider>
-					<Container
-						textAlign='center'
-						className={styles.container}
-					>
+					<div className={styles.container}>
 						{children}
-					</Container>
+					</div>
 				</PaginationProvider>
 			</main>
 		</div>

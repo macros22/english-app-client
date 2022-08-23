@@ -5,3 +5,15 @@
 .pagination {
     box-shadow: none !important;
 }
+
+.table {
+    width: 70% !important;
+    background-color: white !important;
+    margin: 0 auto !important;
+}
+
+@media (max-width: 800px) {
+    .table {
+        width: 98% !important;
+    }
+}

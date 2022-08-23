@@ -1,0 +1,16 @@
+// @import 'assets/variables';
+// @import 'assets/colors';
+
+.card {
+  // border-radius: $border-radius;
+  // border: $border;
+  // background: $white;
+  // padding: $spacer * 0.75;
+  // max-width: 100%;
+
+  border-radius: 5px;
+  border: 2px solid rgb(240, 238, 238);
+  background: white;
+  padding: 1rem;
+  max-width: 100%;
+}

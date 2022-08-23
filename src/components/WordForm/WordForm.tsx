@@ -68,13 +68,11 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 					label="Study status"
 					// required
 					name='studyStatus'
-					size='large'
 					onChange={handleSelectStatusChange}
 					placeholder="Select study status"
 					// {...register("studyStatus")}
 					value={studyStatus}
 					options={studyStatusOptions}
-
 				/>
 
 				<Divider horizontal>

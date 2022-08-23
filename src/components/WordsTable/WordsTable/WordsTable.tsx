@@ -73,7 +73,7 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 				All words
 				<Label.Detail>{wordsCount}</Label.Detail>
 			</Label>
-			<Table basic style={{ width: '90%', backgroundColor: 'white', margin: '0 auto' }}>
+			<Table basic className={styles.table}>
 
 				<Table.Body>
 					{words.map((word, index) => {
