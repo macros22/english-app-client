@@ -1,12 +1,12 @@
 import React from 'react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useUser } from 'libs/hooks';
-import { Button, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { Role, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
 import { RowProps } from './Row.props';
-import { WordFormModal } from 'components/WordFormModal/WordFormModal';
+import { EditButtonModal } from '../ButtonsWithModal/EditButtonModal';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.KNOW]: 'green',
@@ -40,28 +40,28 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						}
 					</Header>
 				</Table.Cell>
-				<Table.Cell width={1}>
+				<Table.Cell width={2}>
 					<Label color={labelColors[rowData.studyStatus]} size="big" >
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
 				{wordsMode == 'userWords'
 					? <>
-						<Table.Cell width={8}>
-							<WordMoreInfoModal rowData={rowData} />
-							<WordFormModal word={rowData} modalTrigger={<Button basic icon="edit" size="large" />} mode='edit' />
+						<Table.Cell width={6}>
+							<WordMoreInfoModal word={rowData} />
+							<EditButtonModal word={rowData} />
 							<DeleteButtonWithModal wordId={rowData.id} />
 						</Table.Cell>
 					</>
 					: user && user.role == Role.ADMIN
 						? <>
 							<Table.Cell width={6}>
-								<WordMoreInfoModal rowData={rowData} />
-								<WordFormModal word={rowData} modalTrigger={<Button basic icon="edit" size="large" />} mode='edit' />
+								<WordMoreInfoModal word={rowData} />
+								<EditButtonModal word={rowData} />
 								<DeleteButtonWithModal wordId={rowData.id} />
 							</Table.Cell>
 						</>
-						: <Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
+						: <Table.Cell width={6}><WordMoreInfoModal word={rowData} /></Table.Cell>
 				}
 			</Table.Row>
 		</>

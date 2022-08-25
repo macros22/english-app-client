@@ -1,26 +1,12 @@
-import { WordMoreInfo } from 'components/WordMoreInfo/WordMoreInfo';
 import React from 'react';
-import { Modal, Button } from 'semantic-ui-react';
+import { WordMoreInfo, Modal } from 'components';
+import { Button } from 'semantic-ui-react';
 import { IWord } from 'libs/types/types';
 
-export const WordMoreInfoModal = ({ rowData }: { rowData: IWord }): JSX.Element => {
-    const [isEditingNow, setIsEditingNow] = React.useState(false);
+export const WordMoreInfoModal = ({ word }: { word: IWord }): JSX.Element => {
     return (
-        <Modal
-            onClose={() => setIsEditingNow(false)}
-            onOpen={() => setIsEditingNow(true)}
-            open={isEditingNow}
-            trigger={<Button basic icon="info" size="large" />}
-        >
-            <Modal.Header>More word information</Modal.Header>
-            <Modal.Content>
-                <WordMoreInfo rowData={rowData} />
-            </Modal.Content>
-            <Modal.Actions>
-                <Button color='black' onClick={() => setIsEditingNow(false)}>
-                    Close
-                </Button>
-            </Modal.Actions>
+        <Modal title='More information about word' modalTrigger={<Button basic icon="info" size="large" />} >
+            <WordMoreInfo rowData={word} />
         </Modal>
     );
 }

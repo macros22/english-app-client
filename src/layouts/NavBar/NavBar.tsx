@@ -4,7 +4,7 @@ import styles from './NavBar.module.scss';
 import { logout } from 'libs/api/auth.api';
 import { useMediaQuery, useUser } from 'libs/hooks';
 import React from 'react';
-import { WordFormModal } from 'components/WordFormModal/WordFormModal';
+import { Modal, WordForm } from 'components';
 
 export const NavBar = () => {
 	const router = useRouter();
@@ -42,7 +42,9 @@ export const NavBar = () => {
 
 					{isMenuVisible() &&
 						<Menu.Menu position="right">
-							<WordFormModal modalTrigger={<Menu.Item name="Add word" link />} mode='add' />
+							<Modal title='Add word' modalTrigger={<Menu.Item name="Add word" link />} >
+								<WordForm mode="add" />
+							</Modal>
 							<Menu.Item name="All words" link active={router.asPath.startsWith('/words/common-words')} onClick={() => router.replace('/words/common-words')} />
 							<Menu.Item name="My words" link active={router.asPath.startsWith('/words/user-words')} onClick={() => router.replace('/words/user-words')} />
 

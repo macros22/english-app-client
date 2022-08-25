@@ -1,6 +1,6 @@
+import React from 'react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useWords, useWordsApi } from 'libs/hooks';
-import React from 'react';
 import { Modal, Button, Header, Icon } from 'semantic-ui-react';
 import { WordsMode } from 'libs/types/types';
 
