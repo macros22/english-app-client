@@ -5,8 +5,6 @@ import { Button, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 's
 import { Role, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
-import { EditButtonWithModal } from '../ButtonsWithModal/EditButtonWithModal';
-import styles from './Row.module.scss';
 import { RowProps } from './Row.props';
 import { WordFormModal } from 'components/WordFormModal/WordFormModal';
 
