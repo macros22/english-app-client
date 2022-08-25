@@ -1,10 +1,10 @@
-import { useUser } from 'libs/hooks';
 import React from 'react';
-import { NavBar } from 'layouts';
 import { useRouter } from 'next/router';
-import { Container } from 'semantic-ui-react';
-import { PaginationProvider } from 'libs/contexts/PagiantionContext';
 import styles from './Layout.module.scss'
+import { useUser } from 'libs/hooks';
+import { NavBar } from 'layouts';
+import { PaginationProvider } from 'libs/contexts/PagiantionContext';
+import { FullScreenLoader } from 'components';
 
 export const Layout: React.FC = ({
 	children,
@@ -16,6 +16,12 @@ export const Layout: React.FC = ({
 	React.useEffect(() => {
 		if (!isLoggedIn) router.replace('/auth/sign-in');
 	}, [isLoggedIn]);
+
+	if (!isLoggedIn) {
+		return (
+			<FullScreenLoader />
+		);
+	}
 
 	return (
 		<div>
