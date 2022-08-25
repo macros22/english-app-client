@@ -1,0 +1,19 @@
+.modalHeader {
+    display: flex !important;
+    flex-direction: row;
+    // text-align: center;
+    justify-content: space-between;
+    vertical-align: baseline;
+}
+
+.title {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    // vertical-align: baseline;
+}
+
+.closeButton {
+    margin-left: auto !important;
+}

@@ -1,13 +1,14 @@
 import React from 'react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useUser } from 'libs/hooks';
-import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { Button, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
 import { Role, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
 import { EditButtonWithModal } from '../ButtonsWithModal/EditButtonWithModal';
 import styles from './Row.module.scss';
 import { RowProps } from './Row.props';
+import { WordFormModal } from 'components/WordFormModal/WordFormModal';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.KNOW]: 'green',
@@ -41,22 +42,26 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						}
 					</Header>
 				</Table.Cell>
-				<Table.Cell width={2}>
+				<Table.Cell width={1}>
 					<Label color={labelColors[rowData.studyStatus]} size="big" >
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
 				{wordsMode == 'userWords'
 					? <>
-						<Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
-						<Table.Cell width={1}><EditButtonWithModal rowData={rowData} /></Table.Cell>
-						<Table.Cell width={1}><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
+						<Table.Cell width={8}>
+							<WordMoreInfoModal rowData={rowData} />
+							<WordFormModal word={rowData} modalTrigger={<Button basic icon="edit" size="large" />} mode='edit' />
+							<DeleteButtonWithModal wordId={rowData.id} />
+						</Table.Cell>
 					</>
 					: user && user.role == Role.ADMIN
 						? <>
-							<Table.Cell><WordMoreInfoModal rowData={rowData} /></Table.Cell>
-							<Table.Cell><EditButtonWithModal rowData={rowData} /></Table.Cell>
-							<Table.Cell><DeleteButtonWithModal wordId={rowData.id} /></Table.Cell>
+							<Table.Cell width={6}>
+								<WordMoreInfoModal rowData={rowData} />
+								<WordFormModal word={rowData} modalTrigger={<Button basic icon="edit" size="large" />} mode='edit' />
+								<DeleteButtonWithModal wordId={rowData.id} />
+							</Table.Cell>
 						</>
 						: <Table.Cell width={1}><WordMoreInfoModal rowData={rowData} /></Table.Cell>
 				}
