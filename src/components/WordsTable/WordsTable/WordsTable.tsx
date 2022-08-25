@@ -76,11 +76,10 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 	return (
 		<>
 			<Label size='big' color='blue' className={styles.titleLabel}>
-				All words
+				{mode == 'userWords' ? 'My words' : 'All words'}
 				<Label.Detail>{wordsCount}</Label.Detail>
 			</Label>
 			<Table basic className={styles.table}>
-
 				<Table.Body>
 					{words.map((word, index) => {
 						return (

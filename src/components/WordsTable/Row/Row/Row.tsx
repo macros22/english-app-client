@@ -7,6 +7,7 @@ import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
 import { RowProps } from './Row.props';
 import { EditButtonModal } from '../ButtonsWithModal/EditButtonModal';
+import styles from './Row.module.scss';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.KNOW]: 'green',
@@ -31,7 +32,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 			<Table.Row textAlign='center' verticalAlign='middle'>
 				<Table.Cell width={1}>{rowId}</Table.Cell>
 				<Table.Cell width={8}>
-					<Header as='h1'>
+					<Header as='h2'>
 						{rowData.word}
 						{rowData.transcription &&
 							<Header.Subheader>
@@ -40,17 +41,19 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						}
 					</Header>
 				</Table.Cell>
-				<Table.Cell width={2}>
-					<Label color={labelColors[rowData.studyStatus]} size="big" >
+				<Table.Cell width={4}>
+					<Label color={labelColors[rowData.studyStatus]} size="big" className={styles.studyStatus}>
 						{rowData.studyStatus}
 					</Label>
 				</Table.Cell>
 				{wordsMode == 'userWords'
 					? <>
-						<Table.Cell width={6}>
-							<WordMoreInfoModal word={rowData} />
-							<EditButtonModal word={rowData} />
-							<DeleteButtonWithModal wordId={rowData.id} />
+						<Table.Cell width={3} >
+							<div className={styles.iconButtons}>
+								<WordMoreInfoModal word={rowData} />
+								<EditButtonModal word={rowData} />
+								<DeleteButtonWithModal wordId={rowData.id} />
+							</div>
 						</Table.Cell>
 					</>
 					: user && user.role == Role.ADMIN
