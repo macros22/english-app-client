@@ -7,7 +7,7 @@ import React from 'react';
 
 export const NavBar = () => {
 	const router = useRouter();
-	const { isUserLoading, isLoggedIn, user, mutate: mutateUser } = useUser();
+	const { isLoggedIn, user, mutate: mutateUser } = useUser();
 
 	const isSmallScreen = useMediaQuery('(max-width: 769px)');
 	const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
@@ -28,6 +28,10 @@ export const NavBar = () => {
 		mutateUser();
 	};
 
+	React.useEffect(() => {
+		console.log(router.asPath)
+	})
+
 	return (
 		<>
 			<Menu secondary stackable className={styles.menu}>
@@ -39,41 +43,22 @@ export const NavBar = () => {
 						}
 					</Menu.Item>
 
-
-
-
 					{isMenuVisible() &&
 						<Menu.Menu position="right">
+							<Menu.Item name="Add word" link active={router.pathname === '/add-word'} onClick={() => router.push('/add-word')} />
+							<Menu.Item name="All words" link active={router.asPath.startsWith('/words/common-words')} onClick={() => router.replace('/words/common-words')} />
+							<Menu.Item name="My words" link active={router.asPath.startsWith('/words/user-words')} onClick={() => router.replace('/words/user-words')} />
 
-							<Menu.Item name="Add word" link active={router.pathname === '/add-word'} onClick={() => router.push('/add-word')}>
-								{/* <Link href="/add-word">Add word</Link> */}
-								{/* <Button icon='add' size='small'  /> */}
-							</Menu.Item>
+							{isLoggedIn
+								? <Menu.Item name={user?.name} link active={router.asPath.startsWith('/profile')} onClick={() => router.replace('/profile')} />
+								: <Menu.Item name="Sign-in" />
+							}
 
-							<Menu.Item name="All words" link active={router.pathname === '/common-words'} onClick={() => router.replace('/common-words')}>
-								{/* <Link href="/">All words</Link> */}
-							</Menu.Item>
+							{isLoggedIn
+								? <Menu.Item name='Logout' onClick={logoutHandler} />
+								: <Menu.Item name="Sign-up" />
+							}
 
-							<Menu.Item name="My words" link active={router.pathname === '/user-words'} onClick={() => router.replace('/user-words')}>
-								{/* <Link href="/">All words</Link> */}
-							</Menu.Item>
-
-							{isLoggedIn ? (
-								<Menu.Item name="user"><Label style={{ margin: 0, padding: '0.6rem 1rem' }} size="big" color='teal' content={user?.name} /></Menu.Item>
-							) : (
-								<Menu.Item name="sign-in">Sign-in</Menu.Item>
-							)}
-							{isLoggedIn ? (
-								isUserLoading ? (
-									'isUserLoading'
-								) : (
-									<Menu.Item >
-										<Button basic size="big" content='Logout' onClick={logoutHandler} />
-									</Menu.Item>
-								)
-							) : (
-								<Menu.Item name="sign-up">Sign-up</Menu.Item>
-							)}
 						</Menu.Menu>
 					}
 				</Container>
