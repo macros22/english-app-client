@@ -10,11 +10,11 @@ import {
 	Header,
 	Message,
 	Segment,
-	Loader
 } from 'semantic-ui-react';
-import { WordMode } from 'libs/types/types';
+import { WordsMode } from 'libs/types/types';
 import styles from '../Auth.module.scss';
 import { useAuthForm } from '../useAuthForm';
+import { FullScreenLoader } from 'components/FullScreenLoader/FullScreenLoader';
 
 export const SignIn = () => {
 	const {
@@ -29,13 +29,15 @@ export const SignIn = () => {
 	} = useAuthForm('signIn');
 
 	const router = useRouter();
-	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'commonWords');
+	const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'commonWords');
 
 	React.useEffect(() => {
-		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/common-words" : '/user-words');
+		if (isLoggedIn) router.replace(wordsMode == "commonWords" ? "/words/common-words" : '/words/user-words');
 	}, [isLoggedIn]);
 
-	if (isLoggedIn) return <Loader size='massive' active inline='centered' />;
+	if (isLoggedIn) {
+		return <FullScreenLoader />
+	};
 
 	return (
 		<Grid textAlign="center" className={styles.wrapper} verticalAlign="middle">

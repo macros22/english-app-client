@@ -28,10 +28,6 @@ export const NavBar = () => {
 		mutateUser();
 	};
 
-	React.useEffect(() => {
-		console.log(router.asPath)
-	})
-
 	return (
 		<>
 			<Menu secondary stackable className={styles.menu}>

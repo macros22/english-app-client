@@ -4,6 +4,7 @@ import { Label, Loader, Pagination, PaginationProps, Segment, Table } from 'sema
 import { Row } from '../Row/Row/Row';
 import { WordsTableProps } from './WordsTable.props';
 import styles from './WordsTable.module.scss';
+import { useRouter } from 'next/router';
 
 const defaultWordsPerPageCount = 5;
 
@@ -48,6 +49,11 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 		setWordsPerPageCount(wordsPerPage)
 		setSkip((currentPage - 1) * defaultWordsPerPageCount);
 	}, [currentPage, wordsCount])
+
+	const router = useRouter();
+	React.useEffect(() => {
+		router.push(`/words/${router.query.wordsMode}?skip=${skip}&limit=${wordsPerPageCount}`)
+	}, [skip, wordsPerPageCount])
 
 
 	// Handlers.

@@ -2,13 +2,13 @@ import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useWords, useWordsApi } from 'libs/hooks';
 import React from 'react';
 import { Modal, Button, Header, Icon } from 'semantic-ui-react';
-import { WordMode } from 'libs/types/types';
+import { WordsMode } from 'libs/types/types';
 
 export const DeleteButtonWithModal = ({ wordId }: { wordId: string }): JSX.Element => {
 
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
+    const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'userWords');
 
     const { mutate: mutateWords, mutateCount } = useWords({ mode: wordsMode });
     const { api } = useWordsApi(wordsMode);

@@ -1,9 +1,9 @@
-import { WORDS_MODE } from "libs/constants/names.storage";
-import { USER_WORDS_URL, COMMON_WORDS_URL, COMMON_WORDS_COUNT_URL, USER_WORDS_COUNT_URL } from "libs/constants/url";
-import { useLocalStorage, useWordsApi } from "libs/hooks";
-import { wordsApi } from "libs/api/words.api";
 import useSWR from "swr";
-import { Role, WordMode } from "libs/types/types";
+import { WORDS_MODE } from "libs/constants/names.storage";
+import { COMMON_WORDS_COUNT_URL, USER_WORDS_COUNT_URL } from "libs/constants/url";
+import { useLocalStorage, useWordsApi } from "libs/hooks";
+import { WordsMode } from "libs/types/types";
+import { getWordsUrl } from "libs/helpers/get-words-url.helper";
 
 interface IUseWords {
     mode: 'commonWords' | 'userWords';
@@ -13,18 +13,16 @@ interface IUseWords {
 
 export const useWords = ({ mode, skip, limit }: IUseWords) => {
 
-    const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
-
-    const searchParams = (skip == 0 || skip) && limit
-        ? `?skip=${skip}&limit=${limit}`
-        : '';
+    const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'userWords');
 
     const { api } = useWordsApi(wordsMode);
 
-    const wordsUrl = (mode == 'userWords' ? USER_WORDS_URL : COMMON_WORDS_URL) + searchParams;
+    const wordsUrl = getWordsUrl({
+        wordsMode,
+        skip,
+        limit,
+    });
 
-    // TODO! remove interval.
-    // , { refreshInterval: 3000 }
     const { data: words, mutate, error } = useSWR(wordsUrl, api.getWords);
     const loading: boolean = !words && !error;
 

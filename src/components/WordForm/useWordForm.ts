@@ -3,11 +3,11 @@ import {
     DropdownProps,
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { WordMode, WordStudyStatus } from 'libs/types/types';
+import { WordsMode, WordStudyStatus } from 'libs/types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { wordValidationSchema } from 'libs/utils/form.schema';
+import { wordValidationSchema } from './form.schema';
 import { IWordFormValues } from 'libs/types/forms';
-import { formDataToWordData } from 'libs/utils/form-data.util';
+import { formDataToWordData } from 'libs/helpers/form-data.helper';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useSessionStorage } from 'libs/hooks/useSessionStorage';
 import { useWords } from 'libs/hooks/useWords';
@@ -36,7 +36,7 @@ interface IUseWordForms {
 }
 
 export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) => {
-    const [wordsMode] = useSessionStorage<WordMode>(WORDS_MODE, 'userWords');
+    const [wordsMode] = useSessionStorage<WordsMode>(WORDS_MODE, 'userWords');
     const { mutate: mutateWords } = useWords({ mode: wordsMode, skip, limit });
 
     const [withTranscription, setWithTranscription] = React.useState<boolean>(formValues?.transcription ? true : false);

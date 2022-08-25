@@ -31,7 +31,7 @@ export interface IUserWord extends IWord {
 export interface IUserWordPayload extends Omit<IWord, 'id'> {
 }
 
-export type WordMode = 'commonWords' | 'userWords';
+export type WordsMode = 'commonWords' | 'userWords';
 
 
 export enum Role {

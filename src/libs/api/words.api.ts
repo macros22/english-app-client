@@ -1,11 +1,16 @@
 import axios, { AxiosError } from 'axios';
 import { COMMON_WORDS_URL, USER_WORDS_URL } from 'libs/constants/url';
-import { IUserWord, IUserWordPayload, WordMode, ICommonWord, IWord, Role } from 'libs/types/types';
+import { IUserWord, IUserWordPayload, WordsMode, ICommonWord, IWord, Role } from 'libs/types/types';
 
-export const wordsApi = (userRole: Role, mode: WordMode) => {
+interface IWordsApiProps {
+    wordsMode: WordsMode
+    userRole: Role;
+}
+
+export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
 
     type WordTypes = { 'userWords': IUserWord; 'commonWords': IWord };
-    type WordType = WordTypes[typeof mode];
+    type WordType = WordTypes[typeof wordsMode];
 
     return {
         getWords: async (url: string) => {
@@ -13,7 +18,7 @@ export const wordsApi = (userRole: Role, mode: WordMode) => {
                 const res = await axios.get(url, { withCredentials: true });
 
                 // transform common words to IWord
-                if (mode == 'commonWords') {
+                if (wordsMode == 'commonWords') {
                     return (res.data as ICommonWord[]).map(word => {
                         const returnWord: IWord = {
                             ...word.commonWord,

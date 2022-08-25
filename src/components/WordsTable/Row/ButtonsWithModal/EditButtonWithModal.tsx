@@ -2,7 +2,7 @@ import { WordForm } from 'components/WordForm/WordForm';
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { IWord } from 'libs/types/types';
-import { wordDataToFormData } from 'libs/utils/form-data.util';
+import { wordDataToFormData } from 'libs/helpers/form-data.helper';
 
 export const EditButtonWithModal = ({ rowData }: { rowData: IWord }): JSX.Element => {
 

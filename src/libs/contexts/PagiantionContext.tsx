@@ -21,6 +21,6 @@ export const PaginationProvider: FC = ({ children }) => {
     }), [skip, wordsPerPageCount]);
 
     return (
-        <PaginationContext.Provider value={value} > {children} </PaginationContext.Provider>
+        <PaginationContext.Provider value={value}>{children}</PaginationContext.Provider>
     )
 }

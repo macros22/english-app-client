@@ -2,7 +2,7 @@ import React from 'react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useUser } from 'libs/hooks';
 import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
-import { Role, WordMode, WordStudyStatus } from 'libs/types/types';
+import { Role, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
 import { EditButtonWithModal } from '../ButtonsWithModal/EditButtonWithModal';
@@ -17,7 +17,7 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 
 export const Row = ({ rowData, rowId }: RowProps) => {
 	const { isUserLoading, user } = useUser();
-	const [wordsMode] = useLocalStorage<WordMode>(WORDS_MODE, 'userWords');
+	const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'userWords');
 
 	if (isUserLoading) {
 		return (

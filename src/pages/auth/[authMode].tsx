@@ -16,7 +16,10 @@ export const getServerSideProps: GetServerSideProps<IAuthPageProps> = async (
 const AuthPage = ({ isSignIn }: IAuthPageProps): JSX.Element => {
 	return (
 		<>
-			{isSignIn ? <SignIn /> : <SignUp />}
+			{isSignIn
+				? <SignIn />
+				: <SignUp />
+			}
 		</>);
 };
 
