@@ -33,7 +33,6 @@ const WordsTablePage = ({ wordsMode }: WordTablePageProps): JSX.Element => {
 
 	React.useEffect(() => {
 		setWordsMode(wordsMode);
-		console.log(wordsMode)
 	}, [wordsMode])
 	return (
 		<Layout>

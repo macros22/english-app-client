@@ -12,7 +12,6 @@ import styles from './Row.module.scss';
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.KNOW]: 'green',
 	[WordStudyStatus.LEARN]: 'yellow',
-	[WordStudyStatus.UNKNOWN]: 'red',
 }
 
 export const Row = ({ rowData, rowId }: RowProps) => {
@@ -36,14 +35,14 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						{rowData.word}
 						{rowData.transcription &&
 							<Header.Subheader>
-								{rowData.transcription}
+								{/* {rowData.transcription} */}
 							</Header.Subheader>
 						}
 					</Header>
 				</Table.Cell>
 				<Table.Cell width={4}>
-					<Label color={labelColors[rowData.studyStatus]} size="big" className={styles.studyStatus}>
-						{rowData.studyStatus}
+					<Label color={rowData.studyStatus ? labelColors[rowData.studyStatus]: 'red'} size="big" className={styles.studyStatus}>
+						{rowData.studyStatus || 'null'}
 					</Label>
 				</Table.Cell>
 				{wordsMode == 'userWords'

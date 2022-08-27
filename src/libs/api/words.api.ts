@@ -17,17 +17,19 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
             try {
                 const res = await axios.get(url, { withCredentials: true });
 
-                // transform common words to IWord
+                // Transform ICommonWord to IWord.
                 if (wordsMode == 'commonWords') {
-                    return (res.data as ICommonWord[]).map(word => {
+                    const d = (res.data as ICommonWord[]).map(word => {
                         const returnWord: IWord = {
-                            ...word.commonWord,
-                            studyStatus: word.userStudyStatus,
+                            ...word,
+                            studyStatus: word?.userWord?.studyStatus || null,
                         }
                         return returnWord;
                     });
+                    console.log(d)
+                    return d;
                 }
-                // console.log(res.data.length);
+
                 return res.data as WordType[];
             } catch (error) {
                 throw error;
