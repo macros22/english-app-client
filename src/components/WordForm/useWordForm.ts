@@ -44,9 +44,9 @@ interface IUseWordForms {
 
 export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) => {
     const [wordsMode] = useSessionStorage<WordsMode>(WORDS_MODE, 'userWords');
-    const { mutate: mutateWords } = useWords({ mode: wordsMode, skip, limit });
+    const { mutate: mutateWords, mutateCount: muteteWordsCount } = useWords({ mode: wordsMode, skip, limit });
 
-    const [withTranscription, setWithTranscription] = React.useState<boolean>(formValues?.transcription ? true : false);
+    const [withTranscription, setWithTranscription] = React.useState<boolean>((formValues?.transcription.uk || formValues?.transcription.us) ? true : false);
 
     // Form initialization with react-hook-form.
     const {
@@ -109,6 +109,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
             } else {
                 const response = await api.postWord(payload);
                 setSuccessMessage(`Successfully added ${response!.word}`);
+                muteteWordsCount();
                 reset();
             }
             mutateWords();
