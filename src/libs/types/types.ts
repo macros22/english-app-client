@@ -1,3 +1,13 @@
+export enum WordLevel {
+  A1 = 'A1',
+  A2 = 'A2',
+  B1 = 'B1',
+  B2 = 'B2',
+  C1 = 'C1',
+  C2 = 'C2',
+  UNCATEGORIZED = 'uncategorized',
+}
+
 export enum WordStudyStatus {
   LEARN = "learn",
   KNOW = "know",
@@ -8,17 +18,20 @@ export interface IUsageExample {
 }
 
 export interface ITranscription {
-  uk: string;
-  us: string;
+  uk: string | null;
+  us: string | null;
 }
 
 export interface IWord {
   id: string;
   word: string;
-  transcription?: ITranscription;
-  translations?: string[];
-  definitions?: string[];
-  usageExamples?: IUsageExample[];
+  level: WordLevel;
+  synonyms: string[];
+  antonyms: string[];
+  transcription: ITranscription;
+  translations: string[];
+  definitions: string[];
+  usageExamples: IUsageExample[];
   studyStatus: WordStudyStatus | null;
 }
 

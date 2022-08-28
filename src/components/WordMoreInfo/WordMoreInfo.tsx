@@ -7,14 +7,24 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
             <h2>Engish word:</h2>
             <h3>{rowData.word}</h3>
 
-            {rowData.transcription &&
+            <span>{rowData.level}</span>
+
+
+            {rowData.transcription.uk &&
                 <>
-                    <h2>Transcription:</h2>
-                    <h3>{rowData.transcription}</h3>
+                    <h2>UK:</h2>
+                    <span>{rowData.transcription.uk}</span>
+                </>
+            }
+            {rowData.transcription.us &&
+                <>
+                    <h2>US:</h2>
+                    <span>{rowData.transcription.us}</span>
                 </>
             }
 
-            {rowData.definitions && !!rowData.definitions?.length &&
+
+            {Boolean(rowData.definitions.length) &&
                 <>
                     <h2>Definitions:</h2>
                     {rowData.definitions.map((definition, index) => {
@@ -22,7 +32,7 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                     })}
                 </>
             }
-            {rowData.translations && !!rowData.translations?.length &&
+            {Boolean(rowData.translations.length) &&
                 <>
                     <h2>Translations:</h2>
                     {rowData.translations.map((translation, index) => {
@@ -30,7 +40,7 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                     })}
                 </>
             }
-            {rowData.usageExamples && !!rowData.usageExamples?.length &&
+            {Boolean(rowData.usageExamples.length) &&
                 <>
                     <h2>Usage examples:</h2>
                     {rowData.usageExamples.map((usageExample, index) => {
