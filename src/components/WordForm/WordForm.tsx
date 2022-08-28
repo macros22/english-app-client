@@ -101,40 +101,44 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 							onClick={handleWithTranscriptionButton}
 						/>
 					</Header>
-				</Divider> 
+				</Divider>
 
-				 {withTranscription &&
+				{withTranscription &&
 					<>
-						<Controller
-							name={'transcription.uk'}
-							control={control}
-							render={({ field: { onChange, value } }) => (
-								<Form.Input
-									size='large'
-									error={errors.transcription?.uk?.message}
-									value={withTranscription ? value : ''}
-									onChange={onChange}
-									placeholder="UK transcription"
-									disabled={!withTranscription}
+						<Form.Field>
+							<Controller
+								name={'transcription.uk'}
+								control={control}
+								render={({ field: { onChange, value } }) => (
+									<Input
+										label={'UK'}
+										size='large'
+										value={withTranscription ? value : ''}
+										onChange={onChange}
+										placeholder="UK transcription"
+										disabled={!withTranscription}
 
-								/>
-							)}
-						/>
-						<Controller
-							name={'transcription.us'}
-							control={control}
-							render={({ field: { onChange, value } }) => (
-								<Form.Input
-									size='large'
-									error={errors.transcription?.us?.message}
-									value={withTranscription ? value : ''}
-									onChange={onChange}
-									placeholder="US transcription"
-									disabled={!withTranscription}
+									/>
+								)}
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Controller
+								name={'transcription.us'}
+								control={control}
+								render={({ field: { onChange, value } }) => (
+									<Input
+										size='large'
+										label={'US'}
+										value={withTranscription ? value : ''}
+										onChange={onChange}
+										placeholder="US transcription"
+										disabled={!withTranscription}
 
-								/>
-							)}
-						/>
+									/>
+								)}
+							/>
+						</Form.Field>
 					</>
 				}
 
@@ -249,9 +253,9 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 							})
 						} />
 					</Header>
-				</Divider> 
+				</Divider>
 
-				 {synonymsFields.map((field, index) => {
+				{synonymsFields.map((field, index) => {
 					return (
 						<React.Fragment key={field.id}>
 							<Form.Field>
