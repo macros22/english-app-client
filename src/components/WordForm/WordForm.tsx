@@ -23,27 +23,37 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 	const {
 		Controller,
 		handleSubmit,
+		handleReset,
 		onSubmit,
 		control,
 		errors,
 		handleSelectStatusChange,
+		handleSelectWordLevelChange,
 		studyStatus,
+		wordLevel,
+		synonymsFields,
+		removeSynonym,
+		antonymsFields,
+		removeAntonym,
 		definitionsFields,
 		removeDefinition,
 		translationsFields,
 		removeTranslation,
 		usageExamplesFields,
 		removeUsageExample,
+		register,
 		loadingPostWord,
 		appendUsageExample,
 		appendTranslation,
 		appendDefinition,
+		appendSynonym,
+		appendAntonym,
 		studyStatusOptions,
-		handleReset,
 		successMessage,
 		errorMessage,
 		withTranscription,
 		handleWithTranscriptionButton,
+		wordLevelOptions,
 	} = mode == 'edit' ? useWordForm({ formValues, wordId, skip, limit: wordsPerPageCount }) : useWordForm({});
 
 	return (
@@ -65,6 +75,15 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 				/>
 
 				<Form.Select
+					label="Word level"
+					name='wordLevel'
+					onChange={handleSelectWordLevelChange}
+					placeholder="Select word level"
+					value={wordLevel}
+					options={wordLevelOptions}
+				/>
+
+				<Form.Select
 					label="Study status"
 					// required
 					name='studyStatus'
@@ -82,25 +101,41 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 							onClick={handleWithTranscriptionButton}
 						/>
 					</Header>
-				</Divider>
+				</Divider> 
 
-				{withTranscription &&
-					<Controller
-						name={'transcription'}
-						control={control}
-						render={({ field: { onChange, value } }) => (
-							<Form.Input
-								size='large'
-								error={errors.transcription?.message}
-								value={withTranscription ? value : ''}
-								onChange={onChange}
-								placeholder="Transcription"
-								disabled={!withTranscription}
+				 {withTranscription &&
+					<>
+						<Controller
+							name={'transcription.uk'}
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<Form.Input
+									size='large'
+									error={errors.transcription?.uk?.message}
+									value={withTranscription ? value : ''}
+									onChange={onChange}
+									placeholder="UK transcription"
+									disabled={!withTranscription}
 
-							/>
-						)}
-					/>
+								/>
+							)}
+						/>
+						<Controller
+							name={'transcription.us'}
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<Form.Input
+									size='large'
+									error={errors.transcription?.us?.message}
+									value={withTranscription ? value : ''}
+									onChange={onChange}
+									placeholder="US transcription"
+									disabled={!withTranscription}
 
+								/>
+							)}
+						/>
+					</>
 				}
 
 				<Divider horizontal>
@@ -205,6 +240,75 @@ export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Eleme
 						</React.Fragment >
 					);
 				})}
+
+				<Divider horizontal>
+					<Header as='h4'>
+						<Button icon='add' content={"Synonyms"} onClick={() =>
+							appendSynonym({
+								synonym: '',
+							})
+						} />
+					</Header>
+				</Divider> 
+
+				 {synonymsFields.map((field, index) => {
+					return (
+						<React.Fragment key={field.id}>
+							<Form.Field>
+								<Controller
+									name={`synonyms.${index}.synonym`}
+									control={control}
+									render={({ field: { onChange, value } }) => (
+										<Input
+											size='large'
+											value={value}
+											onChange={onChange}
+											label={`${index + 1}`}
+											placeholder={`synonym ${index + 1}`}
+											action={<Button icon='trash' size='large' color='red' onClick={() => removeSynonym(index)} />}
+
+										/>
+									)}
+								/>
+							</Form.Field>
+						</React.Fragment >
+					);
+				})}
+
+				<Divider horizontal>
+					<Header as='h4'>
+						<Button icon='add' content={"Antonyms"} onClick={() =>
+							appendAntonym({
+								antonym: '',
+							})
+						} />
+					</Header>
+				</Divider>
+
+				{antonymsFields.map((field, index) => {
+					return (
+						<React.Fragment key={field.id}>
+							<Form.Field>
+								<Controller
+									name={`antonyms.${index}.antonym`}
+									control={control}
+									render={({ field: { onChange, value } }) => (
+										<Input
+											size='large'
+											value={value}
+											onChange={onChange}
+											label={`${index + 1}`}
+											placeholder={`antonym ${index + 1}`}
+											action={<Button icon='trash' size='large' color='red' onClick={() => removeAntonym(index)} />}
+
+										/>
+									)}
+								/>
+							</Form.Field>
+						</React.Fragment >
+					);
+				})}
+
 
 				<Divider clearing />
 				{errorMessage &&

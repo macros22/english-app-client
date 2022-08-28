@@ -3,7 +3,7 @@ import {
     DropdownProps,
 } from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { WordsMode, WordStudyStatus } from 'libs/types/types';
+import { WordLevel, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { wordValidationSchema } from './form.schema';
 import { IWordFormValues } from 'libs/types/forms';
@@ -16,14 +16,21 @@ import { useWordsApi } from 'libs/hooks';
 const studyStatusOptions = [
     { key: WordStudyStatus.KNOW, value: WordStudyStatus.KNOW, text: WordStudyStatus.KNOW, label: { color: 'green', empty: true, circular: true } },
     { key: WordStudyStatus.LEARN, value: WordStudyStatus.LEARN, text: WordStudyStatus.LEARN, label: { color: 'yellow', empty: true, circular: true } },
-    { key: WordStudyStatus.UNKNOWN, value: WordStudyStatus.UNKNOWN, text: WordStudyStatus.UNKNOWN, label: { color: 'red', empty: true, circular: true } },
 ];
+
+const wordLevelOptions =
+    Object.values(WordLevel).map(level => {
+        return { key: level, value: level, text: level, label: { color: 'green', circular: true } }
+    });
 
 const defaultFormValues: IWordFormValues = {
     word: '',
-    transcription: '',
+    transcription: { uk: null, us: null },
     translations: [],
     definitions: [],
+    antonyms: [],
+    synonyms: [],
+    level: WordLevel.UNCATEGORIZED,
     studyStatus: WordStudyStatus.LEARN,
     usageExamples: [],
 };
@@ -71,6 +78,16 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         control
     });
 
+    const { fields: synonymsFields, append: appendSynonym, remove: removeSynonym } = useFieldArray({
+        name: "synonyms",
+        control
+    });
+
+    const { fields: antonymsFields, append: appendAntonym, remove: removeAntonym } = useFieldArray({
+        name: "antonyms",
+        control
+    });
+
     const { api } = useWordsApi(wordsMode);
 
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -84,7 +101,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         try {
             setLoadingPostWord(true);
 
-            const payload = formDataToWordData(data, studyStatus);
+            const payload = formDataToWordData(data, studyStatus, wordLevel);
 
             if (wordId) {
                 const response = await api.patchWord(payload, wordId)
@@ -105,7 +122,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
 
     // Study status dropdown.
     const [studyStatus, setStudyStatus] = React.useState<WordStudyStatus>(
-        formValues ? formValues.studyStatus : WordStudyStatus.UNKNOWN
+        formValues && formValues.studyStatus ? formValues.studyStatus : WordStudyStatus.LEARN
     );
     const handleSelectStatusChange = (
         event: React.SyntheticEvent<HTMLElement, Event>,
@@ -113,6 +130,18 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
     ) => {
         setStudyStatus(data.value as WordStudyStatus);
         trigger('studyStatus');
+    };
+
+    // Word level dropdown.
+    const [wordLevel, setWordLevel] = React.useState<WordLevel>(
+        formValues ? formValues.level : WordLevel.UNCATEGORIZED
+    );
+    const handleSelectWordLevelChange = (
+        event: React.SyntheticEvent<HTMLElement, Event>,
+        data: DropdownProps
+    ) => {
+        setWordLevel(data.value as WordLevel);
+        trigger('level');
     };
 
     const handleReset = () => {
@@ -123,7 +152,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
 
     const handleWithTranscriptionButton = () => {
         setWithTranscription(transcription => !transcription);
-        setValue('transcription', '');
+        // setValue('transcription', { uk: null, us: null });
     }
 
     return {
@@ -134,7 +163,13 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         control,
         errors,
         handleSelectStatusChange,
+        handleSelectWordLevelChange,
         studyStatus,
+        wordLevel,
+        synonymsFields,
+        removeSynonym,
+        antonymsFields,
+        removeAntonym,
         definitionsFields,
         removeDefinition,
         translationsFields,
@@ -146,10 +181,13 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordForms) 
         appendUsageExample,
         appendTranslation,
         appendDefinition,
+        appendSynonym,
+        appendAntonym,
         studyStatusOptions,
         successMessage,
         errorMessage,
         withTranscription,
         handleWithTranscriptionButton,
+        wordLevelOptions,
     }
 }

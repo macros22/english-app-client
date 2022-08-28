@@ -43,8 +43,7 @@ export interface IUserWord extends IWord {
   createdAt: Date;
 }
 
-export interface IUserWordPayload extends Omit<IWord, 'id'> {
-}
+export interface IUserWordPayload extends Omit<IWord, 'id'> { }
 
 export type WordsMode = 'commonWords' | 'userWords';
 
