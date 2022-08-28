@@ -9,7 +9,6 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
 
             <span>{rowData.level}</span>
 
-
             {rowData.transcription.uk &&
                 <>
                     <h2>UK:</h2>
@@ -22,7 +21,6 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                     <span>{rowData.transcription.us}</span>
                 </>
             }
-
 
             {Boolean(rowData.definitions.length) &&
                 <>
@@ -37,6 +35,22 @@ export const WordMoreInfo = ({ rowData }: { rowData: IWord }): JSX.Element => {
                     <h2>Translations:</h2>
                     {rowData.translations.map((translation, index) => {
                         return <h3 key={translation + index}>{translation}</h3>
+                    })}
+                </>
+            }
+            {Boolean(rowData.synonyms.length) &&
+                <>
+                    <h2>Synonyms:</h2>
+                    {rowData.synonyms.map((synonym, index) => {
+                        return <h3 key={synonym + index}>{synonym}</h3>
+                    })}
+                </>
+            }
+            {Boolean(rowData.antonyms.length) &&
+                <>
+                    <h2>Antonyms:</h2>
+                    {rowData.antonyms.map((antonym, index) => {
+                        return <h3 key={antonym + index}>{antonym}</h3>
                     })}
                 </>
             }
