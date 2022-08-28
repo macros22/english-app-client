@@ -29,19 +29,23 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 	return (
 		<>
 			<Table.Row textAlign='center' verticalAlign='middle'>
-				<Table.Cell width={1}>{rowId}</Table.Cell>
+				<Table.Cell width={2}>
+					<Label size='big' color='blue' circular>
+						{rowId}
+					</Label>
+				</Table.Cell>
 				<Table.Cell width={8}>
 					<Header as='h2'>
 						{rowData.word}
-						{rowData.transcription &&
+						{Boolean(rowData.transcription.uk || rowData.transcription.us) &&
 							<Header.Subheader>
-								{/* {rowData.transcription} */}
+								{rowData.transcription.uk ? rowData.transcription.uk : rowData.transcription.us}
 							</Header.Subheader>
 						}
 					</Header>
 				</Table.Cell>
 				<Table.Cell width={4}>
-					<Label color={rowData.studyStatus ? labelColors[rowData.studyStatus]: 'red'} size="big" className={styles.studyStatus}>
+					<Label color={rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'} size="big" className={styles.studyStatus}>
 						{rowData.studyStatus || 'null'}
 					</Label>
 				</Table.Cell>
