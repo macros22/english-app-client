@@ -55,7 +55,6 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsPr
         handleSubmit,
         setValue,
         reset,
-        register,
         control,
         formState: { errors },
     } = useForm<IWordFormValues>({
@@ -68,8 +67,6 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsPr
         name: "meanings",
         control,
     });
-
-
 
     const { api } = useWordsApi(wordsMode);
 
@@ -84,19 +81,19 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsPr
         try {
             setLoadingPostWord(true);
 
-            alert(JSON.stringify(data, null, '\t'));
-            // const payload = formDataToWordData(data, studyStatus, wordLevel);
-
-            // if (wordId) {
-            //     const response = await api.patchWord(payload, wordId)
-            //     setSuccessMessage(`Successfully updated ${response!.word}`)
-            // } else {
-            //     const response = await api.postWord(payload);
-            //     setSuccessMessage(`Successfully added ${response!.word}`);
-            //     muteteWordsCount();
-            //     reset();
-            // }
-            // mutateWords();
+            
+            const payload = formDataToWordData(data);
+            alert(JSON.stringify(payload, null, '\t'));
+            if (wordId) {
+                const response = await api.patchWord(payload, wordId)
+                setSuccessMessage(`Successfully updated ${response!.word}`)
+            } else {
+                const response = await api.postWord(payload);
+                setSuccessMessage(`Successfully added ${response!.word}`);
+                muteteWordsCount();
+                reset();
+            }
+            mutateWords();
         } catch (error) {
             if (error instanceof Error) {
                 setErrorMessage(error.message);
@@ -124,7 +121,6 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsPr
         onSubmit,
         control,
         errors,
-        // register,
         loadingPostWord,
         studyStatusOptions,
         successMessage,

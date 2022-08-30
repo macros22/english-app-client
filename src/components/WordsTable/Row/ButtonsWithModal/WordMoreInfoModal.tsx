@@ -6,7 +6,7 @@ import { IWord } from 'libs/types/types';
 export const WordMoreInfoModal = ({ word }: { word: IWord }): JSX.Element => {
     return (
         <Modal title='More information about word' modalTrigger={<Button basic icon="info" size="large" />} >
-            <WordMoreInfo rowData={word} />
+            <WordMoreInfo word={word} />
         </Modal>
     );
 }

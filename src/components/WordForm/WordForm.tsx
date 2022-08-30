@@ -5,7 +5,6 @@ import {
 	Form,
 	Header,
 	Input,
-	Label,
 	Message,
 	Tab,
 } from 'semantic-ui-react';
@@ -21,13 +20,6 @@ import { TranslationsInputs } from './MeaningNestedFields/TranslationsInputs';
 import { WordLevelSelect } from './MeaningNestedFields/WordLevelSelect';
 import { PartOfSpeechSelect } from './MeaningNestedFields/PartOfSpeechSelect';
 import { UsageExamplesInputs } from './MeaningNestedFields/UsageExamplesInputs';
-
-
-const panes = [
-	{ menuItem: 'Tab 1', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
-	{ menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-	{ menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
-]
 
 export const WordForm = ({ mode, formValues, wordId }: WordFormProps): JSX.Element => {
 
