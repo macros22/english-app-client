@@ -1,20 +1,29 @@
 export enum WordLevel {
+  Uncategorized = 'uncategorized',
   A1 = 'A1',
   A2 = 'A2',
   B1 = 'B1',
   B2 = 'B2',
   C1 = 'C1',
   C2 = 'C2',
-  UNCATEGORIZED = 'uncategorized',
+}
+
+export enum PartOfSpeech {
+  Noun = 'noun',
+  Pronoun = 'pronoun',
+  Adjective = 'adjective',
+  Verb = 'verb',
+  Adverb = 'adverb',
+  Preposition = 'preposition',
+  Article = 'article',
+  Determiner = 'determiner',
+  Conjunction = 'conjunction',
+  Interjection = 'interjection',
 }
 
 export enum WordStudyStatus {
-  LEARN = "learn",
-  KNOW = "know",
-}
-export interface IUsageExample {
-  sentence: string;
-  translation: string;
+  Learn = "learn",
+  Know = "know",
 }
 
 export interface ITranscription {
@@ -22,17 +31,22 @@ export interface ITranscription {
   us: string | null;
 }
 
-export interface IWord {
-  id: string;
-  word: string;
+export interface IMeaning {
+  pos: PartOfSpeech;
   level: WordLevel;
   synonyms: string[];
   antonyms: string[];
-  transcription: ITranscription;
+  definition: string;
   translations: string[];
-  definitions: string[];
-  usageExamples: IUsageExample[];
+  usageExamples: string[];
+}
+
+export interface IWord {
+  id: string;
+  word: string;
+  transcription: ITranscription;
   studyStatus: WordStudyStatus | null;
+  meanings: IMeaning[];
 }
 
 export interface ICommonWord extends IWord {
@@ -48,8 +62,8 @@ export interface IUserWordPayload extends Omit<IWord, 'id'> { }
 export type WordsMode = 'commonWords' | 'userWords';
 
 export enum Role {
-  ADMIN = 'admin',
-  USER = 'user',
+  Admin = 'admin',
+  User = 'user',
 }
 export interface IUser {
   id: string;

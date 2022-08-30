@@ -10,8 +10,8 @@ import { EditButtonModal } from '../ButtonsWithModal/EditButtonModal';
 import styles from './Row.module.scss';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
-	[WordStudyStatus.KNOW]: 'green',
-	[WordStudyStatus.LEARN]: 'yellow',
+	[WordStudyStatus.Know]: 'green',
+	[WordStudyStatus.Learn]: 'yellow',
 }
 
 export const Row = ({ rowData, rowId }: RowProps) => {
@@ -59,7 +59,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 							</div>
 						</Table.Cell>
 					</>
-					: user && user.role == Role.ADMIN
+					: user && user.role == Role.Admin
 						? <>
 							<Table.Cell width={6}>
 								<WordMoreInfoModal word={rowData} />

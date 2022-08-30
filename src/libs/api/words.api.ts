@@ -46,7 +46,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
         postWord: async (word: IUserWordPayload) => {
             try {
                 let url = USER_WORDS_URL;
-                if (userRole == Role.ADMIN) {
+                if (userRole == Role.Admin) {
                     url = COMMON_WORDS_URL;
                 }
 
@@ -66,7 +66,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
         patchWord: async (word: IUserWordPayload, wordId: string) => {
             try {
                 let url = USER_WORDS_URL;
-                if (userRole == Role.ADMIN) {
+                if (userRole == Role.Admin) {
                     url = COMMON_WORDS_URL;
                 }
 
@@ -86,7 +86,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
         deleteWord: async (wordId: string) => {
             try {
                 let url = USER_WORDS_URL;
-                if (userRole == Role.ADMIN) {
+                if (userRole == Role.Admin) {
                     url = COMMON_WORDS_URL;
                 }
                 const res = await axios.delete(
