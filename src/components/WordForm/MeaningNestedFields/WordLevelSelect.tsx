@@ -19,7 +19,7 @@ export const WordLevelSelect = ({ meaningIndex, control, setValue }: NestedFormS
                     name={field.name}
                     ref={field.ref}
                     onBlur={field.onBlur}
-                    onChange={(_, { value }) => setValue(`meanings.${meaningIndex}.level`, value ? value as WordLevel : WordLevel.UNCATEGORIZED)}
+                    onChange={(_, { value }) => setValue(`meanings.${meaningIndex}.level`, value ? value as WordLevel : WordLevel.Uncategorized)}
                     value={field.value?.toString()}
                     options={wordLevelOptions}
                 />}
