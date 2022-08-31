@@ -5,6 +5,7 @@ import { Row } from '../Row/Row/Row';
 import { WordsTableProps } from './WordsTable.props';
 import styles from './WordsTable.module.scss';
 import { useRouter } from 'next/router';
+import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
 
 const defaultWordsPerPageCount = 5;
 
@@ -92,6 +93,8 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 						<Table.HeaderCell textAlign='center' colSpan="16">
 							<Pagination
 								className={styles.pagination}
+								pointing
+								secondary
 								activePage={currentPage}
 								onPageChange={handlePaginationChange}
 								// boundaryRange={boundaryRange}
@@ -110,6 +113,7 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 					</Table.Row>
 				</Table.Footer>
 			</Table>
+			<AlphabetSearch />
 		</>
 	);
 };

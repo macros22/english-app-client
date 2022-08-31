@@ -1,0 +1,16 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 75% !important;
+    max-width: 100%;
+    margin: 1.5rem auto !important;
+    gap: 0.51rem;
+}
+
+.letter {
+    display: inline-block;
+    width: 100%;
+    display: inline-block;
+    max-width: 50px;
+}
