@@ -10,6 +10,6 @@ export interface IWordFormMeaning extends Required<Omit<IMeaning, 'translations'
     usageExamples: { usageExample: string }[];
 }
 
-export interface IWordFormValues extends Required<Omit<IUserWordPayload, 'meanings'>> {
+export interface IWordFormValues extends Required<Omit<IUserWordPayload, 'meanings' | 'normalizedWord'>> {
     meanings: IWordFormMeaning[];
 }

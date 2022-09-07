@@ -1,3 +1,5 @@
+import { CURRENT_TABLE_PAGE } from "libs/constants/names.storage";
+import { useLocalStorage } from "libs/hooks";
 import React, { Dispatch, SetStateAction, useContext, useMemo } from "react";
 import { createContext, FC } from "react";
 
@@ -12,6 +14,8 @@ export const PaginationContext = createContext<IPaginationContext>({} as IPagina
 export const PaginationProvider: FC = ({ children }) => {
 
     const [skip, setSkip] = React.useState(0);
+    // const [skip, setSkip] = useLocalStorage<number>(CURRENT_TABLE_PAGE + mode, 0);
+    
     const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
     const value = useMemo(() => ({
         skip,

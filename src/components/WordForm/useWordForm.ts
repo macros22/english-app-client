@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-    DropdownProps,
-} from 'semantic-ui-react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { PartOfSpeech, WordLevel, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,7 +14,6 @@ const studyStatusOptions = [
     { key: WordStudyStatus.Know, value: WordStudyStatus.Know, text: WordStudyStatus.Know, label: { color: 'green', empty: true, circular: true } },
     { key: WordStudyStatus.Learn, value: WordStudyStatus.Learn, text: WordStudyStatus.Learn, label: { color: 'yellow', empty: true, circular: true } },
 ];
-
 
 const defaultFormValues: IWordFormValues = {
     word: '',
@@ -81,7 +77,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsPr
         try {
             setLoadingPostWord(true);
 
-            
+
             const payload = formDataToWordData(data);
             alert(JSON.stringify(payload, null, '\t'));
             if (wordId) {

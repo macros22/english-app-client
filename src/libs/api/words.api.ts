@@ -43,6 +43,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
                 throw error;
             }
         },
+        
         postWord: async (word: IUserWordPayload) => {
             try {
                 let url = USER_WORDS_URL;

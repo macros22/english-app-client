@@ -1,18 +1,19 @@
 import React from 'react';
-import { usePagination, useWords } from 'libs/hooks';
+import styles from './WordsTable.module.scss';
+import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
 import { Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
 import { Row } from '../Row/Row/Row';
 import { WordsTableProps } from './WordsTable.props';
-import styles from './WordsTable.module.scss';
 import { useRouter } from 'next/router';
 import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
+import { WORDS_MODE } from 'libs/constants/names.storage';
+import { WordsMode } from 'libs/types/types';
 
 const defaultWordsPerPageCount = 5;
 
-export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
-	// const [currentPage, setCurrentPage] = useLocalStorage<number>(CURRENT_TABLE_PAGE + mode, 1);
-	const [currentPage, setCurrentPage] = React.useState(1);
-	const [totalPages, setTotalPages] = React.useState(1);
+export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
+
+	const [mode, setWordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, wordsMode);
 
 	const {
 		skip,
@@ -21,45 +22,63 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 		setWordsPerPageCount,
 	} = usePagination();
 
+	const [currentPage, setCurrentPage] = React.useState(1);
+	const [totalPages, setTotalPages] = React.useState(1);
 	const { words, loading, count: wordsCount } = useWords({ mode, skip, limit: wordsPerPageCount });
 
-	// Pagination logic.
-	React.useEffect(() => {
-		if (wordsCount) {
-			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
-			setTotalPages(pagesCount);
-
-			if (currentPage > pagesCount) {
-				setCurrentPage(pagesCount);
-			}
-		}
-	}, [wordsCount])
-
-	// Logic for correct display rows count.
 	React.useEffect(() => {
 		let wordsPerPage = 0;
 		if (wordsCount) {
+
+			// Pagination logic.
+			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
+			setTotalPages(pagesCount);
+
+
+			console.log("pagesCount", pagesCount)
+			console.log("wordsCount", wordsCount)
+			console.log("currentPage", currentPage)
+			
+			// Logic for correct display rows count.
 			if (wordsCount < defaultWordsPerPageCount) {
 				wordsPerPage = wordsCount;
-			} else if (currentPage == (totalPages) && (currentPage != 1)) { // for last page
+			} else if (currentPage == pagesCount && (currentPage != 1)) { // for last page
 				wordsPerPage = wordsCount - (currentPage - 1) * defaultWordsPerPageCount;
 			} else {
 				wordsPerPage = defaultWordsPerPageCount;
 			}
+
+			// if (currentPage > pagesCount) {
+			// 	setCurrentPage(pagesCount);
+			// }
 		}
 		setWordsPerPageCount(wordsPerPage)
-		setSkip((currentPage - 1) * defaultWordsPerPageCount);
-	}, [currentPage, wordsCount])
-
+		// setSkip((currentPage - 1) * defaultWordsPerPageCount);
+	}, [wordsCount])
+	
 	const router = useRouter();
+	React.useEffect(() => {
+		setCurrentPage(1);
+		setSkip(0);
+	}, [mode])
+
+	React.useEffect(() => {
+		if (skip) {
+			setCurrentPage(Math.ceil(skip / defaultWordsPerPageCount) + 1)
+		}
+	}, [skip])
+
 	React.useEffect(() => {
 		router.push(`/words/${router.query.wordsMode}?skip=${skip}&limit=${wordsPerPageCount}`)
 	}, [skip, wordsPerPageCount])
 
-
 	// Handlers.
 	const handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { activePage }: PaginationProps) => {
-		setCurrentPage(Number(activePage) || 1);
+		if (typeof (activePage) === 'number') {
+			setCurrentPage(activePage);
+			const newSkip = (activePage - 1) * defaultWordsPerPageCount;
+			setSkip(newSkip || 0);
+		}
 	}
 
 	if (loading) {
@@ -96,13 +115,15 @@ export const WordsTable = ({ mode }: WordsTableProps): JSX.Element => {
 								pointing
 								secondary
 								activePage={currentPage}
+								// activePage={Math.ceil(skip / defaultWordsPerPageCount)}
+
 								onPageChange={handlePaginationChange}
 								// boundaryRange={boundaryRange}
 								// onPageChange={this.handlePaginationChange}
 								// size='mini'
 								// siblingRange={siblingRange}
 								totalPages={totalPages}
-							// // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
+							// Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
 							// ellipsisItem={showEllipsis ? undefined : null}
 							// firstItem={showFirstAndLastNav ? undefined : null}
 							// lastItem={showFirstAndLastNav ? undefined : null}

@@ -5,6 +5,7 @@ import { IUserWordPayload, WordLevel, WordStudyStatus } from "libs/types/types"
 export const formDataToWordData = (data: IWordFormValues): IUserWordPayload => {
     return ({
         word: data.word,
+        normalizedWord: data.word.toLowerCase(),
         transcription: data.transcription,
         studyStatus: data.studyStatus,
         meanings: data.meanings.map(meaning => {
