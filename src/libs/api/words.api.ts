@@ -26,7 +26,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
                         }
                         return returnWord;
                     });
-                    console.log(d)
+                
                     return d;
                 }
 

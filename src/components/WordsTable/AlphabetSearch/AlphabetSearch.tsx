@@ -4,29 +4,37 @@ import { usePagination } from "libs/hooks";
 import { Label, Loader, Segment } from "semantic-ui-react";
 import { alphabet } from "libs/constants/alphabet";
 import { usePageByLetter } from "libs/hooks/usePageByLetter";
+import { AlphabetSearchProps } from "./AlphabetSearch.props";
 
-export const AlphabetSearch = (): JSX.Element => {
+export const AlphabetSearch = ({ currentLetter, highlightedLetters }: AlphabetSearchProps): JSX.Element => {
 
     const {
         setSkip,
         wordsPerPageCount,
     } = usePagination();
 
+    // const [activeLetterIndex, setActiveLetterIndex] = React.useState<number>(alphabet.indexOf(currentLetter));
     const [activeLetterIndex, setActiveLetterIndex] = React.useState<number | null>(null);
 
     const { page, isPageLoading, pageError } = usePageByLetter({
-        letter: alphabet[activeLetterIndex || 0],
+        letter: activeLetterIndex ? alphabet[activeLetterIndex] : null,
         limit: wordsPerPageCount,
-    }
-        // alphabet[activeLetterIndex || 0],
-        // wordsPerPageCount,
-    )
+    })
+
+    React.useEffect(() => {
+        console.log(highlightedLetters)
+    }, [])
 
     React.useEffect(() => {
 
-        if (page > 1) {
+        if (page && page >= 1) {
             setSkip((page - 1) * wordsPerPageCount)
         }
+
+        // if (page && page == 1) {
+        //     console.log("page", page)
+        //     // setSkip(0)
+        // }
     }, [page])
 
     if (isPageLoading && activeLetterIndex !== null) {
@@ -45,7 +53,7 @@ export const AlphabetSearch = (): JSX.Element => {
                         className={styles.letter}
                         size="big"
                         key={letter}
-                        color={activeLetterIndex === index ? "blue" : undefined}
+                        color={highlightedLetters.includes(letter) ? "blue" : undefined}
                         onClick={() => setActiveLetterIndex(index)}
                     >
                         {letter}

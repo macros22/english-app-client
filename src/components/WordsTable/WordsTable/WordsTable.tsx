@@ -11,7 +11,7 @@ import { WordsMode } from 'libs/types/types';
 
 const defaultWordsPerPageCount = 5;
 
-export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
+export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element => {
 
 	const [mode, setWordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, wordsMode);
 
@@ -50,7 +50,7 @@ export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
 		setWordsPerPageCount(wordsPerPage)
 		// setSkip((currentPage - 1) * defaultWordsPerPageCount);
 	}, [wordsCount])
-	
+
 	const router = useRouter();
 	React.useEffect(() => {
 		// setCurrentPage(1);
@@ -70,9 +70,9 @@ export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
 	// Handlers.
 	const handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { activePage }: PaginationProps) => {
 		if (typeof (activePage) === 'number') {
-			setCurrentPage(activePage);
+			// setCurrentPage(activePage);
 			const newSkip = (activePage - 1) * defaultWordsPerPageCount;
-			setSkip(newSkip || 0);
+			setSkip(newSkip);
 		}
 	}
 
@@ -129,7 +129,10 @@ export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
 					</Table.Row>
 				</Table.Footer>
 			</Table>
-			<AlphabetSearch />
+			<AlphabetSearch
+				currentLetter={words[words.length - 1].word.charAt(0).toLowerCase()}
+				highlightedLetters={words.map(word => word.word.charAt(0).toLowerCase())}
+			/>
 		</>
 	);
 };

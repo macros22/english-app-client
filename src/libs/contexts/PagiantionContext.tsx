@@ -15,14 +15,21 @@ export const PaginationProvider: FC = ({ children }) => {
 
     const [skip, setSkip] = React.useState(0);
     // const [skip, setSkip] = useLocalStorage<number>(CURRENT_TABLE_PAGE + mode, 0);
-    
+
     const [wordsPerPageCount, setWordsPerPageCount] = React.useState(0);
-    const value = useMemo(() => ({
+    // const value = useMemo(() => ({
+    //     skip,
+    //     setSkip,
+    //     wordsPerPageCount,
+    //     setWordsPerPageCount,
+    // }), [skip, wordsPerPageCount]);
+
+    const value = {
         skip,
         setSkip,
         wordsPerPageCount,
         setWordsPerPageCount,
-    }), [skip, wordsPerPageCount]);
+    };
 
     return (
         <PaginationContext.Provider value={value}>{children}</PaginationContext.Provider>
