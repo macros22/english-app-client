@@ -34,11 +34,6 @@ export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
 			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
 			setTotalPages(pagesCount);
 
-
-			console.log("pagesCount", pagesCount)
-			console.log("wordsCount", wordsCount)
-			console.log("currentPage", currentPage)
-			
 			// Logic for correct display rows count.
 			if (wordsCount < defaultWordsPerPageCount) {
 				wordsPerPage = wordsCount;
@@ -48,9 +43,9 @@ export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
 				wordsPerPage = defaultWordsPerPageCount;
 			}
 
-			// if (currentPage > pagesCount) {
-			// 	setCurrentPage(pagesCount);
-			// }
+			if (currentPage > pagesCount) {
+				setCurrentPage(pagesCount);
+			}
 		}
 		setWordsPerPageCount(wordsPerPage)
 		// setSkip((currentPage - 1) * defaultWordsPerPageCount);
@@ -58,8 +53,8 @@ export const WordsTable = ({mode: wordsMode}: WordsTableProps): JSX.Element => {
 	
 	const router = useRouter();
 	React.useEffect(() => {
-		setCurrentPage(1);
-		setSkip(0);
+		// setCurrentPage(1);
+		// setSkip(0);
 	}, [mode])
 
 	React.useEffect(() => {

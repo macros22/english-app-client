@@ -21,8 +21,8 @@ export const wordValidationSchema = yup.object({
 		.of(
 			yup.object().shape({
 				definition: yup
-					.string()
-					.required('definition required'),
+					.string(),
+					// .required('definition required'),
 				translations: yup
 					.array()
 					.of(

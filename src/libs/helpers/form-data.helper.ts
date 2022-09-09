@@ -1,5 +1,5 @@
 import { IWordFormValues } from "libs/types/forms"
-import { IUserWordPayload, WordLevel, WordStudyStatus } from "libs/types/types"
+import { IUserWordPayload, IWord, WordLevel, WordStudyStatus } from "libs/types/types"
 
 // Made data transformation for react-hook-form correct work with fields array.
 export const formDataToWordData = (data: IWordFormValues): IUserWordPayload => {
@@ -24,7 +24,7 @@ export const formDataToWordData = (data: IWordFormValues): IUserWordPayload => {
 }
 
 
-export const wordDataToFormData = (data: IUserWordPayload): IWordFormValues => {
+export const wordDataToFormData = (data: IWord): IWordFormValues => {
     return ({
         word: data.word,
         transcription: data.transcription || { uk: null, us: null },

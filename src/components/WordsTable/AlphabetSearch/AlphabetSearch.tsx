@@ -15,14 +15,15 @@ export const AlphabetSearch = (): JSX.Element => {
     const [activeLetterIndex, setActiveLetterIndex] = React.useState<number | null>(null);
 
     const { page, isPageLoading, pageError } = usePageByLetter({
-            letter: alphabet[activeLetterIndex || 0],
-            limit: wordsPerPageCount,
-        }
+        letter: alphabet[activeLetterIndex || 0],
+        limit: wordsPerPageCount,
+    }
         // alphabet[activeLetterIndex || 0],
         // wordsPerPageCount,
     )
 
     React.useEffect(() => {
+
         if (page > 1) {
             setSkip((page - 1) * wordsPerPageCount)
         }

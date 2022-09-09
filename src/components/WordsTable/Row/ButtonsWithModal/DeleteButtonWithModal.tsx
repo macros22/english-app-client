@@ -10,7 +10,7 @@ export const DeleteButtonWithModal = ({ wordId }: { wordId: string }): JSX.Eleme
 
     const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'userWords');
 
-    const { mutate: mutateWords, mutateCount } = useWords({ mode: wordsMode });
+    const { mutateWords, mutateCount } = useWords({ mode: wordsMode });
     const { api } = useWordsApi(wordsMode);
 
     const handleDeleteButton = async () => {

@@ -42,7 +42,7 @@ interface IUseWordFormsProps {
 
 export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsProps) => {
     const [wordsMode] = useSessionStorage<WordsMode>(WORDS_MODE, 'userWords');
-    const { mutate: mutateWords, mutateCount: muteteWordsCount } = useWords({ mode: wordsMode, skip, limit });
+    const { mutateWords, mutateCount: muteteWordsCount } = useWords({ mode: wordsMode, skip, limit });
 
     const [withTranscription, setWithTranscription] = React.useState<boolean>((formValues?.transcription.uk || formValues?.transcription.us) ? true : false);
 
@@ -79,7 +79,7 @@ export const useWordForm = ({ formValues, wordId, skip, limit }: IUseWordFormsPr
 
 
             const payload = formDataToWordData(data);
-            alert(JSON.stringify(payload, null, '\t'));
+            // alert(JSON.stringify(payload, null, '\t'));
             if (wordId) {
                 const response = await api.patchWord(payload, wordId)
                 setSuccessMessage(`Successfully updated ${response!.word}`)
