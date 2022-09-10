@@ -1,13 +1,14 @@
 import React from 'react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
-import { useLocalStorage, useUser } from 'libs/hooks';
-import { Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
-import { Role, WordsMode, WordStudyStatus } from 'libs/types/types';
+import { useLocalStorage, useUser, useWordsApi } from 'libs/hooks';
+import { Button, Header, Label, Loader, Segment, SemanticCOLORS, Table } from 'semantic-ui-react';
+import { IWord, Role, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { DeleteButtonWithModal } from '../ButtonsWithModal/DeleteButtonWithModal';
 import { WordMoreInfoModal } from '../ButtonsWithModal/WordMoreInfoModal';
 import { RowProps } from './Row.props';
 import { EditButtonModal } from '../ButtonsWithModal/EditButtonModal';
 import styles from './Row.module.scss';
+import { wordDataToWordDataPayload } from 'libs/helpers/transform-data.helper';
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.Know]: 'green',
@@ -17,6 +18,13 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 export const Row = ({ rowData, rowId }: RowProps) => {
 	const { isUserLoading, user } = useUser();
 	const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'userWords');
+
+	const { api } = useWordsApi('userWords');
+	const handleAddToMyWords = async (word: IWord) => {
+		if (user && user.role !== Role.Admin) {
+			await api.postWord(wordDataToWordDataPayload(word));
+		}
+	}
 
 	if (isUserLoading) {
 		return (
@@ -45,9 +53,12 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 					</Header>
 				</Table.Cell>
 				<Table.Cell width={4}>
-					<Label color={rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'} size="big" className={styles.studyStatus}>
-						{rowData.studyStatus || 'null'}
-					</Label>
+					{rowData.studyStatus
+						? <Label color={rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'} size="big" className={styles.studyStatus}>
+							{rowData.studyStatus}
+						</Label>
+						: <Button onClick={() => handleAddToMyWords(rowData)}> Add to my words</Button>
+					}
 				</Table.Cell>
 				{wordsMode == 'userWords'
 					? <>

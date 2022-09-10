@@ -4,7 +4,7 @@ import { PartOfSpeech, WordLevel, WordsMode, WordStudyStatus } from 'libs/types/
 import { yupResolver } from '@hookform/resolvers/yup';
 import { wordValidationSchema } from './form.schema';
 import { IWordFormValues } from 'libs/types/forms';
-import { formDataToWordData } from 'libs/helpers/form-data.helper';
+import { formDataToWordData } from 'libs/helpers/transform-data.helper';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useSessionStorage } from 'libs/hooks/useSessionStorage';
 import { useWords } from 'libs/hooks/useWords';

@@ -42,3 +42,28 @@ export const wordDataToFormData = (data: IWord): IWordFormValues => {
         })
     });
 }
+
+
+export const wordDataToWordDataPayload = (data: IWord): Partial<IUserWordPayload> => {
+    return ({
+        word: data.word,
+        normalizedWord: data.word.toLowerCase(),
+        transcription: (data.transcription.uk || data.transcription.us)
+            ? {
+                uk: data.transcription.uk || null,
+                us: data.transcription.us || null,
+            }
+            : undefined,
+        studyStatus: data.studyStatus || WordStudyStatus.Learn,
+        meanings: data.meanings
+            ? data.meanings.map(meaning => ({
+                level: meaning.level,
+                pos: meaning.pos,
+                definition: meaning.definition,
+                translations: meaning.translations,
+                synonyms: meaning.synonyms,
+                antonyms: meaning.antonyms,
+                usageExamples: meaning.usageExamples,
+            })) : undefined,
+    });
+}

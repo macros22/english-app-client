@@ -118,10 +118,12 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 								// size='mini'
 								// siblingRange={siblingRange}
 								totalPages={totalPages}
-							// Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
-							// ellipsisItem={showEllipsis ? undefined : null}
-							// firstItem={showFirstAndLastNav ? undefined : null}
-							// lastItem={showFirstAndLastNav ? undefined : null}
+								// Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
+								// ellipsisItem={showEllipsis ? undefined : null}
+								// firstItem={showFirstAndLastNav ? undefined : null}
+								// lastItem={showFirstAndLastNav ? undefined : null}
+								firstItem={null}
+								lastItem={null}
 							// prevItem={showPreviousAndNextNav ? undefined : null}
 							// nextItem={showPreviousAndNextNav ? undefined : null}
 							/>

@@ -26,7 +26,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
                         }
                         return returnWord;
                     });
-                
+
                     return d;
                 }
 
@@ -43,8 +43,8 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
                 throw error;
             }
         },
-        
-        postWord: async (word: IUserWordPayload) => {
+
+        postWord: async (word: Partial<IUserWordPayload>) => {
             try {
                 let url = USER_WORDS_URL;
                 if (userRole == Role.Admin) {
