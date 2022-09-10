@@ -6,38 +6,26 @@ import { alphabet } from "libs/constants/alphabet";
 import { usePageByLetter } from "libs/hooks/usePageByLetter";
 import { AlphabetSearchProps } from "./AlphabetSearch.props";
 
-export const AlphabetSearch = ({ currentLetter, highlightedLetters }: AlphabetSearchProps): JSX.Element => {
-
+export const AlphabetSearch = ({ highlightedLetters }: AlphabetSearchProps): JSX.Element => {
     const {
         setSkip,
         wordsPerPageCount,
     } = usePagination();
 
-    // const [activeLetterIndex, setActiveLetterIndex] = React.useState<number>(alphabet.indexOf(currentLetter));
     const [activeLetterIndex, setActiveLetterIndex] = React.useState<number | null>(null);
 
     const { page, isPageLoading, pageError } = usePageByLetter({
-        letter: activeLetterIndex ? alphabet[activeLetterIndex] : null,
+        letter: !(typeof (activeLetterIndex) == 'object' && !activeLetterIndex) ? alphabet[activeLetterIndex] : null,
         limit: wordsPerPageCount,
     })
 
     React.useEffect(() => {
-        console.log(highlightedLetters)
-    }, [])
-
-    React.useEffect(() => {
-
         if (page && page >= 1) {
             setSkip((page - 1) * wordsPerPageCount)
         }
-
-        // if (page && page == 1) {
-        //     console.log("page", page)
-        //     // setSkip(0)
-        // }
     }, [page])
 
-    if (isPageLoading && activeLetterIndex !== null) {
+    if (isPageLoading && !(typeof (activeLetterIndex) == 'object' && !activeLetterIndex)) {
         return (
             <Segment>
                 <Loader size='massive' active inline='centered' />

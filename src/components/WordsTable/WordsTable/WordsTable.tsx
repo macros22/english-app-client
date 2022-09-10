@@ -53,8 +53,8 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 
 	const router = useRouter();
 	React.useEffect(() => {
-		// setCurrentPage(1);
-		// setSkip(0);
+		setCurrentPage(1);
+		setSkip(0);
 	}, [mode])
 
 	React.useEffect(() => {
@@ -130,7 +130,6 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 				</Table.Footer>
 			</Table>
 			<AlphabetSearch
-				currentLetter={words[words.length - 1].word.charAt(0).toLowerCase()}
 				highlightedLetters={words.map(word => word.word.charAt(0).toLowerCase())}
 			/>
 		</>

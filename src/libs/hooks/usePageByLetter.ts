@@ -13,7 +13,7 @@ interface IProps {
 export const usePageByLetter = ({ letter, limit }: IProps) => {
     const router = useRouter();
     const { data, error } = useSWR(letter ? `${router.query.wordsMode == 'user-words' ? USER_WORDS_URL : COMMON_WORDS_URL}/getPageByLetter?letter=${letter}&limit=${limit}` : null, fetcher)
-    const isPageLoading = !data && !error;
+    const isPageLoading = !(data || data == 0) && !error;
 
     return {
         isPageLoading,
