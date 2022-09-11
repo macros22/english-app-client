@@ -57,9 +57,17 @@ export interface IUserWord extends IWord {
   createdAt: Date;
 }
 
-export interface IUserWordPayload extends Omit<IWord, 'id'> {
+// export interface IUserWordPayload extends Omit<IWord, 'id'> {
+//   normalizedWord: string;
+// }
+export interface IUserWordPayload {
+  word: string;
   normalizedWord: string;
+  transcription?: ITranscription;
+  studyStatus?: WordStudyStatus | null;
+  meanings?: Partial<IMeaning>[];
 }
+
 
 export type WordsMode = 'commonWords' | 'userWords';
 

@@ -15,14 +15,19 @@ const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
 	[WordStudyStatus.Learn]: 'yellow',
 }
 
-export const Row = ({ rowData, rowId }: RowProps) => {
+export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
 	const { isUserLoading, user } = useUser();
 	const [wordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, 'userWords');
 
+
 	const { api } = useWordsApi('userWords');
+	const [isAddTomyWordsButtonLoading, setIsAddTomyWordsButtonLoading] = React.useState(false);
 	const handleAddToMyWords = async (word: IWord) => {
 		if (user && user.role !== Role.Admin) {
+			setIsAddTomyWordsButtonLoading(true);
 			await api.postWord(wordDataToWordDataPayload(word));
+			mutateCommonWords();
+			setIsAddTomyWordsButtonLoading(false);
 		}
 	}
 
@@ -57,7 +62,7 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 						? <Label color={rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'} size="big" className={styles.studyStatus}>
 							{rowData.studyStatus}
 						</Label>
-						: <Button onClick={() => handleAddToMyWords(rowData)}> Add to my words</Button>
+						: <Button loading={isAddTomyWordsButtonLoading} onClick={() => handleAddToMyWords(rowData)}> Add to my words</Button>
 					}
 				</Table.Cell>
 				{wordsMode == 'userWords'
@@ -84,3 +89,4 @@ export const Row = ({ rowData, rowId }: RowProps) => {
 		</>
 	);
 };
+

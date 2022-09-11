@@ -44,7 +44,7 @@ export const wordsApi = ({ userRole, wordsMode }: IWordsApiProps) => {
             }
         },
 
-        postWord: async (word: Partial<IUserWordPayload>) => {
+        postWord: async (word: IUserWordPayload) => {
             try {
                 let url = USER_WORDS_URL;
                 if (userRole == Role.Admin) {

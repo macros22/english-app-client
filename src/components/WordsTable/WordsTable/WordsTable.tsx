@@ -24,7 +24,7 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 
 	const [currentPage, setCurrentPage] = React.useState(1);
 	const [totalPages, setTotalPages] = React.useState(1);
-	const { words, loading, count: wordsCount } = useWords({ mode, skip, limit: wordsPerPageCount });
+	const { words, loading, count: wordsCount, mutateWords } = useWords({ mode, skip, limit: wordsPerPageCount });
 
 	React.useEffect(() => {
 		let wordsPerPage = 0;
@@ -45,6 +45,7 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 
 			if (currentPage > pagesCount) {
 				setCurrentPage(pagesCount);
+				setSkip((pagesCount - 1) * defaultWordsPerPageCount)
 			}
 		}
 		setWordsPerPageCount(wordsPerPage)
@@ -98,7 +99,11 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 				<Table.Body>
 					{words.map((word, index) => {
 						return (
-							<Row rowData={word} rowId={skip + index + 1} key={word.id} />);
+							<Row
+								key={word.id}
+								rowData={word}
+								rowId={skip + index + 1}
+								mutateCommonWords={mutateWords} />);
 					})}
 				</Table.Body>
 

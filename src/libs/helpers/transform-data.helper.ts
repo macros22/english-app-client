@@ -44,7 +44,7 @@ export const wordDataToFormData = (data: IWord): IWordFormValues => {
 }
 
 
-export const wordDataToWordDataPayload = (data: IWord): Partial<IUserWordPayload> => {
+export const wordDataToWordDataPayload = (data: IWord): IUserWordPayload => {
     return ({
         word: data.word,
         normalizedWord: data.word.toLowerCase(),
@@ -55,15 +55,17 @@ export const wordDataToWordDataPayload = (data: IWord): Partial<IUserWordPayload
             }
             : undefined,
         studyStatus: data.studyStatus || WordStudyStatus.Learn,
+
+        // meanings: undefined,
         meanings: data.meanings
             ? data.meanings.map(meaning => ({
-                level: meaning.level,
-                pos: meaning.pos,
-                definition: meaning.definition,
-                translations: meaning.translations,
-                synonyms: meaning.synonyms,
-                antonyms: meaning.antonyms,
-                usageExamples: meaning.usageExamples,
+                level: meaning.level || WordLevel.Uncategorized,
+                pos: meaning.pos || undefined,
+                definition: meaning.definition || undefined,
+                translations: meaning.translations || undefined,
+                synonyms: meaning.synonyms || undefined,
+                antonyms: meaning.antonyms || undefined,
+                usageExamples: meaning.usageExamples || undefined,
             })) : undefined,
     });
 }
