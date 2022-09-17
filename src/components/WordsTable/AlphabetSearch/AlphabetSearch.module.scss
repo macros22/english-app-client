@@ -1,12 +1,14 @@
 .wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
     width: 75% !important;
     max-width: 100%;
     margin: 1.5rem auto !important;
-    gap: 0.51rem;
-    justify-content: space-between;
+    gap: 1rem;
+    // justify-content: space-between;
 }
 
 .letter {
@@ -14,4 +16,5 @@
     width: 100%;
     display: inline-block;
     max-width: 50px;
+    margin: 0 !important;
 }

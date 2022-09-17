@@ -118,13 +118,13 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 								// activePage={Math.ceil(skip / defaultWordsPerPageCount)}
 
 								onPageChange={handlePaginationChange}
-								// boundaryRange={boundaryRange}
+								boundaryRange={0}
 								// onPageChange={this.handlePaginationChange}
 								// size='mini'
 								// siblingRange={siblingRange}
 								totalPages={totalPages}
 								// Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
-								// ellipsisItem={showEllipsis ? undefined : null}
+								ellipsisItem={null}
 								// firstItem={showFirstAndLastNav ? undefined : null}
 								// lastItem={showFirstAndLastNav ? undefined : null}
 								firstItem={null}
