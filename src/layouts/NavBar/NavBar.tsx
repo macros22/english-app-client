@@ -36,8 +36,9 @@ export const NavBar = () => {
 					<Menu.Item>
 						<span className={styles.logo}>English words</span>
 						{isSmallScreen &&
-							<Icon className={styles.menuIcon} color='grey' size='big' name='content' onClick={mobileMenuButtonHandler} />
+							<Icon className={styles.menuIcon} color='grey' size='big' name='bars' onClick={mobileMenuButtonHandler} />
 						}
+						
 					</Menu.Item>
 
 					{isMenuVisible() &&

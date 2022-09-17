@@ -13,6 +13,11 @@
 
 .menuIcon {
   margin-left: auto !important;
+
+  &::before {
+    font-size: 32px;
+    vertical-align: 5%;
+  }
 }
 
 @media (max-width: 768px) {
