@@ -1,10 +1,11 @@
 import useSWR from "swr";
 import { WORDS_MODE } from "libs/constants/names.storage";
-import { COMMON_WORDS_COUNT_URL, USER_WORDS_COUNT_URL } from "libs/constants/url";
+import { COMMON_WORDS_COUNT_URL, COMMON_WORDS_URL, USER_WORDS_COUNT_URL, USER_WORDS_URL } from "libs/constants/url";
 import { useLocalStorage, useWordsApi } from "libs/hooks";
 import { WordsMode } from "libs/types/types";
 import { getWordsUrl } from "libs/helpers/get-words-url.helper";
 import React from "react";
+import axios from "axios";
 
 interface IUseWords {
     mode: 'commonWords' | 'userWords';
@@ -31,6 +32,10 @@ export const useWords = ({ mode, skip, limit }: IUseWords) => {
     const { data: count, mutate: mutateCount, error: countError } = useSWR(countUrl, api.getWordsCount);
     const loadingCount = !count && !countError;
 
+    const fetcher = (url: string) => axios.get(url, { withCredentials: true }).then((res) => res.data as string[]);
+    const { data: activeLetters, error: activeLettersError } = useSWR(`${wordsMode == 'userWords' ? USER_WORDS_URL : COMMON_WORDS_URL}/active-letters`, fetcher)
+    const isActiveLettersLoading = !(activeLetters || activeLetters == 0) && !activeLettersError;
+
     React.useEffect(() => {
         mutateCount();
     }, [words])
@@ -46,6 +51,8 @@ export const useWords = ({ mode, skip, limit }: IUseWords) => {
         loadingCount,
         count: count ? count : null,
         mutateCount,
+        activeLetters: activeLetters || [],
+        isActiveLettersLoading
     };
 }
 

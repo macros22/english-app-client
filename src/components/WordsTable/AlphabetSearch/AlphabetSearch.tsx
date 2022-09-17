@@ -1,12 +1,12 @@
 import React from "react";
 import styles from './AlphabetSearch.module.scss';
 import { usePagination } from "libs/hooks";
-import { Label, Loader, Segment } from "semantic-ui-react";
+import { Button, Label, Loader, Segment } from "semantic-ui-react";
 import { alphabet } from "libs/constants/alphabet";
 import { usePageByLetter } from "libs/hooks/usePageByLetter";
 import { AlphabetSearchProps } from "./AlphabetSearch.props";
 
-export const AlphabetSearch = ({ highlightedLetters }: AlphabetSearchProps): JSX.Element => {
+export const AlphabetSearch = ({ highlightedLetters, activeLetters }: AlphabetSearchProps): JSX.Element => {
     const {
         setSkip,
         wordsPerPageCount,
@@ -37,15 +37,31 @@ export const AlphabetSearch = ({ highlightedLetters }: AlphabetSearchProps): JSX
         <Label.Group className={styles.wrapper} >
             {alphabet.map((letter, index) => {
                 return (
-                    <Label
-                        className={styles.letter}
-                        size="big"
-                        key={letter}
-                        color={highlightedLetters.includes(letter) ? "blue" : undefined}
-                        onClick={() => setActiveLetterIndex(index)}
-                    >
-                        {letter}
-                    </Label>
+                    <>
+                        {activeLetters && activeLetters.includes(letter) ?
+                            <Label
+                                className={styles.letter}
+                                size="big"
+                                key={letter}
+                                color={highlightedLetters.includes(letter) ? "blue" : undefined}
+                                onClick={() => setActiveLetterIndex(index)}
+                                content={letter}
+                            />
+                            : <Label
+                                // className={styles.letterDisabled}
+                                // size="big"
+                                // key={letter}
+                                // // color={ undefined}
+                                // content={letter}
+                                className={styles.letterDisabled}
+                                size="big"
+                                key={letter}
+                                // color={highlightedLetters.includes(letter) ? "blue" : undefined}
+                                // onClick={() => setActiveLetterIndex(index)}
+                                content={letter}
+                            />
+                        }
+                    </>
                 )
             })
             }

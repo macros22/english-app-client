@@ -24,7 +24,7 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 
 	const [currentPage, setCurrentPage] = React.useState(1);
 	const [totalPages, setTotalPages] = React.useState(1);
-	const { words, loading, count: wordsCount, mutateWords } = useWords({ mode, skip, limit: wordsPerPageCount });
+	const { words, loading, count: wordsCount, mutateWords, activeLetters } = useWords({ mode, skip, limit: wordsPerPageCount });
 
 	React.useEffect(() => {
 		let wordsPerPage = 0;
@@ -59,7 +59,7 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 	}, [mode])
 
 	React.useEffect(() => {
-		if (skip) {
+		if (skip>=0) {
 			setCurrentPage(Math.ceil(skip / defaultWordsPerPageCount) + 1)
 		}
 	}, [skip])
@@ -138,6 +138,7 @@ export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element =>
 			</Table>
 			<AlphabetSearch
 				highlightedLetters={words.map(word => word.word.charAt(0).toLowerCase())}
+				activeLetters={activeLetters}
 			/>
 		</>
 	);
