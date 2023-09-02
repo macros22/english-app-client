@@ -1,17 +1,19 @@
+import { useCallback, useRef } from 'react';
+import { useIsomorphicLayoutEffect } from 'libs/hooks';
 
-import { useIsomorphicLayoutEffect } from 'libs/hooks'
-import { useCallback, useRef } from 'react'
-
-export function useEventCallback<Args extends unknown[], R>(
-  fn: (...args: Args) => R,
+export function useEventCallback<Arguments extends unknown[], R>(
+  function_: (...arguments_: Arguments) => R,
 ) {
-  const ref = useRef<typeof fn>(() => {
-    throw new Error('Cannot call an event handler while rendering.')
-  })
+  const reference = useRef<typeof function_>(() => {
+    throw new Error('Cannot call an event handler while rendering.');
+  });
 
   useIsomorphicLayoutEffect(() => {
-    ref.current = fn
-  }, [fn])
+    reference.current = function_;
+  }, [function_]);
 
-  return useCallback((...args: Args) => ref.current(...args), [ref])
+  return useCallback(
+    (...arguments_: Arguments) => reference.current(...arguments_),
+    [reference],
+  );
 }

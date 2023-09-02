@@ -1,7 +1,7 @@
-import { IWordFormValues } from "libs/types/forms";
+import { IWordFormValues } from 'libs/types/forms';
 
 export interface WordFormProps {
-    mode: 'add' | 'edit';
-    formValues?: IWordFormValues;
-    wordId?: string;
+  mode: 'add' | 'edit';
+  formValues?: IWordFormValues;
+  wordId?: string;
 }

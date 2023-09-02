@@ -22,8 +22,8 @@ export enum PartOfSpeech {
 }
 
 export enum WordStudyStatus {
-  Learn = "learn",
-  Know = "know",
+  Learn = 'learn',
+  Know = 'know',
 }
 
 export interface ITranscription {
@@ -67,7 +67,6 @@ export interface IUserWordPayload {
   studyStatus?: WordStudyStatus | null;
   meanings?: Partial<IMeaning>[];
 }
-
 
 export type WordsMode = 'commonWords' | 'userWords';
 

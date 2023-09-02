@@ -1,145 +1,175 @@
-import React from 'react';
-import styles from './WordsTable.module.scss';
-import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
-import { Label, Loader, Pagination, PaginationProps, Segment, Table } from 'semantic-ui-react';
-import { Row } from '../Row/Row/Row';
-import { WordsTableProps } from './WordsTable.props';
-import { useRouter } from 'next/router';
-import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
+import { useEffect, useState } from 'react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
+import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
+import { useRouter } from 'next/router';
+import {
+  Label,
+  Loader,
+  Pagination,
+  PaginationProps,
+  Segment,
+  Table,
+} from 'semantic-ui-react';
+
+import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
+import { Row } from '../Row/Row/Row';
+
+import { Title } from './words-table.styled';
+import styles from './WordsTable.module.scss';
+import { WordsTableProps } from './WordsTable.props';
 
 const defaultWordsPerPageCount = 5;
 
-export const WordsTable = ({ mode: wordsMode }: WordsTableProps): JSX.Element => {
+export const WordsTable = ({
+  mode: wordsMode,
+}: WordsTableProps): JSX.Element => {
+  const [mode, setWordsMode] = useLocalStorage<WordsMode>(
+    WORDS_MODE,
+    wordsMode,
+  );
 
-	const [mode, setWordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, wordsMode);
+  const { skip, setSkip, wordsPerPageCount, setWordsPerPageCount } =
+    usePagination();
 
-	const {
-		skip,
-		setSkip,
-		wordsPerPageCount,
-		setWordsPerPageCount,
-	} = usePagination();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const {
+    words,
+    loading,
+    count: wordsCount,
+    mutateWords,
+    activeLetters,
+  } = useWords({ mode, skip, limit: wordsPerPageCount });
 
-	const [currentPage, setCurrentPage] = React.useState(1);
-	const [totalPages, setTotalPages] = React.useState(1);
-	const { words, loading, count: wordsCount, mutateWords, activeLetters } = useWords({ mode, skip, limit: wordsPerPageCount });
+  useEffect(() => {
+    let wordsPerPage = 0;
+    if (wordsCount) {
+      // Pagination logic.
+      const pagesCount =
+        wordsCount > defaultWordsPerPageCount
+          ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount))
+          : 1;
+      setTotalPages(pagesCount);
 
-	React.useEffect(() => {
-		let wordsPerPage = 0;
-		if (wordsCount) {
+      // Logic for correct display rows count.
+      if (wordsCount < defaultWordsPerPageCount) {
+        wordsPerPage = wordsCount;
+      } else if (currentPage == pagesCount && currentPage != 1) {
+        // for last page
+        wordsPerPage =
+          wordsCount - (currentPage - 1) * defaultWordsPerPageCount;
+      } else {
+        wordsPerPage = defaultWordsPerPageCount;
+      }
 
-			// Pagination logic.
-			const pagesCount = wordsCount > defaultWordsPerPageCount ? Number(Math.ceil(wordsCount / defaultWordsPerPageCount)) : 1;
-			setTotalPages(pagesCount);
+      if (currentPage > pagesCount) {
+        setCurrentPage(pagesCount);
+        setSkip((pagesCount - 1) * defaultWordsPerPageCount);
+      }
+    }
+    setWordsPerPageCount(wordsPerPage);
+    // setSkip((currentPage - 1) * defaultWordsPerPageCount);
+  }, [wordsCount]);
 
-			// Logic for correct display rows count.
-			if (wordsCount < defaultWordsPerPageCount) {
-				wordsPerPage = wordsCount;
-			} else if (currentPage == pagesCount && (currentPage != 1)) { // for last page
-				wordsPerPage = wordsCount - (currentPage - 1) * defaultWordsPerPageCount;
-			} else {
-				wordsPerPage = defaultWordsPerPageCount;
-			}
+  const router = useRouter();
+  useEffect(() => {
+    setCurrentPage(1);
+    setSkip(0);
+  }, [mode]);
 
-			if (currentPage > pagesCount) {
-				setCurrentPage(pagesCount);
-				setSkip((pagesCount - 1) * defaultWordsPerPageCount)
-			}
-		}
-		setWordsPerPageCount(wordsPerPage)
-		// setSkip((currentPage - 1) * defaultWordsPerPageCount);
-	}, [wordsCount])
+  useEffect(() => {
+    if (skip >= 0) {
+      setCurrentPage(Math.ceil(skip / defaultWordsPerPageCount) + 1);
+    }
+  }, [skip]);
 
-	const router = useRouter();
-	React.useEffect(() => {
-		setCurrentPage(1);
-		setSkip(0);
-	}, [mode])
+  useEffect(() => {
+    router.push(
+      `/words/${router.query.wordsMode}?skip=${skip}&limit=${wordsPerPageCount}`,
+    );
+  }, [skip, wordsPerPageCount]);
 
-	React.useEffect(() => {
-		if (skip>=0) {
-			setCurrentPage(Math.ceil(skip / defaultWordsPerPageCount) + 1)
-		}
-	}, [skip])
+  // Handlers.
+  const handlePaginationChange = (
+    event: MouseEvent<HTMLAnchorElement, MouseEvent>,
+    { activePage }: PaginationProps,
+  ) => {
+    if (typeof activePage === 'number') {
+      // setCurrentPage(activePage);
+      const newSkip = (activePage - 1) * defaultWordsPerPageCount;
+      setSkip(newSkip);
+    }
+  };
 
-	React.useEffect(() => {
-		router.push(`/words/${router.query.wordsMode}?skip=${skip}&limit=${wordsPerPageCount}`)
-	}, [skip, wordsPerPageCount])
+  if (loading) {
+    return (
+      <Segment>
+        <Loader size="massive" active inline="centered" />
+      </Segment>
+    );
+  }
 
-	// Handlers.
-	const handlePaginationChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { activePage }: PaginationProps) => {
-		if (typeof (activePage) === 'number') {
-			// setCurrentPage(activePage);
-			const newSkip = (activePage - 1) * defaultWordsPerPageCount;
-			setSkip(newSkip);
-		}
-	}
+  if (words && words.length === 0) {
+    return <h1>No words yet </h1>;
+  }
 
-	if (loading) {
-		return (
-			<Segment>
-				<Loader size='massive' active inline='centered' />
-			</Segment>
-		);
-	}
+  return (
+    <>
+      <Title>sssssssssssssssssssss</Title>
+      <Label size="big" color="blue" className={styles.titleLabel}>
+        {mode === 'userWords' ? 'My words' : 'All words'}
+        <Label.Detail>{wordsCount}</Label.Detail>
+      </Label>
+      <Table basic className={styles.table}>
+        <Table.Body>
+          {words.map((word, index) => {
+            return (
+              <Row
+                key={word.id}
+                rowData={word}
+                rowId={skip + index + 1}
+                mutateCommonWords={mutateWords}
+              />
+            );
+          })}
+        </Table.Body>
 
-	if (words && !words.length) {
-		return <h1>No words yet </h1>
-	}
+        <Table.Footer>
+          <Table.Row>
+            <Table.HeaderCell textAlign="center" colSpan="16">
+              <Pagination
+                className={styles.pagination}
+                pointing
+                secondary
+                activePage={currentPage}
+                // activePage={Math.ceil(skip / defaultWordsPerPageCount)}
 
-	return (
-		<>
-			<Label size='big' color='blue' className={styles.titleLabel}>
-				{mode == 'userWords' ? 'My words' : 'All words'}
-				<Label.Detail>{wordsCount}</Label.Detail>
-			</Label>
-			<Table basic className={styles.table}>
-				<Table.Body>
-					{words.map((word, index) => {
-						return (
-							<Row
-								key={word.id}
-								rowData={word}
-								rowId={skip + index + 1}
-								mutateCommonWords={mutateWords} />);
-					})}
-				</Table.Body>
-
-				<Table.Footer>
-					<Table.Row>
-						<Table.HeaderCell textAlign='center' colSpan="16">
-							<Pagination
-								className={styles.pagination}
-								pointing
-								secondary
-								activePage={currentPage}
-								// activePage={Math.ceil(skip / defaultWordsPerPageCount)}
-
-								onPageChange={handlePaginationChange}
-								boundaryRange={0}
-								// onPageChange={this.handlePaginationChange}
-								// size='mini'
-								// siblingRange={siblingRange}
-								totalPages={totalPages}
-								// Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
-								ellipsisItem={null}
-								// firstItem={showFirstAndLastNav ? undefined : null}
-								// lastItem={showFirstAndLastNav ? undefined : null}
-								firstItem={null}
-								lastItem={null}
-							// prevItem={showPreviousAndNextNav ? undefined : null}
-							// nextItem={showPreviousAndNextNav ? undefined : null}
-							/>
-						</Table.HeaderCell>
-					</Table.Row>
-				</Table.Footer>
-			</Table>
-			<AlphabetSearch
-				highlightedLetters={words.map(word => word.word.charAt(0).toLowerCase())}
-				activeLetters={activeLetters}
-			/>
-		</>
-	);
+                onPageChange={handlePaginationChange}
+                boundaryRange={0}
+                // onPageChange={this.handlePaginationChange}
+                // size='mini'
+                // siblingRange={siblingRange}
+                totalPages={totalPages}
+                // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
+                ellipsisItem={null}
+                // firstItem={showFirstAndLastNav ? undefined : null}
+                // lastItem={showFirstAndLastNav ? undefined : null}
+                firstItem={null}
+                lastItem={null}
+                // prevItem={showPreviousAndNextNav ? undefined : null}
+                // nextItem={showPreviousAndNextNav ? undefined : null}
+              />
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Footer>
+      </Table>
+      <AlphabetSearch
+        highlightedLetters={words.map(word =>
+          word.word.charAt(0).toLowerCase(),
+        )}
+        activeLetters={activeLetters}
+      />
+    </>
+  );
 };

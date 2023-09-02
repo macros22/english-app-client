@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+
 export interface ModalProps {
-    children: ReactNode;
-    title: string;
-    modalTrigger: ReactNode;
+  children: ReactNode;
+  title: string;
+  modalTrigger: ReactNode;
 }

@@ -16,6 +16,17 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/index.ts", "src/pages/api/auth/login.js", "src/pages/login.jsx", "src/pages/home.jsx", "src/libs/contexts", "src/libs/contexts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/index.ts",
+    "src/pages/api/auth/login.js",
+    "src/pages/login.jsx",
+    "src/pages/home.jsx",
+    "src/libs/contexts",
+    "src/libs/contexts",
+    "styled.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

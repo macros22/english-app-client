@@ -5,5 +5,3 @@ export { WordForm } from './WordForm/WordForm';
 export { Modal } from './Modal/Modal';
 export { FullScreenLoader } from './FullScreenLoader/FullScreenLoader';
 export { WordMoreInfo } from './WordMoreInfo/WordMoreInfo';
-
-

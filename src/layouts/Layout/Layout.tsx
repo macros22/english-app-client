@@ -1,38 +1,33 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import styles from './Layout.module.scss'
-import { useUser } from 'libs/hooks';
+import { FC, useEffect } from 'react';
+import { FullScreenLoader } from 'components';
 import { NavBar } from 'layouts';
 import { PaginationProvider } from 'libs/contexts/PagiantionContext';
-import { FullScreenLoader } from 'components';
+import { useUser } from 'libs/hooks';
+import { useRouter } from 'next/router';
 
-export const Layout: React.FC = ({
-	children,
-}) => {
-	const { isLoggedIn } = useUser();
+import styles from './layout.module.scss';
 
-	const router = useRouter();
+export const Layout: FC = ({ children }) => {
+  const { isLoggedIn } = useUser();
 
-	React.useEffect(() => {
-		if (!isLoggedIn) router.replace('/auth/sign-in');
-	}, [isLoggedIn]);
+  const router = useRouter();
 
-	if (!isLoggedIn) {
-		return (
-			<FullScreenLoader />
-		);
-	}
+  useEffect(() => {
+    if (!isLoggedIn) router.replace('/auth/sign-in');
+  }, [isLoggedIn]);
 
-	return (
-		<div>
-			<NavBar />
-			<main >
-				<PaginationProvider>
-					<div className={styles.container}>
-						{children}
-					</div>
-				</PaginationProvider>
-			</main>
-		</div>
-	);
+  if (!isLoggedIn) {
+    return <FullScreenLoader />;
+  }
+
+  return (
+    <div>
+      <NavBar />
+      <main>
+        <PaginationProvider>
+          <div className={styles.container}>{children}</div>
+        </PaginationProvider>
+      </main>
+    </div>
+  );
 };

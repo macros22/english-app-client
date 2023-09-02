@@ -1,44 +1,43 @@
-import React from 'react';
-import { Layout } from 'layouts';
+import { useEffect } from 'react';
 import { WordsTable } from 'components';
-import { WordsMode } from 'libs/types/types';
-import { getQueryParametr } from 'libs/helpers/get-param-from-query.helper';
-import { GetServerSideProps } from 'next';
-import { useLocalStorage } from 'libs/hooks';
+import { Layout } from 'layouts';
 import { WORDS_MODE } from 'libs/constants/names.storage';
+import { getQueryParametr } from 'libs/helpers/get-param-from-query.helper';
+import { useLocalStorage } from 'libs/hooks';
+import { WordsMode } from 'libs/types/types';
+import { GetServerSideProps } from 'next';
 
 interface WordTablePageProps extends Record<string, unknown> {
-	wordsMode: WordsMode;
+  wordsMode: WordsMode;
 }
 
 export const getServerSideProps: GetServerSideProps<
-	WordTablePageProps
-> = async (context) => {
+  WordTablePageProps
+> = async context => {
+  const wordsModeString =
+    getQueryParametr(context, 'wordsMode') || 'common-words';
+  const wordsMode: WordsMode =
+    wordsModeString === 'user-words' ? 'userWords' : 'commonWords';
 
-	const wordsModeStr = getQueryParametr(context, 'wordsMode') || 'common-words';
-	let wordsMode: WordsMode = wordsModeStr == 'user-words' ? 'userWords' : 'commonWords';
-
-	return {
-		props: {
-			wordsMode,
-		}
-	}
-
+  return {
+    props: {
+      wordsMode,
+    },
+  };
 };
 
-
 const WordsTablePage = ({ wordsMode }: WordTablePageProps): JSX.Element => {
+  const [_, setWordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, wordsMode);
 
-	const [_, setWordsMode] = useLocalStorage<WordsMode>(WORDS_MODE, wordsMode);
+  useEffect(() => {
+    setWordsMode(wordsMode);
+  }, [wordsMode]);
 
-	React.useEffect(() => {
-		setWordsMode(wordsMode);
-	}, [wordsMode])
-	return (
-		<Layout>
-			<WordsTable mode={wordsMode} />
-		</Layout>
-	);
+  return (
+    <Layout>
+      <WordsTable mode={wordsMode} />
+    </Layout>
+  );
 };
 
 export default WordsTablePage;

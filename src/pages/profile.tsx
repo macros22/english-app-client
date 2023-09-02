@@ -1,12 +1,8 @@
-import { Layout } from 'layouts';
 import React from 'react';
+import { Layout } from 'layouts';
 
 const AddwordPage = () => {
-    return (
-        <Layout >
-            Profile
-        </Layout>
-    );
+  return <Layout>Profile</Layout>;
 };
 
 export default AddwordPage;

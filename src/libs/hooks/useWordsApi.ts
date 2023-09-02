@@ -3,11 +3,10 @@ import { useUser } from 'libs/hooks';
 import { Role, WordsMode } from 'libs/types/types';
 
 export const useWordsApi = (wordsMode: WordsMode) => {
-    
-    const { user } = useUser();
-    const userRole = user?.role ? user.role : Role.User;
+  const { user } = useUser();
+  const userRole = user?.role ? user.role : Role.User;
 
-    return {
-        api: wordsApi({userRole, wordsMode})
-    }
-}
+  return {
+    api: wordsApi({ userRole, wordsMode }),
+  };
+};
