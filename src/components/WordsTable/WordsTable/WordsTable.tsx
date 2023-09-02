@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
+// import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
@@ -20,12 +20,12 @@ import { Row } from '../Row/Row/Row';
 import styles from './WordsTable.module.scss';
 import { WordsTableProps } from './WordsTable.props';
 
-export const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: 50px;
+// export const Title = styled.h1`
+//   color: ${({ theme }) => theme.colors.primary};
+//   font-size: 50px;
 
-  display: flex;
-`;
+//   display: flex;
+// `;
 
 const defaultWordsPerPageCount = 5;
 
@@ -124,7 +124,7 @@ export const WordsTable = ({
 
   return (
     <>
-      <Title>sssssssssssssssssssss</Title>
+      {/* <Title>sssssssssssssssssssss</Title> */}
       <Label size="big" color="blue" className={styles.titleLabel}>
         {mode === 'userWords' ? 'My words' : 'All words'}
         <Label.Detail>{wordsCount}</Label.Detail>
