@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { WORDS_MODE } from 'libs/constants/names.storage';
@@ -68,7 +68,7 @@ export const useWordForm = ({
     limit,
   });
 
-  const [withTranscription, setWithTranscription] = React.useState<boolean>(
+  const [withTranscription, setWithTranscription] = useState<boolean>(
     !!(formValues?.transcription.uk || formValues?.transcription.us),
   );
 
@@ -84,7 +84,6 @@ export const useWordForm = ({
     resolver: yupResolver(wordValidationSchema),
   });
 
-  // react-hook-form arrays.
   const {
     fields: meaningsFields,
     append: appendMeaning,
@@ -96,11 +95,10 @@ export const useWordForm = ({
 
   const { api } = useWordsApi(wordsMode);
 
-  const [errorMessage, setErrorMessage] = React.useState('');
-  const [successMessage, setSuccessMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  // Handlers.
-  const [loadingPostWord, setLoadingPostWord] = React.useState(false);
+  const [loadingPostWord, setLoadingPostWord] = useState(false);
   const onSubmit = async (data: IWordFormValues) => {
     setSuccessMessage('');
     setErrorMessage('');

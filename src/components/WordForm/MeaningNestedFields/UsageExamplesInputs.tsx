@@ -27,9 +27,9 @@ export const UsageExamplesInputs = ({
           />
         </Header>
       </Divider>
-      {fields.map((_, index) => {
+      {fields.map(({ id }, index) => {
         return (
-          <Form.Field>
+          <Form.Field key={id}>
             <Controller
               name={`meanings.${meaningIndex}.usageExamples.${index}.usageExample`}
               control={control}

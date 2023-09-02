@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
@@ -15,9 +16,16 @@ import {
 import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
 import { Row } from '../Row/Row/Row';
 
-import { Title } from './words-table.styled';
+// import { Title } from './words-table.styled';
 import styles from './WordsTable.module.scss';
 import { WordsTableProps } from './WordsTable.props';
+
+export const Title = styled.h1`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 50px;
+
+  display: flex;
+`;
 
 const defaultWordsPerPageCount = 5;
 
@@ -55,7 +63,7 @@ export const WordsTable = ({
       // Logic for correct display rows count.
       if (wordsCount < defaultWordsPerPageCount) {
         wordsPerPage = wordsCount;
-      } else if (currentPage == pagesCount && currentPage != 1) {
+      } else if (currentPage === pagesCount && currentPage !== 1) {
         // for last page
         wordsPerPage =
           wordsCount - (currentPage - 1) * defaultWordsPerPageCount;
