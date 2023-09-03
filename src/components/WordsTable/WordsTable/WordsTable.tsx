@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table as TableR } from '@radix-ui/themes';
+import { Badge, Table as TableR } from '@radix-ui/themes';
 // import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
@@ -125,39 +125,73 @@ export const WordsTable = ({
 
   return (
     <>
-      {/* <Title>sssssssssssssssssssss</Title> */}
       <Label size="big" color="blue" className={styles.titleLabel}>
         {mode === 'userWords' ? 'My words' : 'All words'}
         <Label.Detail>{wordsCount}</Label.Detail>
       </Label>
 
+      <Badge size="2" variant="solid" color="green" radius="medium">
+        {mode === 'userWords' ? 'My words' : 'All words'} {wordsCount}
+      </Badge>
+
       <TableR.Root
+        variant="surface"
         style={{
-          width: '1000px',
+          width: '800px',
           margin: 'auto',
-          border: '1px solid lightgray',
         }}>
         <TableR.Header>
           <TableR.Row>
             <TableR.ColumnHeaderCell>ID</TableR.ColumnHeaderCell>
             <TableR.ColumnHeaderCell>Word</TableR.ColumnHeaderCell>
             <TableR.ColumnHeaderCell>Status</TableR.ColumnHeaderCell>
+            <TableR.ColumnHeaderCell>Actions</TableR.ColumnHeaderCell>
           </TableR.Row>
         </TableR.Header>
 
         <TableR.Body>
           {words.map((word, index) => {
             return (
-              // <TableR.Body
-              //   key={word.id}
-              //   rowData={word}
-              //   rowId={skip + index + 1}
-              //   mutateCommonWords={mutateWords}
-              // />
               <TableR.Row key={word.word}>
-                <TableR.RowHeaderCell>{skip + index + 1}</TableR.RowHeaderCell>
-                <TableR.Cell>{word.word}</TableR.Cell>
-                <TableR.Cell>{word.studyStatus}</TableR.Cell>
+                <TableR.RowHeaderCell
+                  justify="center"
+                  style={{
+                    paddingTop: '20px',
+                    paddingBottom: '20px',
+                  }}>
+                  <Badge size="2" variant="solid" color="gray" radius="medium">
+                    {skip + index + 1}
+                  </Badge>
+                </TableR.RowHeaderCell>
+                <TableR.Cell
+                  justify="center"
+                  align="center"
+                  style={{
+                    paddingTop: '20px',
+                    paddingBottom: '20px',
+                  }}>
+                  {word.word}
+                </TableR.Cell>
+                <TableR.Cell
+                  justify="center"
+                  align="center"
+                  style={{
+                    paddingTop: '20px',
+                    paddingBottom: '20px',
+                  }}>
+                  <Badge size="2" variant="solid" color="amber" radius="medium">
+                    {word.studyStatus}
+                  </Badge>
+                </TableR.Cell>
+                <TableR.Cell
+                  justify="center"
+                  align="center"
+                  style={{
+                    paddingTop: '20px',
+                    paddingBottom: '20px',
+                  }}>
+                  {word.studyStatus}
+                </TableR.Cell>
               </TableR.Row>
             );
           })}
