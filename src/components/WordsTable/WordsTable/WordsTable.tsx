@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Table as TableR } from '@radix-ui/themes';
 // import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
@@ -129,6 +130,40 @@ export const WordsTable = ({
         {mode === 'userWords' ? 'My words' : 'All words'}
         <Label.Detail>{wordsCount}</Label.Detail>
       </Label>
+
+      <TableR.Root
+        style={{
+          width: '1000px',
+          margin: 'auto',
+          border: '1px solid lightgray',
+        }}>
+        <TableR.Header>
+          <TableR.Row>
+            <TableR.ColumnHeaderCell>ID</TableR.ColumnHeaderCell>
+            <TableR.ColumnHeaderCell>Word</TableR.ColumnHeaderCell>
+            <TableR.ColumnHeaderCell>Status</TableR.ColumnHeaderCell>
+          </TableR.Row>
+        </TableR.Header>
+
+        <TableR.Body>
+          {words.map((word, index) => {
+            return (
+              // <TableR.Body
+              //   key={word.id}
+              //   rowData={word}
+              //   rowId={skip + index + 1}
+              //   mutateCommonWords={mutateWords}
+              // />
+              <TableR.Row key={word.word}>
+                <TableR.RowHeaderCell>{skip + index + 1}</TableR.RowHeaderCell>
+                <TableR.Cell>{word.word}</TableR.Cell>
+                <TableR.Cell>{word.studyStatus}</TableR.Cell>
+              </TableR.Row>
+            );
+          })}
+        </TableR.Body>
+      </TableR.Root>
+
       <Table basic className={styles.table}>
         <Table.Body>
           {words.map((word, index) => {

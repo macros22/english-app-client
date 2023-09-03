@@ -1,15 +1,29 @@
 import React, { forwardRef } from 'react';
-import { blackA, indigo, mauve, purple, violet } from '@radix-ui/colors';
+import {
+  blackA,
+  blue,
+  blueDark,
+  grayDark,
+  indigo,
+  purple,
+  sage,
+  slateDark,
+  violet,
+} from '@radix-ui/colors';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { keyframes, styled } from '@stitches/react';
 
 export const Wrapper = styled('header', {
   minHeight: '60px',
-  borderBottom: '1px solid rgb(230, 228, 228)',
+  borderBottom: '2px solid $subtleBorder',
   boxShadow: '0 1px 3px 0 rgba(34, 36, 38, .05)',
   display: 'flex',
-  paddingInline: '120px',
+  width: '100%',
+  backgroundColor: '$slateBackground',
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingInline: '160px',
 });
 
 const enterFromRight = keyframes({
@@ -63,11 +77,11 @@ export const NavigationMenuRoot = styled(NavigationMenu.Root, {
 export const NavigationMenuList = styled(NavigationMenu.List, {
   display: 'flex',
   justifyContent: 'center',
-  backgroundColor: 'white',
-  padding: 4,
+  // backgroundColor: 'white',
+  padding: '4px 20px',
   width: '100%',
   listStyle: 'none',
-  boxShadow: `0 0px 5px ${blackA.blackA3}`,
+  // boxShadow: `0 0px 5px ${blackA.blackA3}`,
   margin: 0,
 });
 
@@ -79,9 +93,15 @@ const itemStyles = {
   lineHeight: 1,
   borderRadius: 4,
   fontSize: 15,
-  color: violet.violet11,
+  color: '$textLowContrast',
+
   '&:focus': { boxShadow: `0 0 0 2px ${violet.violet7}` },
-  '&:hover': { backgroundColor: violet.violet3 },
+  '&:hover': {
+    backgroundColor: '$elementBackgroundHover',
+    cursor: 'pointer',
+    // color: '$background',
+    color: '$textHighContrast',
+  },
 };
 
 export const NavigationMenuTrigger = styled(NavigationMenu.Trigger, {
@@ -128,7 +148,7 @@ const NavigationMenuIndicator = styled(NavigationMenu.Indicator, {
   '&[data-state="hidden"]': { animation: `${fadeOut} 200ms ease` },
 });
 
-const NavigationMenuViewport = styled(NavigationMenu.Viewport, {
+export const NavigationMenuViewport = styled(NavigationMenu.Viewport, {
   position: 'relative',
   transformOrigin: 'top center',
   marginTop: 10,
@@ -147,7 +167,7 @@ const NavigationMenuViewport = styled(NavigationMenu.Viewport, {
   },
 });
 
-const List = styled('ul', {
+export const List = styled('ul', {
   display: 'grid',
   padding: 22,
   margin: 0,
@@ -185,24 +205,24 @@ const ListItemLink = styled('a', {
   fontSize: 15,
   lineHeight: 1,
   '&:focus': { boxShadow: `0 0 0 2px ${violet.violet7}` },
-  '&:hover': { backgroundColor: mauve.mauve3 },
+  // '&:hover': { backgroundColor: sage.sage5 },
 });
 
 const ListItemHeading = styled('div', {
   fontWeight: 500,
   lineHeight: 1.2,
   marginBottom: 5,
-  color: violet.violet12,
+  // color: violet.violet12,
 });
 
 const ListItemText = styled('p', {
   all: 'unset',
-  color: mauve.mauve11,
+  // color: sage.sage11,
   lineHeight: 1.4,
   fontWeight: 'initial',
 });
 
-const Callout = styled('a', {
+export const Callout = styled('a', {
   display: 'flex',
   justifyContent: 'flex-end',
   flexDirection: 'column',
@@ -217,8 +237,8 @@ const Callout = styled('a', {
   '&:focus': { boxShadow: `0 0 0 2px ${violet.violet7}` },
 });
 
-const CalloutHeading = styled('div', {
-  color: 'white',
+export const CalloutHeading = styled('div', {
+  // color: 'white',
   fontSize: 18,
   fontWeight: 500,
   lineHeight: 1.2,
@@ -226,14 +246,14 @@ const CalloutHeading = styled('div', {
   marginBottom: 7,
 });
 
-const CalloutText = styled('p', {
+export const CalloutText = styled('p', {
   all: 'unset',
-  color: mauve.mauve4,
+  // color: sage.sage4,
   fontSize: 14,
   lineHeight: 1.3,
 });
 
-const ViewportPosition = styled('div', {
+export const ViewportPosition = styled('div', {
   position: 'absolute',
   display: 'flex',
   justifyContent: 'center',
@@ -243,9 +263,9 @@ const ViewportPosition = styled('div', {
   perspective: '2000px',
 });
 
-const CaretDown = styled(CaretDownIcon, {
+export const CaretDown = styled(CaretDownIcon, {
   position: 'relative',
-  color: violet.violet10,
+  // color: violet.violet10,
   top: 1,
   transition: 'transform 250ms ease',
   '[data-state=open] &': { transform: 'rotate(-180deg)' },
@@ -254,23 +274,26 @@ const CaretDown = styled(CaretDownIcon, {
 const Arrow = styled('div', {
   position: 'relative',
   top: '70%',
-  backgroundColor: 'white',
+  // backgroundColor: 'white',
   width: 10,
   height: 10,
   transform: 'rotate(45deg)',
   borderTopLeftRadius: 2,
 });
 
-const ListItem = forwardRef(({ children, title, ...props }, forwardedRef) => (
-  <li>
-    <NavigationMenu.Link asChild>
-      <ListItemLink {...props} ref={forwardedRef}>
-        <ListItemHeading>{title}</ListItemHeading>
-        <ListItemText>{children}</ListItemText>
-      </ListItemLink>
-    </NavigationMenu.Link>
-  </li>
-));
+// eslint-disable-next-line react/display-name
+export const ListItem = forwardRef(
+  ({ children, title, ...props }, forwardedRef) => (
+    <li>
+      <NavigationMenu.Link asChild>
+        <ListItemLink {...props} ref={forwardedRef}>
+          <ListItemHeading>{title}</ListItemHeading>
+          <ListItemText>{children}</ListItemText>
+        </ListItemLink>
+      </NavigationMenu.Link>
+    </li>
+  ),
+);
 
 export const NavigationMenuDemo = () => {
   return (
