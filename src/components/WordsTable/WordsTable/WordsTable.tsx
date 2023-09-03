@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Badge, Table as TableR } from '@radix-ui/themes';
+import { Badge, Table as TableR, Text } from '@radix-ui/themes';
 // import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
@@ -156,10 +156,10 @@ export const WordsTable = ({
                 <TableR.RowHeaderCell
                   justify="center"
                   style={{
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
+                    paddingTop: '16px',
+                    paddingBottom: '16px',
                   }}>
-                  <Badge size="2" variant="solid" color="gray" radius="medium">
+                  <Badge size="2" color="gray" radius="medium">
                     {skip + index + 1}
                   </Badge>
                 </TableR.RowHeaderCell>
@@ -167,17 +167,19 @@ export const WordsTable = ({
                   justify="center"
                   align="center"
                   style={{
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
+                    paddingTop: '16px',
+                    paddingBottom: '16px',
                   }}>
-                  {word.word}
+                  <Text as="span" size="4" weight="bold">
+                    {word.word}
+                  </Text>
                 </TableR.Cell>
                 <TableR.Cell
                   justify="center"
                   align="center"
                   style={{
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
+                    paddingTop: '16px',
+                    paddingBottom: '16px',
                   }}>
                   <Badge size="2" variant="solid" color="amber" radius="medium">
                     {word.studyStatus}
@@ -187,8 +189,8 @@ export const WordsTable = ({
                   justify="center"
                   align="center"
                   style={{
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
+                    paddingTop: '16px',
+                    paddingBottom: '16px',
                   }}>
                   {word.studyStatus}
                 </TableR.Cell>

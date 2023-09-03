@@ -158,7 +158,8 @@ export const NavBar = () => {
 
             <NavigationMenu.Item>
               <IconButton
-                variant="surface"
+                variant="outline"
+                color="gray"
                 onClick={() =>
                   setTheme(prevTheme =>
                     prevTheme === 'light' ? 'dark' : 'light',
