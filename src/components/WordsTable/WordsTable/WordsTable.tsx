@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Badge, Table as TableR, Text } from '@radix-ui/themes';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { Badge, IconButton, Table as TableR, Text } from '@radix-ui/themes';
+import { styled } from '@stitches/react';
 // import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
@@ -16,6 +18,7 @@ import {
 
 import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
 import { Row } from '../Row/Row/Row';
+import { RowNew } from '../Row/Row/RowNew';
 
 // import { Title } from './words-table.styled';
 import styles from './WordsTable.module.scss';
@@ -27,6 +30,12 @@ import { WordsTableProps } from './WordsTable.props';
 
 //   display: flex;
 // `;
+
+export const InfoIcon = styled(InfoCircledIcon, {
+  width: '30px',
+  height: '30px',
+  fill: 'Gold',
+});
 
 const defaultWordsPerPageCount = 5;
 
@@ -152,53 +161,23 @@ export const WordsTable = ({
         <TableR.Body>
           {words.map((word, index) => {
             return (
-              <TableR.Row key={word.word}>
-                <TableR.RowHeaderCell
-                  justify="center"
-                  style={{
-                    paddingTop: '16px',
-                    paddingBottom: '16px',
-                  }}>
-                  <Badge size="2" color="gray" radius="medium">
-                    {skip + index + 1}
-                  </Badge>
-                </TableR.RowHeaderCell>
-                <TableR.Cell
-                  justify="center"
-                  align="center"
-                  style={{
-                    paddingTop: '16px',
-                    paddingBottom: '16px',
-                  }}>
-                  <Text as="span" size="4" weight="bold">
-                    {word.word}
-                  </Text>
-                </TableR.Cell>
-                <TableR.Cell
-                  justify="center"
-                  align="center"
-                  style={{
-                    paddingTop: '16px',
-                    paddingBottom: '16px',
-                  }}>
-                  <Badge size="2" variant="solid" color="amber" radius="medium">
-                    {word.studyStatus}
-                  </Badge>
-                </TableR.Cell>
-                <TableR.Cell
-                  justify="center"
-                  align="center"
-                  style={{
-                    paddingTop: '16px',
-                    paddingBottom: '16px',
-                  }}>
-                  {word.studyStatus}
-                </TableR.Cell>
-              </TableR.Row>
+              <RowNew
+                key={word.id}
+                rowData={word}
+                rowId={skip + index + 1}
+                mutateCommonWords={mutateWords}
+              />
             );
           })}
         </TableR.Body>
       </TableR.Root>
+
+      <AlphabetSearch
+        highlightedLetters={words.map(word =>
+          word.word.charAt(0).toLowerCase(),
+        )}
+        activeLetters={activeLetters}
+      />
 
       <Table basic className={styles.table}>
         <Table.Body>
@@ -243,12 +222,6 @@ export const WordsTable = ({
           </Table.Row>
         </Table.Footer>
       </Table>
-      <AlphabetSearch
-        highlightedLetters={words.map(word =>
-          word.word.charAt(0).toLowerCase(),
-        )}
-        activeLetters={activeLetters}
-      />
     </>
   );
 };

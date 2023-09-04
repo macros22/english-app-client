@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Badge, Button } from '@radix-ui/themes';
 import { alphabet } from 'libs/constants/alphabet';
 import { usePagination } from 'libs/hooks';
 import { usePageByLetter } from 'libs/hooks/usePageByLetter';
-import { Button, Label, Loader, Segment } from 'semantic-ui-react';
+import { Label, Loader, Segment } from 'semantic-ui-react';
 
 import styles from './AlphabetSearch.module.scss';
 import { AlphabetSearchProps } from './AlphabetSearch.props';
@@ -25,7 +26,7 @@ export const AlphabetSearch = ({
     limit: wordsPerPageCount,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (page && page >= 1) {
       setSkip((page - 1) * wordsPerPageCount);
     }
@@ -47,23 +48,16 @@ export const AlphabetSearch = ({
       {alphabet.map((letter, index) => {
         return (
           <>
-            {activeLetters && activeLetters.includes(letter) ? (
-              <Label
-                className={styles.letter}
-                size="big"
-                key={letter}
-                color={highlightedLetters.includes(letter) ? 'blue' : undefined}
-                onClick={() => setActiveLetterIndex(index)}
-                content={letter}
-              />
-            ) : (
-              <Label
-                className={styles.letterDisabled}
-                size="big"
-                key={letter}
-                content={letter}
-              />
-            )}
+            <Button
+              size="3"
+              key={letter}
+              disabled={!(activeLetters && activeLetters.includes(letter))}
+              variant="solid"
+              radius="small"
+              color={highlightedLetters.includes(letter) ? 'blue' : undefined}
+              onClick={() => setActiveLetterIndex(index)}>
+              {letter}
+            </Button>
           </>
         );
       })}
