@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { WordsTable } from 'components';
+import { Button } from 'components/ui/Button';
 import { Layout } from 'layouts';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { getQueryParametr } from 'libs/helpers/get-param-from-query.helper';
@@ -35,6 +36,7 @@ const WordsTablePage = ({ wordsMode }: WordTablePageProps): JSX.Element => {
 
   return (
     <Layout>
+      <Button isLoading>asdasd</Button>
       <WordsTable mode={wordsMode} />
     </Layout>
   );
