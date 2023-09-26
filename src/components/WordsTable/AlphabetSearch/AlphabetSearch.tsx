@@ -49,10 +49,10 @@ export const AlphabetSearch = ({
         return (
           <>
             <Button
-              size="3"
+              size="2"
               key={letter}
               disabled={!(activeLetters && activeLetters.includes(letter))}
-              variant="solid"
+              variant="outline"
               radius="small"
               color={highlightedLetters.includes(letter) ? 'blue' : undefined}
               onClick={() => setActiveLetterIndex(index)}>

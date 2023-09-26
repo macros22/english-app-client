@@ -145,14 +145,18 @@ export const WordsTable = ({
 
       <TableR.Root
         variant="surface"
+        size="1"
         style={{
           width: '800px',
           margin: 'auto',
         }}>
         <TableR.Header>
           <TableR.Row>
-            <TableR.ColumnHeaderCell>ID</TableR.ColumnHeaderCell>
+            <TableR.ColumnHeaderCell justify="center">
+              ID
+            </TableR.ColumnHeaderCell>
             <TableR.ColumnHeaderCell>Word</TableR.ColumnHeaderCell>
+            <TableR.ColumnHeaderCell>Transcription</TableR.ColumnHeaderCell>
             <TableR.ColumnHeaderCell>Status</TableR.ColumnHeaderCell>
             <TableR.ColumnHeaderCell>Actions</TableR.ColumnHeaderCell>
           </TableR.Row>

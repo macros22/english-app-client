@@ -53,69 +53,43 @@ export const RowNew = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
   }
 
   return (
-    <Table.Row key={rowData.word}>
-      <Table.RowHeaderCell
-        justify="center"
-        style={
-          {
-            // paddingTop: '16px',
-            // paddingBottom: '16px',
-          }
-        }>
-        <div className={styles.iconButtons}>
-          <Badge size="2" color="gray" radius="full" variant="surface">
-            {rowId}
-          </Badge>
-        </div>
+    <Table.Row key={rowData.word} align="center">
+      <Table.RowHeaderCell justify="center" width={90}>
+        <Badge size="2" color="gray" radius="full" variant="surface">
+          {rowId}
+        </Badge>
       </Table.RowHeaderCell>
+      <Table.Cell width={250}>
+        <Text as="span" size="4" weight="bold">
+          {rowData.word}
+        </Text>
+      </Table.Cell>
       <Table.Cell>
-        <div className={styles.iconButtons}>
-          <Text
-            as="span"
-            size="4"
-            weight="bold"
-            style={{ display: 'flex', flexDirection: 'column' }}>
-            {rowData.word}
-            {Boolean(rowData.transcription.uk || rowData.transcription.us) && (
-              <Text as="span" size="1" color="bronze">
-                {rowData.transcription.uk ?? rowData.transcription.us}
-              </Text>
-            )}
+        {Boolean(rowData.transcription.uk || rowData.transcription.us) && (
+          <Text as="span" size="1" color="bronze">
+            {rowData.transcription.uk ?? rowData.transcription.us}
           </Text>
-        </div>
+        )}
       </Table.Cell>
       <Table.Cell>
-        <div className={styles.iconButtons}>
-          {rowData.studyStatus ? (
-            <Badge
-              size="2"
-              variant="surface"
-              color={
-                rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'
-              }
-              radius="medium">
-              {rowData.studyStatus}
-            </Badge>
-          ) : (
-            <Button
-              isLoading={isAddTomyWordsButtonLoading}
-              onClick={() => handleAddToMyWords(rowData)}>
-              Add to my words
-            </Button>
-          )}
-        </div>
+        {rowData.studyStatus ? (
+          <Badge
+            size="2"
+            variant="surface"
+            color={
+              rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'
+            }
+            radius="medium">
+            {rowData.studyStatus}
+          </Badge>
+        ) : (
+          <Button
+            isLoading={isAddTomyWordsButtonLoading}
+            onClick={() => handleAddToMyWords(rowData)}>
+            Add to my words
+          </Button>
+        )}
       </Table.Cell>
-      {/* <Table.Cell
-        justify="center"
-        align="center"
-        style={{
-          paddingTop: '16px',
-          paddingBottom: '16px',
-        }}>
-        <IconButton color="gray" variant="ghost" size="2" radius="full">
-          <InfoCircledIcon width="24" height="24" />
-        </IconButton>
-      </Table.Cell> */}
 
       {wordsMode === 'userWords' ? (
         <>
@@ -142,10 +116,5 @@ export const RowNew = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
         </Table.Cell>
       )}
     </Table.Row>
-
-    //     </Table.Cell>
-
-    //   </Table.Row>
-    // </>
   );
 };

@@ -1,32 +1,32 @@
 .wrapper {
-    // display: flex;
-    // flex-direction: row;
-    // flex-wrap: wrap;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-    width: 75% !important;
-    max-width: 100%;
-    margin: 1.5rem auto !important;
-    gap: 1.25rem 1.5rem;
-    text-align: center;
-    // justify-content: space-between;
+  // display: flex;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+  width: 75% !important;
+  max-width: 100%;
+  margin: 1.5rem auto !important;
+  gap: 1.1rem 1.2rem;
+  text-align: center;
+  // justify-content: space-between;
 }
 
 .letter {
+  display: inline-block;
+  width: 100%;
+  display: inline-block;
+  max-width: 60px !important;
+  margin: 0 !important;
+
+  &Disabled {
+    cursor: not-allowed;
+    background-color: rgb(241, 241, 241) !important;
+    color: rgb(209, 209, 209) !important;
     display: inline-block;
     width: 100%;
     display: inline-block;
     max-width: 60px !important;
     margin: 0 !important;
-
-    &Disabled {
-        cursor: not-allowed;
-        background-color: rgb(241, 241, 241) !important;
-        color: rgb(209, 209, 209) !important;
-        display: inline-block;
-        width: 100%;
-        display: inline-block;
-        max-width: 60px !important;
-        margin: 0 !important;
-    }
+  }
 }
