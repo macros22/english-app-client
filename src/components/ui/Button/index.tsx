@@ -12,8 +12,8 @@ const ButtonStyled = styled(RadixButton, {
   variants: {
     isLoading: {
       true: {
-        width: '200px',
         pointerEvents: 'none',
+        width: '200px',
       },
     },
   },
@@ -25,7 +25,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <ButtonStyled isLoading {...props}>
+    <ButtonStyled isLoading={isLoading} {...props}>
       {isLoading ? <Loader /> : children}
     </ButtonStyled>
   );

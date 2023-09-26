@@ -1,7 +1,8 @@
-import React from 'react';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Badge, Button, IconButton, Table, Text } from '@radix-ui/themes';
+import React, { useState } from 'react';
+import { InfoCircledIcon, ReaderIcon } from '@radix-ui/react-icons';
+import { Badge, IconButton, Table, Text } from '@radix-ui/themes';
 import { styled } from '@stitches/react';
+import { Button } from 'components/ui/Button';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { wordDataToWordDataPayload } from 'libs/helpers/transform-data.helper';
 import { useLocalStorage, useUser, useWordsApi } from 'libs/hooks';
@@ -18,7 +19,7 @@ import { RowProps } from './Row.props';
 export const InfoIcon = styled(InfoCircledIcon, {
   width: '30px',
   height: '30px',
-  fill: 'Gold',
+  fill: 'gold',
 });
 
 const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
@@ -32,7 +33,8 @@ export const RowNew = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
 
   const { api } = useWordsApi('userWords');
   const [isAddTomyWordsButtonLoading, setIsAddTomyWordsButtonLoading] =
-    React.useState(false);
+    useState(false);
+
   const handleAddToMyWords = async (word: IWord) => {
     if (user && user.role !== Role.Admin) {
       setIsAddTomyWordsButtonLoading(true);
@@ -54,59 +56,54 @@ export const RowNew = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
     <Table.Row key={rowData.word}>
       <Table.RowHeaderCell
         justify="center"
-        style={{
-          paddingTop: '16px',
-          paddingBottom: '16px',
-        }}>
-        <Badge size="2" color="gray" radius="full" variant="surface">
-          {rowId}
-        </Badge>
-      </Table.RowHeaderCell>
-      <Table.Cell
-        justify="center"
-        align="center"
-        style={{
-          paddingTop: '16px',
-          paddingBottom: '16px',
-        }}>
-        <Text
-          as="span"
-          size="4"
-          weight="bold"
-          style={{ display: 'flex', flexDirection: 'column' }}>
-          {rowData.word}
-          {Boolean(rowData.transcription.uk || rowData.transcription.us) && (
-            <Text as="span" size="1" color="bronze">
-              {rowData.transcription.uk ?? rowData.transcription.us}
-            </Text>
-          )}
-        </Text>
-      </Table.Cell>
-      <Table.Cell
-        justify="center"
-        align="center"
-        style={{
-          paddingTop: '16px',
-          paddingBottom: '16px',
-        }}>
-        {rowData.studyStatus ? (
-          <Badge
-            size="2"
-            variant="surface"
-            color={
-              rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'
-            }
-            radius="medium">
-            {rowData.studyStatus}
+        style={
+          {
+            // paddingTop: '16px',
+            // paddingBottom: '16px',
+          }
+        }>
+        <div className={styles.iconButtons}>
+          <Badge size="2" color="gray" radius="full" variant="surface">
+            {rowId}
           </Badge>
-        ) : (
-          <Button
-            // loading={isAddTomyWordsButtonLoading}
-            onClick={() => handleAddToMyWords(rowData)}>
-            {' '}
-            Add to my words
-          </Button>
-        )}
+        </div>
+      </Table.RowHeaderCell>
+      <Table.Cell>
+        <div className={styles.iconButtons}>
+          <Text
+            as="span"
+            size="4"
+            weight="bold"
+            style={{ display: 'flex', flexDirection: 'column' }}>
+            {rowData.word}
+            {Boolean(rowData.transcription.uk || rowData.transcription.us) && (
+              <Text as="span" size="1" color="bronze">
+                {rowData.transcription.uk ?? rowData.transcription.us}
+              </Text>
+            )}
+          </Text>
+        </div>
+      </Table.Cell>
+      <Table.Cell>
+        <div className={styles.iconButtons}>
+          {rowData.studyStatus ? (
+            <Badge
+              size="2"
+              variant="surface"
+              color={
+                rowData.studyStatus ? labelColors[rowData.studyStatus] : 'red'
+              }
+              radius="medium">
+              {rowData.studyStatus}
+            </Badge>
+          ) : (
+            <Button
+              isLoading={isAddTomyWordsButtonLoading}
+              onClick={() => handleAddToMyWords(rowData)}>
+              Add to my words
+            </Button>
+          )}
+        </div>
       </Table.Cell>
       {/* <Table.Cell
         justify="center"

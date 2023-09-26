@@ -1,4 +1,6 @@
 import React from 'react';
+import { TrashIcon } from '@radix-ui/react-icons';
+import { IconButton } from '@radix-ui/themes';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useWords, useWordsApi } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
@@ -30,7 +32,11 @@ export const DeleteButtonWithModal = ({
       onOpen={() => setIsOpen(true)}
       open={isOpen}
       size="small"
-      trigger={<Button basic icon="trash alternate" size="large" />}>
+      trigger={
+        <IconButton variant="surface" color="red">
+          <TrashIcon width="18" height="18" />
+        </IconButton>
+      }>
       <Header icon>
         <Icon name="trash" />
         Delete word
