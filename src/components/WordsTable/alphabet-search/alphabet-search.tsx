@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Badge, Button } from '@radix-ui/themes';
+import { useEffect, useState } from 'react';
+import { Button } from 'components/ui/Button';
 import { alphabet } from 'libs/constants/alphabet';
 import { usePagination } from 'libs/hooks';
 import { usePageByLetter } from 'libs/hooks/usePageByLetter';
@@ -14,9 +14,9 @@ export const AlphabetSearch = ({
 }: AlphabetSearchProps): JSX.Element => {
   const { setSkip, wordsPerPageCount } = usePagination();
 
-  const [activeLetterIndex, setActiveLetterIndex] = React.useState<
-    number | null
-  >(null);
+  const [activeLetterIndex, setActiveLetterIndex] = useState<number | null>(
+    null,
+  );
 
   const { page, isPageLoading, pageError } = usePageByLetter({
     letter:
@@ -47,18 +47,16 @@ export const AlphabetSearch = ({
     <Label.Group className={styles.wrapper}>
       {alphabet.map((letter, index) => {
         return (
-          <>
-            <Button
-              size="2"
-              key={letter}
-              disabled={!(activeLetters && activeLetters.includes(letter))}
-              variant="outline"
-              radius="small"
-              color={highlightedLetters.includes(letter) ? 'blue' : undefined}
-              onClick={() => setActiveLetterIndex(index)}>
-              {letter}
-            </Button>
-          </>
+          <Button
+            size="2"
+            key={letter}
+            disabled={!(activeLetters && activeLetters.includes(letter))}
+            variant="outline"
+            radius="small"
+            color={highlightedLetters.includes(letter) ? 'gold' : 'gray'}
+            onClick={() => setActiveLetterIndex(index)}>
+            {letter}
+          </Button>
         );
       })}
     </Label.Group>

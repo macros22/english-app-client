@@ -19,7 +19,6 @@ import { TranslationsInputs } from './MeaningNestedFields/TranslationsInputs';
 import { UsageExamplesInputs } from './MeaningNestedFields/UsageExamplesInputs';
 import { WordLevelSelect } from './MeaningNestedFields/WordLevelSelect';
 import { useWordForm } from './useWordForm';
-import styles from './WordForm.module.scss';
 import { WordFormProps } from './WordForm.props';
 
 export const WordForm = ({
@@ -46,10 +45,11 @@ export const WordForm = ({
     appendMeaning,
     meaningsFields,
     removeMeaning,
-  } =
-    mode == 'edit'
-      ? useWordForm({ formValues, wordId, skip, limit: wordsPerPageCount })
-      : useWordForm({});
+  } = useWordForm(
+    mode === 'edit'
+      ? { formValues, wordId, skip, limit: wordsPerPageCount }
+      : {},
+  );
 
   return (
     <>

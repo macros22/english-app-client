@@ -1,7 +1,4 @@
 .wrapper {
-  // display: flex;
-  // flex-direction: row;
-  // flex-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
   width: 75% !important;
@@ -9,7 +6,6 @@
   margin: 1.5rem auto !important;
   gap: 1.1rem 1.2rem;
   text-align: center;
-  // justify-content: space-between;
 }
 
 .letter {

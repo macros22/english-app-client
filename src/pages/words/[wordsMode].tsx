@@ -36,7 +36,6 @@ const WordsTablePage = ({ wordsMode }: WordTablePageProps): JSX.Element => {
 
   return (
     <Layout>
-      <Button isLoading>asdasd</Button>
       <WordsTable mode={wordsMode} />
     </Layout>
   );

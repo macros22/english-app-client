@@ -1,5 +1,7 @@
-import React from 'react';
-import { Button, Modal as SUIModal } from 'semantic-ui-react';
+import { useState } from 'react';
+import { ReaderIcon } from '@radix-ui/react-icons';
+import { Dialog, IconButton, Separator } from '@radix-ui/themes';
+import { Button } from 'semantic-ui-react';
 
 import styles from './Modal.module.scss';
 import { ModalProps } from './Modal.props';
@@ -9,24 +11,32 @@ export const Modal = ({
   modalTrigger,
   children,
 }: ModalProps): JSX.Element => {
-  const [isEditingNow, setIsEditingNow] = React.useState(false);
+  const [isEditingNow, setIsEditingNow] = useState(false);
 
   return (
-    <SUIModal
-      onClose={() => setIsEditingNow(false)}
-      onOpen={() => setIsEditingNow(true)}
-      open={isEditingNow}
-      trigger={modalTrigger}>
-      <SUIModal.Header className={styles.modalHeader}>
-        <div className={styles.title}>{title}</div>
-        <Button
-          color="black"
-          className={styles.closeButton}
-          onClick={() => setIsEditingNow(false)}>
-          Close
-        </Button>
-      </SUIModal.Header>
-      <SUIModal.Content>{children}</SUIModal.Content>
-    </SUIModal>
+    <>
+      <Dialog.Root onOpenChange={setIsEditingNow} open={isEditingNow}>
+        <Dialog.Trigger>
+          {/* <IconButton variant="surface" color="gold">
+            <ReaderIcon width="18" height="18" />
+          </IconButton> */}
+          {modalTrigger}
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 950 }}>
+          <Dialog.Title className={styles.modalHeader}>
+            {title}
+            <Button
+              color="black"
+              className={styles.closeButton}
+              onClick={() => setIsEditingNow(false)}>
+              Close
+            </Button>
+          </Dialog.Title>
+
+          {children}
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
   );
 };

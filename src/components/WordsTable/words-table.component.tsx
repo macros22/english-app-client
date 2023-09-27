@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Badge, IconButton, Table as TableR, Text } from '@radix-ui/themes';
+import {
+  Badge,
+  Em,
+  Heading,
+  IconButton,
+  Strong,
+  Table,
+  Text,
+} from '@radix-ui/themes';
 import { styled } from '@stitches/react';
-// import { styled } from 'styled-components';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
@@ -13,23 +20,12 @@ import {
   Pagination,
   PaginationProps,
   Segment,
-  Table,
 } from 'semantic-ui-react';
 
-import { AlphabetSearch } from '../AlphabetSearch/AlphabetSearch';
-import { Row } from '../Row/Row/Row';
-import { RowNew } from '../Row/Row/RowNew';
-
-// import { Title } from './words-table.styled';
+import { AlphabetSearch } from './alphabet-search/alphabet-search';
+import { Row } from './row/row';
 import styles from './WordsTable.module.scss';
 import { WordsTableProps } from './WordsTable.props';
-
-// export const Title = styled.h1`
-//   color: ${({ theme }) => theme.colors.primary};
-//   font-size: 50px;
-
-//   display: flex;
-// `;
 
 export const InfoIcon = styled(InfoCircledIcon, {
   width: '30px',
@@ -108,9 +104,8 @@ export const WordsTable = ({
     );
   }, [skip, wordsPerPageCount]);
 
-  // Handlers.
   const handlePaginationChange = (
-    event: MouseEvent<HTMLAnchorElement, MouseEvent>,
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     { activePage }: PaginationProps,
   ) => {
     if (typeof activePage === 'number') {
@@ -128,62 +123,42 @@ export const WordsTable = ({
     );
   }
 
-  if (words && words.length === 0) {
-    return <h1>No words yet </h1>;
+  if (!words?.length) {
+    return <Heading>No words yet </Heading>;
   }
 
   return (
     <>
-      <Label size="big" color="blue" className={styles.titleLabel}>
-        {mode === 'userWords' ? 'My words' : 'All words'}
-        <Label.Detail>{wordsCount}</Label.Detail>
-      </Label>
-
-      <Badge size="2" variant="solid" color="green" radius="medium">
-        {mode === 'userWords' ? 'My words' : 'All words'} {wordsCount}
+      <Badge
+        size="2"
+        variant="surface"
+        color="blue"
+        radius="medium"
+        style={{ paddingInline: 16, paddingBlock: 8, fontSize: 16 }}>
+        <Strong>{mode === 'userWords' ? 'My words' : 'All words'}</Strong>
+        <Heading color="gray" size="3">
+          {wordsCount}
+        </Heading>
       </Badge>
 
-      <TableR.Root
+      <Table.Root
         variant="surface"
         size="1"
         style={{
           width: '800px',
           margin: 'auto',
+          marginTop: 16,
         }}>
-        <TableR.Header>
-          <TableR.Row>
-            <TableR.ColumnHeaderCell justify="center">
-              ID
-            </TableR.ColumnHeaderCell>
-            <TableR.ColumnHeaderCell>Word</TableR.ColumnHeaderCell>
-            <TableR.ColumnHeaderCell>Transcription</TableR.ColumnHeaderCell>
-            <TableR.ColumnHeaderCell>Status</TableR.ColumnHeaderCell>
-            <TableR.ColumnHeaderCell>Actions</TableR.ColumnHeaderCell>
-          </TableR.Row>
-        </TableR.Header>
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeaderCell justify="center">ID</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Word</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Transcription</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
 
-        <TableR.Body>
-          {words.map((word, index) => {
-            return (
-              <RowNew
-                key={word.id}
-                rowData={word}
-                rowId={skip + index + 1}
-                mutateCommonWords={mutateWords}
-              />
-            );
-          })}
-        </TableR.Body>
-      </TableR.Root>
-
-      <AlphabetSearch
-        highlightedLetters={words.map(word =>
-          word.word.charAt(0).toLowerCase(),
-        )}
-        activeLetters={activeLetters}
-      />
-
-      <Table basic className={styles.table}>
         <Table.Body>
           {words.map((word, index) => {
             return (
@@ -196,36 +171,14 @@ export const WordsTable = ({
             );
           })}
         </Table.Body>
+      </Table.Root>
 
-        <Table.Footer>
-          <Table.Row>
-            <Table.HeaderCell textAlign="center" colSpan="16">
-              <Pagination
-                className={styles.pagination}
-                pointing
-                secondary
-                activePage={currentPage}
-                // activePage={Math.ceil(skip / defaultWordsPerPageCount)}
-
-                onPageChange={handlePaginationChange}
-                boundaryRange={0}
-                // onPageChange={this.handlePaginationChange}
-                // size='mini'
-                // siblingRange={siblingRange}
-                totalPages={totalPages}
-                // Heads up! All items are powered by shorthands, if you want to hide one of them, just pass `null` as value
-                ellipsisItem={null}
-                // firstItem={showFirstAndLastNav ? undefined : null}
-                // lastItem={showFirstAndLastNav ? undefined : null}
-                firstItem={null}
-                lastItem={null}
-                // prevItem={showPreviousAndNextNav ? undefined : null}
-                // nextItem={showPreviousAndNextNav ? undefined : null}
-              />
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
+      <AlphabetSearch
+        highlightedLetters={words.map(word =>
+          word.word.charAt(0).toLowerCase(),
+        )}
+        activeLetters={activeLetters}
+      />
     </>
   );
 };
