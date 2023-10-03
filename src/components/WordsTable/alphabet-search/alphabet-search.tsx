@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
+import { Box } from '@radix-ui/themes';
 import { Button } from 'components/ui/Button';
 import { alphabet } from 'libs/constants/alphabet';
 import { usePagination } from 'libs/hooks';
 import { usePageByLetter } from 'libs/hooks/usePageByLetter';
-import { Label, Loader, Segment } from 'semantic-ui-react';
 
-import styles from './AlphabetSearch.module.scss';
-import { AlphabetSearchProps } from './AlphabetSearch.props';
+import { AlphabetSearchLaoder } from './alphabet-search.loader';
+import styles from './alphabet-search.module.scss';
+import { AlphabetSearchProps } from './alphabet-search.props';
 
 export const AlphabetSearch = ({
   highlightedLetters,
@@ -32,33 +33,31 @@ export const AlphabetSearch = ({
     }
   }, [page]);
 
-  if (
+  const isLoading =
     isPageLoading &&
-    !(typeof activeLetterIndex === 'object' && !activeLetterIndex)
-  ) {
-    return (
-      <Segment>
-        <Loader size="massive" active inline="centered" />
-      </Segment>
-    );
-  }
+    !(typeof activeLetterIndex === 'object' && !activeLetterIndex);
 
   return (
-    <Label.Group className={styles.wrapper}>
-      {alphabet.map((letter, index) => {
-        return (
-          <Button
-            size="2"
-            key={letter}
-            disabled={!(activeLetters && activeLetters.includes(letter))}
-            variant="outline"
-            radius="small"
-            color={highlightedLetters.includes(letter) ? 'gold' : 'gray'}
-            onClick={() => setActiveLetterIndex(index)}>
-            {letter}
-          </Button>
-        );
-      })}
-    </Label.Group>
+    <Box className={styles.wrapper}>
+      {isLoading ? (
+        <AlphabetSearchLaoder />
+      ) : (
+        alphabet.map((letter, index) => {
+          return (
+            <Button
+              key={letter}
+              className={styles.letter}
+              size="2"
+              disabled={!(activeLetters && activeLetters.includes(letter))}
+              variant="outline"
+              radius="small"
+              color={highlightedLetters.includes(letter) ? 'gold' : 'gray'}
+              onClick={() => setActiveLetterIndex(index)}>
+              {letter}
+            </Button>
+          );
+        })
+      )}
+    </Box>
   );
 };

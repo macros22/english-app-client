@@ -1,0 +1,13 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+  max-width: 800px;
+  margin: 20px auto;
+  gap: 12px;
+  text-align: center;
+}
+
+.letter {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

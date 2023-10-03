@@ -1,15 +1,5 @@
-import React, { forwardRef } from 'react';
-import {
-  blackA,
-  blue,
-  blueDark,
-  grayDark,
-  indigo,
-  purple,
-  sage,
-  slateDark,
-  violet,
-} from '@radix-ui/colors';
+import { forwardRef } from 'react';
+import { indigo, purple, violet } from '@radix-ui/colors';
 import { CaretDownIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { keyframes, styled } from '@stitches/react';
