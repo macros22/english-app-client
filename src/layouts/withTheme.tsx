@@ -13,7 +13,7 @@ export const withTheme = (Component: AppPage) => {
     return (
       <ThemeProvider
         // attribute="class"
-        // value={{ light: 'light', dark: darkTheme }}
+
         attribute="class"
         defaultTheme="dark"
         value={{

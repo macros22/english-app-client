@@ -1,31 +1,16 @@
 import { useEffect, useState } from 'react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
-import {
-  Badge,
-  Em,
-  Heading,
-  IconButton,
-  Strong,
-  Table,
-  Text,
-} from '@radix-ui/themes';
+import { Badge, Heading, Strong, Table } from '@radix-ui/themes';
 import { styled } from '@stitches/react';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, usePagination, useWords } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
 import { useRouter } from 'next/router';
-import {
-  Label,
-  Loader,
-  Pagination,
-  PaginationProps,
-  Segment,
-} from 'semantic-ui-react';
 
 import { AlphabetSearch } from './alphabet-search/alphabet-search';
 import { Row } from './row/row';
-import styles from './WordsTable.module.scss';
-import { WordsTableProps } from './WordsTable.props';
+import { WordTableLoader } from './words-table.loader';
+import { WordsTableProps } from './words-table.props';
 
 export const InfoIcon = styled(InfoCircledIcon, {
   width: '30px',
@@ -48,6 +33,9 @@ export const WordsTable = ({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const router = useRouter();
+
   const {
     words,
     loading,
@@ -83,10 +71,8 @@ export const WordsTable = ({
       }
     }
     setWordsPerPageCount(wordsPerPage);
-    // setSkip((currentPage - 1) * defaultWordsPerPageCount);
   }, [wordsCount]);
 
-  const router = useRouter();
   useEffect(() => {
     setCurrentPage(1);
     setSkip(0);
@@ -104,23 +90,8 @@ export const WordsTable = ({
     );
   }, [skip, wordsPerPageCount]);
 
-  const handlePaginationChange = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    { activePage }: PaginationProps,
-  ) => {
-    if (typeof activePage === 'number') {
-      // setCurrentPage(activePage);
-      const newSkip = (activePage - 1) * defaultWordsPerPageCount;
-      setSkip(newSkip);
-    }
-  };
-
   if (loading) {
-    return (
-      <Segment>
-        <Loader size="massive" active inline="centered" />
-      </Segment>
-    );
+    return <WordTableLoader />;
   }
 
   if (!words?.length) {
@@ -136,7 +107,7 @@ export const WordsTable = ({
         radius="medium"
         style={{ paddingInline: 16, paddingBlock: 8, fontSize: 16 }}>
         <Strong>{mode === 'userWords' ? 'My words' : 'All words'}</Strong>
-        <Heading color="gray" size="3">
+        <Heading style={{ filter: 'brightness(1.2)' }} size="3">
           {wordsCount}
         </Heading>
       </Badge>

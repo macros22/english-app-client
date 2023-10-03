@@ -67,11 +67,9 @@ export const NavigationMenuRoot = styled(NavigationMenu.Root, {
 export const NavigationMenuList = styled(NavigationMenu.List, {
   display: 'flex',
   justifyContent: 'center',
-  // backgroundColor: 'white',
   padding: '4px 20px',
   width: '100%',
   listStyle: 'none',
-  // boxShadow: `0 0px 5px ${blackA.blackA3}`,
   margin: 0,
 });
 
@@ -112,6 +110,9 @@ const NavigationMenuLink = styled(NavigationMenu.Link, {
 });
 
 export const NavigationMenuContent = styled(NavigationMenu.Content, {
+  backgroundColor: '$elementBackground',
+  // color: '$textContrast',
+
   position: 'absolute',
   top: 0,
   left: 0,
@@ -202,12 +203,10 @@ const ListItemHeading = styled('div', {
   fontWeight: 500,
   lineHeight: 1.2,
   marginBottom: 5,
-  // color: violet.violet12,
 });
 
 const ListItemText = styled('p', {
   all: 'unset',
-  // color: sage.sage11,
   lineHeight: 1.4,
   fontWeight: 'initial',
 });

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Box } from '@radix-ui/themes';
 import { Button } from 'components/ui/Button';
-import { alphabet } from 'libs/constants/alphabet';
 import { usePagination } from 'libs/hooks';
 import { usePageByLetter } from 'libs/hooks/usePageByLetter';
 
+import { alphabet } from './alphabet-search.constant';
 import { AlphabetSearchLaoder } from './alphabet-search.loader';
 import styles from './alphabet-search.module.scss';
 import { AlphabetSearchProps } from './alphabet-search.props';

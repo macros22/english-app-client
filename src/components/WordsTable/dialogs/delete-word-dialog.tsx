@@ -4,7 +4,7 @@ import { WORDS_MODE } from 'libs/constants/names.storage';
 import { useLocalStorage, useWords, useWordsApi } from 'libs/hooks';
 import { WordsMode } from 'libs/types/types';
 
-export const DeleteButtonWithModal = ({
+export const DeleteWordDialog = ({
   wordId,
 }: {
   wordId: string;

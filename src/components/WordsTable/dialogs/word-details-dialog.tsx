@@ -14,7 +14,10 @@ export const WordDetailsDialog = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <IconButton variant="surface" color="gold">
+        <IconButton
+          variant="surface"
+          color="gold"
+          style={{ cursor: 'pointer' }}>
           <ReaderIcon width="18" height="18" />
         </IconButton>
       </Dialog.Trigger>

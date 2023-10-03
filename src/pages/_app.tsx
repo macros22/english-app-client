@@ -26,6 +26,4 @@ const MyApp: React.FunctionComponent<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-// export default MyApp;
-
 export default withTheme(MyApp);

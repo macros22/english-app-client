@@ -21,13 +21,13 @@ export const Layout: FC = ({ children }) => {
   }
 
   return (
-    <div>
+    <>
       <NavBar />
       <main>
         <PaginationProvider>
           <div className={styles.container}>{children}</div>
         </PaginationProvider>
       </main>
-    </div>
+    </>
   );
 };

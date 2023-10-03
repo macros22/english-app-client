@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Badge, Table, Text } from '@radix-ui/themes';
+import { Badge, Box, Table, Text } from '@radix-ui/themes';
 import { styled } from '@stitches/react';
 import { Button } from 'components/ui/Button';
 import { WORDS_MODE } from 'libs/constants/names.storage';
@@ -9,7 +9,7 @@ import { useLocalStorage, useUser, useWordsApi } from 'libs/hooks';
 import { IWord, Role, WordsMode, WordStudyStatus } from 'libs/types/types';
 import { Loader, Segment, SemanticCOLORS } from 'semantic-ui-react';
 
-import { DeleteButtonWithModal } from '../dialogs/DeleteButtonWithModal';
+import { DeleteWordDialog } from '../dialogs/delete-word-dialog';
 import { EditButtonModal } from '../dialogs/EditButtonModal';
 import { WordDetailsDialog } from '../dialogs/word-details-dialog';
 
@@ -94,11 +94,11 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
       {wordsMode === 'userWords' ? (
         <>
           <Table.Cell width={3}>
-            <div className={styles.iconButtons}>
+            <Box className={styles.iconButtons}>
               <WordDetailsDialog word={rowData} />
               <EditButtonModal word={rowData} />
-              <DeleteButtonWithModal wordId={rowData.id} />
-            </div>
+              <DeleteWordDialog wordId={rowData.id} />
+            </Box>
           </Table.Cell>
         </>
       ) : // eslint-disable-next-line unicorn/no-nested-ternary
@@ -107,7 +107,7 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
           <Table.Cell width={6}>
             <WordDetailsDialog word={rowData} />
             <EditButtonModal word={rowData} />
-            <DeleteButtonWithModal wordId={rowData.id} />
+            <DeleteWordDialog wordId={rowData.id} />
           </Table.Cell>
         </>
       ) : (

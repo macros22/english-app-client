@@ -1,7 +1,7 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { Heading, IconButton, Text } from '@radix-ui/themes';
+import { IconButton, Text } from '@radix-ui/themes';
 import { Modal, WordForm } from 'components';
 import { logout } from 'libs/api/auth.api';
 import { useMediaQuery, useUser } from 'libs/hooks';
