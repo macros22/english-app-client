@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://node-express-t-prod-nodejs-express-ts-gsiguz.mo2.mogenius.io'
-export const BASE_URL = 'http://localhost:5000';
+export const BASE_URL = 'https://english-app-server.onrender.com';
+// export const BASE_URL = 'http://localhost:5000';
 // Auth.
 export const SIGN_IN_URL = `${BASE_URL}/auth/sign-in`;
 export const SIGN_UP_URL = `${BASE_URL}/auth/sign-up`;
