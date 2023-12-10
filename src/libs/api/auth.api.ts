@@ -45,8 +45,23 @@ export const signUp = async (signUpDto: SignUpDto) => {
 };
 
 export const getUser = async () => {
+  // eslint-disable-next-line no-useless-catch
   try {
-    const res = await axios.get(AUTH_ME_URL, { withCredentials: true });
+    const res = await axios.get(
+      AUTH_ME_URL,
+      {
+        withCredentials: true,
+        // headers: {
+        //   Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+        // },
+        // headers: {
+        //   'Authorization': 'Bearer asdasd',
+        // },
+      },
+      // {
+      //   headers: { Authorization: +'basicAuth' },
+      // },
+    );
     return res.data as IUser;
   } catch (error) {
     throw error;

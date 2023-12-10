@@ -1,6 +1,6 @@
 import React from 'react';
 import { signIn, signUp } from 'libs/api/auth.api';
-import { useUser } from 'libs/hooks';
+import { useSessionStorage, useUser } from 'libs/hooks';
 
 type AuthMode = 'signIn' | 'signUp';
 
@@ -13,15 +13,17 @@ export const useAuthForm = (authMode: AuthMode) => {
 
   const { mutate, isLoggedIn } = useUser();
   const [isLoadingPostForm, setIsLoadingPostForm] = React.useState(false);
+  const [_, setAccessToken] = useSessionStorage('accessToken', '');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
     setIsLoadingPostForm(true);
-    if (authMode == 'signIn' && email && password) {
+    if (authMode === 'signIn' && email && password) {
       const { accessToken, error } = await signIn({ email, password });
       if (!error && accessToken) {
+        setAccessToken(accessToken);
         mutate();
         console.log(accessToken);
       }
