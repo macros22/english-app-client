@@ -114,7 +114,7 @@ export const WordsTable = ({
 
       <Table.Root
         variant="surface"
-        size="1"
+        size="3"
         style={{
           width: '800px',
           margin: 'auto',

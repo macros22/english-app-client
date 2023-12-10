@@ -53,8 +53,8 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
   }
 
   return (
-    <Table.Row key={rowData.word} align="center">
-      <Table.RowHeaderCell justify="center" width={90}>
+    <Table.Row key={rowData.word} align="center" >
+      <Table.RowHeaderCell justify="center" width={90} className={styles.cell}>
         <Badge size="2" color="gray" radius="full" variant="surface">
           {rowId}
         </Badge>
@@ -84,6 +84,7 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
           </Badge>
         ) : (
           <Button
+            variant='outline'
             isLoading={isAddTomyWordsButtonLoading}
             onClick={() => handleAddToMyWords(rowData)}>
             Add to my words

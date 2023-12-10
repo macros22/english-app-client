@@ -51,7 +51,7 @@ export const AlphabetSearch = ({
               disabled={!(activeLetters && activeLetters.includes(letter))}
               variant="outline"
               radius="small"
-              color={highlightedLetters.includes(letter) ? 'gold' : 'gray'}
+              color={highlightedLetters.includes(letter) ? 'blue' : 'gray'}
               onClick={() => setActiveLetterIndex(index)}>
               {letter}
             </Button>

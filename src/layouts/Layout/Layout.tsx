@@ -13,7 +13,7 @@ export const Layout: FC = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoggedIn) router.replace('/auth/sign-in');
+    // if (!isLoggedIn) router.replace('/auth/sign-in');
   }, [isLoggedIn]);
 
   if (!isLoggedIn) {
