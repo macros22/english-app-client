@@ -1,13 +1,15 @@
 import { WordStudyStatus } from 'libs/types/types';
 import * as yup from 'yup';
 
+const REQUIRED = 'required';
+
 // Made usageExamples, antonyms, synonyms and translations
 // array of objects instead of array of string
 // to avoid react-hook-form errors.
 export const wordValidationSchema = yup.object({
   word: yup
     .string()
-    .required('Word is required')
+    .required(REQUIRED)
     .min(2, 'Word should be of minimum 2 characters length'),
   studyStatus: yup
     .mixed<WordStudyStatus>()
@@ -28,7 +30,7 @@ export const wordValidationSchema = yup.object({
             translation: yup.string(),
           }),
         )
-        .required('Translations required'),
+        .required(REQUIRED),
 
       synonyms: yup
         .array()
@@ -37,7 +39,7 @@ export const wordValidationSchema = yup.object({
             synonym: yup.string(),
           }),
         )
-        .required('Translations required'),
+        .required(REQUIRED),
       antonyms: yup
         .array()
         .of(
@@ -45,7 +47,7 @@ export const wordValidationSchema = yup.object({
             antonym: yup.string(),
           }),
         )
-        .required('Translations required'),
+        .required(REQUIRED),
       usageExamples: yup
         .array()
         .of(

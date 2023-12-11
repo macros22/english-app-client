@@ -1,6 +1,6 @@
 import { JSX, ReactNode } from 'react';
 import ContentLoader, { IContentLoaderProps } from 'react-content-loader';
-import { slate, slateA } from '@radix-ui/colors';
+import { slate } from '@radix-ui/colors';
 
 const WIDTH = 800;
 const HEIGHT = 150;

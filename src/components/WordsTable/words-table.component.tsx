@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { Badge, Heading, Strong, Table } from '@radix-ui/themes';
 import { styled } from '@stitches/react';
@@ -20,19 +20,14 @@ export const InfoIcon = styled(InfoCircledIcon, {
 
 const defaultWordsPerPageCount = 5;
 
-export const WordsTable = ({
-  mode: wordsMode,
-}: WordsTableProps): JSX.Element => {
-  const [mode, setWordsMode] = useLocalStorage<WordsMode>(
-    WORDS_MODE,
-    wordsMode,
-  );
+export const WordsTable: FC<WordsTableProps> = ({ mode: wordsMode }) => {
+  const [mode] = useLocalStorage<WordsMode>(WORDS_MODE, wordsMode);
 
   const { skip, setSkip, wordsPerPageCount, setWordsPerPageCount } =
     usePagination();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [, setTotalPages] = useState(1);
 
   const router = useRouter();
 

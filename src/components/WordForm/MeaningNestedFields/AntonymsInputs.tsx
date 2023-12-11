@@ -27,9 +27,9 @@ export const AntonymsInputs = ({
           />
         </Header>
       </Divider>
-      {fields.map((_, index) => {
+      {fields.map(({ antonym }, index) => {
         return (
-          <Form.Field>
+          <Form.Field key={antonym}>
             <Controller
               name={`meanings.${meaningIndex}.antonyms.${index}.antonym`}
               control={control}

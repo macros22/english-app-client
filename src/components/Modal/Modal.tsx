@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { ReaderIcon } from '@radix-ui/react-icons';
-import { Dialog, IconButton, Separator } from '@radix-ui/themes';
+import { Dialog } from '@radix-ui/themes';
 import { Button } from 'semantic-ui-react';
 
 import styles from './Modal.module.scss';

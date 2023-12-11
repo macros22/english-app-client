@@ -35,7 +35,7 @@ export const SignIn = () => {
   React.useEffect(() => {
     if (isLoggedIn)
       router.replace(
-        wordsMode == 'commonWords'
+        wordsMode === 'commonWords'
           ? '/words/common-words'
           : '/words/user-words',
       );
@@ -84,9 +84,7 @@ export const SignIn = () => {
         <Segment className={styles.additionalAction}>
           Or you can{' '}
           <Link href="/auth/sign-up">
-            <strong>
-              <a>Sign Up</a>
-            </strong>
+            <strong>Sign Up</strong>
           </Link>
         </Segment>
       </Grid.Column>

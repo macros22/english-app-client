@@ -27,9 +27,9 @@ export const SynonymsInputs = ({
           />
         </Header>
       </Divider>
-      {fields.map((_, index) => {
+      {fields.map(({ synonym }, index) => {
         return (
-          <Form.Field>
+          <Form.Field key={synonym}>
             <Controller
               name={`meanings.${meaningIndex}.synonyms.${index}.synonym`}
               control={control}

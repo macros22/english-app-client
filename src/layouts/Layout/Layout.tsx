@@ -3,14 +3,14 @@ import { FullScreenLoader } from 'components';
 import { NavBar } from 'layouts';
 import { PaginationProvider } from 'libs/contexts/PagiantionContext';
 import { useUser } from 'libs/hooks';
-import { useRouter } from 'next/router';
 
+// import { useRouter } from 'next/router';
 import styles from './layout.module.scss';
 
 export const Layout: FC = ({ children }) => {
   const { isLoggedIn } = useUser();
 
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     // if (!isLoggedIn) router.replace('/auth/sign-in');

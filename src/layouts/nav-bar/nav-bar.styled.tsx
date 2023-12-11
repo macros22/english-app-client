@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable sonarjs/no-duplicate-string */
 import { forwardRef } from 'react';
 import { indigo, purple, violet } from '@radix-ui/colors';
 import { CaretDownIcon } from '@radix-ui/react-icons';
@@ -261,6 +263,7 @@ export const CaretDown = styled(CaretDownIcon, {
 });
 
 export const ListItem = forwardRef(
+  // @ts-ignore
   ({ children, title, ...props }, forwardedRef) => (
     <li>
       <NavigationMenu.Link asChild>

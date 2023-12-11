@@ -1,13 +1,15 @@
+/* eslint-disable no-nested-ternary */
 import { useState } from 'react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { Badge, Box, Table, Text } from '@radix-ui/themes';
+import { BadgeProps } from '@radix-ui/themes/dist/cjs/components/badge';
 import { styled } from '@stitches/react';
 import { Button } from 'components/ui/Button';
 import { WORDS_MODE } from 'libs/constants/names.storage';
 import { wordDataToWordDataPayload } from 'libs/helpers/transform-data.helper';
 import { useLocalStorage, useUser, useWordsApi } from 'libs/hooks';
 import { IWord, Role, WordsMode, WordStudyStatus } from 'libs/types/types';
-import { Loader, Segment, SemanticCOLORS } from 'semantic-ui-react';
+import { Loader, Segment } from 'semantic-ui-react';
 
 import { DeleteWordDialog } from '../dialogs/delete-word-dialog';
 import { EditButtonModal } from '../dialogs/EditButtonModal';
@@ -22,7 +24,7 @@ export const InfoIcon = styled(InfoCircledIcon, {
   fill: 'gold',
 });
 
-const labelColors: Record<WordStudyStatus, SemanticCOLORS> = {
+const labelColors: Record<WordStudyStatus, BadgeProps['color']> = {
   [WordStudyStatus.Know]: 'green',
   [WordStudyStatus.Learn]: 'yellow',
 };
@@ -53,7 +55,7 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
   }
 
   return (
-    <Table.Row key={rowData.word} align="center" >
+    <Table.Row key={rowData.word} align="center">
       <Table.RowHeaderCell justify="center" width={90} className={styles.cell}>
         <Badge size="2" color="gray" radius="full" variant="surface">
           {rowId}
@@ -84,7 +86,7 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
           </Badge>
         ) : (
           <Button
-            variant='outline'
+            variant="outline"
             isLoading={isAddTomyWordsButtonLoading}
             onClick={() => handleAddToMyWords(rowData)}>
             Add to my words
@@ -93,17 +95,14 @@ export const Row = ({ rowData, rowId, mutateCommonWords }: RowProps) => {
       </Table.Cell>
 
       {wordsMode === 'userWords' ? (
-        <>
-          <Table.Cell width={3}>
-            <Box className={styles.iconButtons}>
-              <WordDetailsDialog word={rowData} />
-              <EditButtonModal word={rowData} />
-              <DeleteWordDialog wordId={rowData.id} />
-            </Box>
-          </Table.Cell>
-        </>
-      ) : // eslint-disable-next-line unicorn/no-nested-ternary
-      user && user.role === Role.Admin ? (
+        <Table.Cell width={3}>
+          <Box className={styles.iconButtons}>
+            <WordDetailsDialog word={rowData} />
+            <EditButtonModal word={rowData} />
+            <DeleteWordDialog wordId={rowData.id} />
+          </Box>
+        </Table.Cell>
+      ) : user && user.role === Role.Admin ? (
         <>
           <Table.Cell width={6}>
             <WordDetailsDialog word={rowData} />

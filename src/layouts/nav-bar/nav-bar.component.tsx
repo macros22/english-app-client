@@ -83,7 +83,7 @@ export const NavBar = () => {
                 variant="outline"
                 color="gray"
                 onClick={() =>
-                  setTheme(prevTheme =>
+                  setTheme(prevTheme  =>
                     prevTheme === 'light' ? 'dark' : 'light',
                   )
                 }>

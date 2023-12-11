@@ -1,7 +1,5 @@
 import { ReaderIcon } from '@radix-ui/react-icons';
 import { Dialog, IconButton } from '@radix-ui/themes';
-import { WordMoreInfo } from 'components';
-import { Button } from 'components/ui/Button';
 import { IWord } from 'libs/types/types';
 
 type WordDetailsDialogProps = {
@@ -51,32 +49,32 @@ export const WordDetailsDialog = ({
                 {meaning.translations.length > 0 && (
                   <>
                     <h2>Translations:</h2>
-                    {meaning.translations.map((translation, index) => {
-                      return <h3 key={translation + index}>{translation}</h3>;
+                    {meaning.translations.map(translation => {
+                      return <h3 key={translation}>{translation}</h3>;
                     })}
                   </>
                 )}
                 {meaning.synonyms.length > 0 && (
                   <>
                     <h2>Synonyms:</h2>
-                    {meaning.synonyms.map((synonym, index) => {
-                      return <h3 key={synonym + index}>{synonym}</h3>;
+                    {meaning.synonyms.map(synonym => {
+                      return <h3 key={synonym}>{synonym}</h3>;
                     })}
                   </>
                 )}
                 {meaning.antonyms.length > 0 && (
                   <>
                     <h2>Antonyms:</h2>
-                    {meaning.antonyms.map((antonym, index) => {
-                      return <h3 key={antonym + index}>{antonym}</h3>;
+                    {meaning.antonyms.map(antonym => {
+                      return <h3 key={antonym}>{antonym}</h3>;
                     })}
                   </>
                 )}
                 {meaning.usageExamples.length > 0 && (
                   <>
                     <h2>usageExamples:</h2>
-                    {meaning.usageExamples.map((usageExample, index) => {
-                      return <h3 key={usageExample + index}>{usageExample}</h3>;
+                    {meaning.usageExamples.map(usageExample => {
+                      return <h3 key={usageExample}>{usageExample}</h3>;
                     })}
                   </>
                 )}

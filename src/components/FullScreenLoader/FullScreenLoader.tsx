@@ -1,4 +1,4 @@
-import { Loader, Segment } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 
 import styles from './FullScreenLoader.module.scss';
 

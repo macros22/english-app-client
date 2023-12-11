@@ -25,7 +25,6 @@ export const useAuthForm = (authMode: AuthMode) => {
       if (!error && accessToken) {
         setAccessToken(accessToken);
         mutate();
-        console.log(accessToken);
       }
       if (error) {
         setErrorMessage(error);
@@ -33,7 +32,6 @@ export const useAuthForm = (authMode: AuthMode) => {
     } else if (authMode === 'signUp' && email && name && password) {
       const { user, error } = await signUp({ email, name, password });
       if (!error && user) {
-        console.log(user);
         setSuccessMessage(`User ${user.name} successfully signed up!`);
       }
       if (error) {
