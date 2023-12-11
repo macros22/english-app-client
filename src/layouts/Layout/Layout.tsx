@@ -5,7 +5,7 @@ import { PaginationProvider } from 'libs/contexts/PagiantionContext';
 import { useUser } from 'libs/hooks';
 
 // import { useRouter } from 'next/router';
-import styles from './layout.module.scss';
+import styles from './Layout.module.scss';
 
 export const Layout: FC = ({ children }) => {
   const { isLoggedIn } = useUser();
